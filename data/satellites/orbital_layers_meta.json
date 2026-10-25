@@ -1,0 +1,56 @@
+{
+  "satellites": [
+    {
+      "id": "MGS_MOLA",
+      "satellite": "Mars Global Surveyor (MGS)",
+      "instrument": "Mars Orbiter Laser Altimeter (MOLA)",
+      "layer_name": "MOLA Color Shaded Elevation",
+      "resolution": "463 meters/pixel",
+      "coverage": "Global (-90 to +90 lat, 0 to 360 lon)",
+      "max_native_zoom": 7,
+      "format": "image/jpeg",
+      "description": "High-accuracy topographic elevation model color-ramped from deep blue (-8000m Hellas Basin) to white (+21000m Olympus Mons peak). Essential for slope analysis and rover descent path planning.",
+      "nasa_trek_wmts": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg",
+      "nasa_trek_wms": "https://trek.nasa.gov/kurt/wms/simple?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mars_MGS_MOLA_ClrShade_merge_global_463m&FORMAT=image/jpeg"
+    },
+    {
+      "id": "VIKING_MDIM21",
+      "satellite": "Viking Orbiter 1 & 2",
+      "instrument": "Visual Imaging Subsystem (VIS)",
+      "layer_name": "Viking MDIM 2.1 Color Mosaic",
+      "resolution": "232 meters/pixel",
+      "coverage": "Global (-90 to +90 lat, 0 to 360 lon)",
+      "max_native_zoom": 7,
+      "format": "image/jpeg",
+      "description": "Digital Image Mosaic calibrated to true martian surface albedo and oxidized iron reflectance. Standard natural baseline for visual orientation.",
+      "nasa_trek_wmts": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg",
+      "nasa_trek_wms": "https://trek.nasa.gov/kurt/wms/simple?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mars_Viking_MDIM21_ClrMosaic_global_232m&FORMAT=image/jpeg"
+    },
+    {
+      "id": "ODYSSEY_THEMIS_NIGHTIR",
+      "satellite": "2001 Mars Odyssey",
+      "instrument": "Thermal Emission Imaging System (THEMIS)",
+      "layer_name": "THEMIS Nighttime Infrared (Thermal Inertia)",
+      "resolution": "100 meters/pixel",
+      "coverage": "Global (-65 to +65 lat)",
+      "max_native_zoom": 9,
+      "format": "image/png",
+      "description": "Measures nighttime surface temperature. Exposed bedrock and large boulders stay warm (bright), while loose fine sand and dust cool rapidly (dark). Crucial for diagnosing sand trap entrapment hazards and identifying solid rock driving paths.",
+      "nasa_trek_wmts": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018/1.0.0/default/default028mm/{z}/{y}/{x}.png",
+      "nasa_trek_wms": "https://trek.nasa.gov/kurt/wms/simple?SERVICE=WMS&REQUEST=GetMap&LAYERS=THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018&FORMAT=image/png"
+    },
+    {
+      "id": "MRO_JEZERO_CTX",
+      "satellite": "Mars Reconnaissance Orbiter (MRO)",
+      "instrument": "Context Camera (CTX)",
+      "layer_name": "MRO CTX Jezero Crater Mosaic (6m)",
+      "resolution": "6 meters/pixel",
+      "coverage": "Jezero Crater & Delta Margin",
+      "max_native_zoom": 13,
+      "format": "image/png",
+      "description": "High-resolution panchromatic orbital imagery revealing meter-scale boulder fields, sand dunes, impact craters, and rover track disturbances in Jezero Crater.",
+      "nasa_trek_wmts": "https://trek.nasa.gov/tiles/Mars/EQ/JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0/1.0.0/default/default028mm/{z}/{y}/{x}.png",
+      "nasa_trek_wms": "https://trek.nasa.gov/kurt/wms/simple?SERVICE=WMS&REQUEST=GetMap&LAYERS=JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0&FORMAT=image/png"
+    }
+  ]
+}

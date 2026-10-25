@@ -1,0 +1,53 @@
+{
+  "category": "Water Ice Deposits and Subsurface Glaciers",
+  "catalog": [
+    {
+      "id": "ICE-001",
+      "name": "Phoenix Arctic Subsurface Ice Table",
+      "region": "Vastitas Borealis (Green Valley)",
+      "mission": "Phoenix Lander",
+      "coordinates": { "lat": 68.2188, "lon": 234.2507, "elev_m": -4120.0 },
+      "depth_cm": 5.0,
+      "purity_pct": 99.0,
+      "estimated_thickness_m": 1000.0,
+      "discovery_summary": "Trenching by robotic scoop exposed pure water ice that sublimated under solar exposure over 4 sols. Covers tens of thousands of square kilometers under a thin desiccated regolith blanket.",
+      "astronaut_in_situ_resource_utilization": "Premier source for rocket propellant production (LOX/CH4 via Sabatier) and astronaut life support. Readily excavated with simple mechanical scraping."
+    },
+    {
+      "id": "ICE-002",
+      "name": "Utopia Planitia Subsurface Water Ice Sheet",
+      "region": "Utopia Planitia",
+      "mission": "MRO SHARAD (Shallow Radar)",
+      "coordinates": { "lat": 48.2700, "lon": 134.0000, "elev_m": -4230.0 },
+      "depth_cm": 150.0,
+      "purity_pct": 85.0,
+      "estimated_volume_km3": 14300.0,
+      "discovery_summary": "SHARAD radar sounding mapped an enormous underground ice sheet spanning from 39° to 49° N latitude, holding as much fresh water as Lake Superior. Buried beneath 1 to 10 meters of volcanic dust.",
+      "astronaut_in_situ_resource_utilization": "Sufficient water reservoir to sustain an permanent human Martian industrial colony for centuries. Lower latitude provides superior solar energy availability compared to polar ice caps."
+    },
+    {
+      "id": "ICE-003",
+      "name": "Korolev Crater Permanent Ice Mound",
+      "region": "Northern Lowlands (Korolev Crater)",
+      "mission": "Mars Express HRSC & ExoMars TGO CaSSIS",
+      "coordinates": { "lat": 73.0000, "lon": 195.0000, "elev_m": -3900.0 },
+      "depth_cm": 0.0,
+      "purity_pct": 99.5,
+      "estimated_thickness_m": 1800.0,
+      "discovery_summary": "An 82-kilometer wide impact crater filled year-round by a dome of pure sparkling water ice nearly 2 kilometers deep. Acts as a cold trap where moving air cools and sinks, forming a perpetual cold protective layer.",
+      "astronaut_in_situ_resource_utilization": "Directly accessible surface water ice without drilling through overburden. Visual landmark for northern navigation."
+    },
+    {
+      "id": "ICE-004",
+      "name": "Arcadia Planitia Buried Sheet Ice & Scalloped Depressions",
+      "region": "Arcadia Planitia",
+      "mission": "Mars Odyssey THEMIS & MRO HiRISE",
+      "coordinates": { "lat": 39.3000, "lon": 189.7000, "elev_m": -3800.0 },
+      "depth_cm": 100.0,
+      "purity_pct": 92.0,
+      "estimated_thickness_m": 40.0,
+      "discovery_summary": "Extensive scalloped terrain formed by subsurface permafrost sublimation. Designated by NASA Mars Human Landing Site Study as the #1 candidate landing site due to flat elevation (-3.8 km) and shallow ice table.",
+      "astronaut_in_situ_resource_utilization": "Lowest energy expenditure for human crew landing; accessible ice within 1 meter of surface via Rodriguez well melting probes."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "category": "Organic Molecules and Potential Biosignatures",
+  "catalog": [
+    {
+      "id": "BIO-001",
+      "discovery_name": "Aromatics & Carboxyls in Wildcat Ridge",
+      "location": "Jezero Crater Delta (Wildcat Ridge / Skinner Ridge)",
+      "mission": "Mars 2020 / Perseverance",
+      "coordinates": { "lat": 18.4568, "lon": 77.4012, "elev_m": -2548.5 },
+      "instrument": "SHERLOC (Scanning Habitable Environments with Raman & Luminescence for Organics & Chemicals)",
+      "sol_detected": 510,
+      "molecules_detected": [
+        "Benzene ring structures (Aromatic hydrocarbons)",
+        "Polycyclic aromatic hydrocarbons (PAHs)",
+        "Aliphatic carbon chains",
+        "Sulfate-associated carboxyl functional groups"
+      ],
+      "geological_context": "Deep UV Raman spectroscopy revealed fluorescence emission peaks matching 1- and 2-ring aromatic organic molecules correlated with sulfate mineral grains in fine-grained mudstone.",
+      "biosignature_significance": "Aromatics bound in sulfate and clay minerals are known on Earth to preserve cellular biomolecules from oxidation. Ranked by NASA astrobiologists as the highest potential biosignature sampled to date."
+    },
+    {
+      "id": "BIO-002",
+      "discovery_name": "Chlorobenzene and Thiophenes in Mudstone",
+      "location": "Gale Crater (Yellowknife Bay & Pahrump Hills)",
+      "mission": "MSL / Curiosity",
+      "coordinates": { "lat": -4.5912, "lon": 137.4485, "elev_m": -4520.4 },
+      "instrument": "SAM (Sample Analysis at Mars - GC-MS and Evolved Gas Analyzer)",
+      "sol_detected": 279,
+      "molecules_detected": [
+        "Chlorobenzene (C6H5Cl)",
+        "Dichloropropane (C3H6Cl2)",
+        "Thiophenes (C4H4S sulfur-ring organics)",
+        "Methanethiol (CH4S)"
+      ],
+      "geological_context": "Pyrolysis heating of 3.5-billion-year-old lacustrine mudstone to 850°C released diverse chlorinated and sulfurized hydrocarbons.",
+      "biosignature_significance": "Proves complex organic matter has survived for billions of years beneath the Martian surface despite intense cosmic and ultraviolet radiation."
+    },
+    {
+      "id": "BIO-003",
+      "discovery_name": "Cyclic Methane Plumes & Background Spikes",
+      "location": "Gale Crater Floor",
+      "mission": "MSL / Curiosity TLS",
+      "coordinates": { "lat": -4.6380, "lon": 137.4080, "elev_m": -4480.0 },
+      "instrument": "SAM-TLS (Tunable Laser Spectrometer)",
+      "sol_detected": 573,
+      "molecules_detected": [
+        "Methane (CH4)",
+        "Carbon-13 isotopic fractionation signals"
+      ],
+      "geological_context": "Background methane oscillates seasonally from 0.24 parts-per-billion in winter to 0.65 ppb in summer. Periodic transient plumes spike up to 21.0 ppb (a 30-fold increase).",
+      "biosignature_significance": "Methane has an atmospheric lifetime of only ~300 years on Mars, requiring an active modern subsurface source. Could be produced by active serpentinization olivine reactions OR deep subsurface methanogenic archaea."
+    },
+    {
+      "id": "BIO-004",
+      "discovery_name": "Cheyava Falls 'Leopard Spots' Reaction Halos",
+      "location": "Jezero Crater (Neretva Vallis / Bright Angel)",
+      "mission": "Mars 2020 / Perseverance",
+      "coordinates": { "lat": 18.4980, "lon": 77.3350, "elev_m": -2410.0 },
+      "instrument": "SHERLOC, PIXL, WATSON",
+      "sol_detected": 1217,
+      "molecules_detected": [
+        "Organic carbon rings",
+        "Vivianite iron-phosphate compounds",
+        "Black iron-phosphate rings surrounding white calcium sulfate veins ('leopard spots')"
+      ],
+      "geological_context": "Red rock stained by iron oxide was chemically reduced by organic-rich fluids, creating millimeter-scale circular halos containing iron phosphate and iron sulfide.",
+      "biosignature_significance": "On Earth, this specific chemical redox reaction between organic carbon and iron sulfate/phosphate is a textbook fossil biomarker produced by ancient microbial colonies."
+    }
+  ]
+}

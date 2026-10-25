@@ -1,0 +1,103 @@
+{
+  "craft": "Ingenuity Mars Helicopter",
+  "total_flights": 72,
+  "mission_status": "Retired (Rotor blade damage on Flight 72, Jan 18, 2024)",
+  "total_air_time_minutes": 128.8,
+  "total_distance_km": 17.0,
+  "max_altitude_m": 24.0,
+  "max_groundspeed_mps": 10.0,
+  "key_airfields": [
+    {
+      "name": "Wright Brothers Field (Airfield A)",
+      "lat": 18.4442,
+      "lon": 77.4510,
+      "elev_m": -2569.5,
+      "flights_hosted": [1, 2, 3]
+    },
+    {
+      "name": "Airfield B",
+      "lat": 18.4410,
+      "lon": 77.4535,
+      "elev_m": -2568.0,
+      "flights_hosted": [4, 5]
+    },
+    {
+      "name": "Airfield C (Séítah South Overlook)",
+      "lat": 18.4320,
+      "lon": 77.4520,
+      "elev_m": -2576.2,
+      "flights_hosted": [6, 7, 8, 9, 10, 11]
+    },
+    {
+      "name": "Airfield F (Three Forks Gateway)",
+      "lat": 18.4530,
+      "lon": 77.4090,
+      "elev_m": -2558.0,
+      "flights_hosted": [25, 26, 27, 28]
+    },
+    {
+      "name": "Airfield Chi (Flight 72 Final Resting Site)",
+      "lat": 18.4725,
+      "lon": 77.3752,
+      "elev_m": -2480.0,
+      "flights_hosted": [72]
+    }
+  ],
+  "milestone_flights": [
+    {
+      "flight": 1,
+      "sol": 58,
+      "date": "2021-04-19",
+      "airfield_origin": "Wright Brothers Field",
+      "airfield_dest": "Wright Brothers Field",
+      "duration_sec": 39.1,
+      "max_alt_m": 3.0,
+      "dist_m": 0,
+      "notes": "First powered controlled aerodynamic flight on another planet"
+    },
+    {
+      "flight": 9,
+      "sol": 133,
+      "date": "2021-07-05",
+      "airfield_origin": "Airfield D",
+      "airfield_dest": "Airfield E",
+      "duration_sec": 166.4,
+      "max_alt_m": 10.0,
+      "dist_m": 625.0,
+      "notes": "Daring crossing across sand-dune-choked South Séítah basin"
+    },
+    {
+      "flight": 25,
+      "sol": 403,
+      "date": "2022-04-08",
+      "airfield_origin": "Airfield Q",
+      "airfield_dest": "Airfield R",
+      "duration_sec": 161.3,
+      "max_alt_m": 10.0,
+      "dist_m": 704.0,
+      "notes": "Record single-flight traverse distance (704m) across delta valley"
+    },
+    {
+      "flight": 61,
+      "sol": 934,
+      "date": "2023-10-05",
+      "airfield_origin": "Airfield U",
+      "airfield_dest": "Airfield U",
+      "duration_sec": 129.0,
+      "max_alt_m": 24.0,
+      "dist_m": 0,
+      "notes": "Achieved record maximum flight altitude of 24.0 meters above surface"
+    },
+    {
+      "flight": 72,
+      "sol": 1035,
+      "date": "2024-01-18",
+      "airfield_origin": "Airfield Chi",
+      "airfield_dest": "Airfield Chi",
+      "duration_sec": 32.2,
+      "max_alt_m": 12.0,
+      "dist_m": 0,
+      "notes": "Emergency vertical landing due to navigation camera feature loss over bland terrain; blade tip damage sustained"
+    }
+  ]
+}

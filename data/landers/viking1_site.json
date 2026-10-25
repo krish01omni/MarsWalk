@@ -1,0 +1,45 @@
+{
+  "mission": "Viking 1 Lander",
+  "craft_type": "Stationary Science Lander",
+  "landing_site": {
+    "name": "Thomas A. Mutch Memorial Station",
+    "region": "Chryse Planitia ('Plains of Gold')",
+    "latitude": 22.48,
+    "longitude": 312.05,
+    "elevation_m": -2690.0,
+    "landing_sol": 0,
+    "earth_date": "1976-07-20T11:53:06Z"
+  },
+  "operational_record": {
+    "duration_sols": 2245,
+    "end_date": "1982-11-11",
+    "cause_of_end": "Faulty software command sent from Earth accidentally overwrote telemetry antenna pointing parameters",
+    "historic_feat": "First successful long-duration American landing and transmission of color images and in-situ biological tests from the Martian surface"
+  },
+  "science_instruments": [
+    "Biology Experiment Package (Pyrolytic Release, Labeled Release, Gas Exchange)",
+    "Gas Chromatograph - Mass Spectrometer (GCMS)",
+    "X-Ray Fluorescence Spectrometer (XRFS)",
+    "Meteorology Boom (pressure, temperature, wind speed/direction)",
+    "Surface Sampler Collector Arm with backhoe trenching shovel",
+    "Dual Imaging Cameras (scanning facsimile)"
+  ],
+  "historic_discoveries": [
+    {
+      "experiment": "Labeled Release (LR)",
+      "finding": "Rapid release of radioactive 14-CO2 gas upon nutrient injection; originally debated as biological metabolism, later attributed to reactive perchlorates and superoxide radicals in soil",
+      "status": "Inconclusive / Chemical oxidation"
+    },
+    {
+      "experiment": "GCMS Organic Analysis",
+      "finding": "Did not detect ambient organic compounds down to parts-per-billion threshold; explained decades later by presence of oxidizing soil perchlorates that combusted organics during pyrolysis heating",
+      "status": "Later corrected by Curiosity & Perseverance findings"
+    },
+    {
+      "experiment": "Meteorology",
+      "finding": "Surface atmospheric pressure varied cyclically between 6.8 and 9.0 mbar as polar CO2 caps froze and sublimated annually; temperatures ranged from -89°C to -17°C",
+      "status": "Foundational Martian climatology dataset"
+    }
+  ],
+  "astronaut_tactical_note": "Chryse Planitia offers flat, wide landing terrain with abundant basaltic gravel. Atmospheric pressure is relatively high for Mars (~7.5 mbar), reducing rocket fuel requirements for powered descent. Beware reactive oxidizing soil chemistry."
+}

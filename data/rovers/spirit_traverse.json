@@ -1,0 +1,108 @@
+{
+  "mission": "Mars Exploration Rover A",
+  "rover": "Spirit",
+  "landing_site": {
+    "name": "Columbia Memorial Station",
+    "crater": "Gusev Crater",
+    "latitude": -14.5684,
+    "longitude": 175.4729,
+    "elevation_m": -1940.0,
+    "landing_sol": 0,
+    "earth_date": "2004-01-04T04:35:00Z"
+  },
+  "current_status": {
+    "sol": 2210,
+    "total_odometer_km": 7.73,
+    "active": false,
+    "end_date": "2010-03-22",
+    "final_resting_site": "Troy Sand Trap, West of Home Plate",
+    "cause_of_end": "Right front wheel failure forced backward driving; rover broke through thin crust into hidden powdery iron sulfate sand, becoming permanently trapped; winter freeze ceased solar operations",
+    "historic_feat": "Climbed Husband Hill (82 meters elevation rise); discovered 90% pure opaline silica proving ancient hydrothermal hot spring systems on Mars"
+  },
+  "traverse_summary": {
+    "target_destination": "Columbia Hills volcanic complex and hydrothermal deposits",
+    "key_milestones": [
+      "Landing in Gusev Crater plains (Sol 0)",
+      "Traverse to Bonneville Crater rim (Sol 65)",
+      "Long march to base of Columbia Hills (Sol 156)",
+      "Summit of Husband Hill (Sol 582, 82m above plains)",
+      "Descent into Inner Basin & exploration of Home Plate (Sol 750)",
+      "Right front wheel jammed (Sol 779); dragged backward creating trench that exposed pure white silica (Sol 1150)",
+      "Entrapment in 'Troy' sand trap (Sol 1892, April 2009)",
+      "Transition to stationary research platform (Sol 2155)",
+      "Last contact before martian winter (Sol 2210, March 2010)"
+    ]
+  },
+  "waypoints": [
+    {
+      "sol": 0,
+      "lat": -14.5684,
+      "lon": 175.4729,
+      "elev_m": -1940.0,
+      "dist_m": 0,
+      "target_name": "Columbia Memorial Station",
+      "activity": "Landing in basaltic rubble plain of Gusev Crater",
+      "hazard_warning": null
+    },
+    {
+      "sol": 65,
+      "lat": -14.5710,
+      "lon": 175.4780,
+      "elev_m": -1938.0,
+      "dist_m": 370.0,
+      "target_name": "Bonneville Crater Rim",
+      "activity": "Imaged 210m impact crater interior and heat shield debris",
+      "hazard_warning": "Loose crater rim ejecta boulders"
+    },
+    {
+      "sol": 156,
+      "lat": -14.5820,
+      "lon": 175.5050,
+      "elev_m": -1930.0,
+      "dist_m": 3100.0,
+      "target_name": "Columbia Hills Base (West Spur)",
+      "activity": "Reached ancient bedrock outcrops elevated above flood basalt plains",
+      "hazard_warning": null
+    },
+    {
+      "sol": 582,
+      "lat": -14.5950,
+      "lon": 175.5250,
+      "elev_m": -1858.0,
+      "dist_m": 4810.0,
+      "target_name": "Husband Hill Summit",
+      "activity": "First mountain peak summited by a robotic rover on another world; panoramic 360-degree telemetry",
+      "hazard_warning": "High wind gusts, steep 30% grade"
+    },
+    {
+      "sol": 750,
+      "lat": -14.6040,
+      "lon": 175.5280,
+      "elev_m": -1895.0,
+      "dist_m": 6200.0,
+      "target_name": "Home Plate Plateau",
+      "activity": "Layered volcanic ash deposits and explosive phreatomagmatic bomb sag features examined",
+      "hazard_warning": "Layered shelf overhangs"
+    },
+    {
+      "sol": 1150,
+      "lat": -14.6060,
+      "lon": 175.5270,
+      "elev_m": -1902.0,
+      "dist_m": 7150.0,
+      "target_name": "Gertrude Weil Trench",
+      "activity": "Dragged frozen wheel exposed brilliant white soil with >90% opaline silica, proving volcanic fumarole or hot springs",
+      "hazard_warning": "Unstable soil crust"
+    },
+    {
+      "sol": 1892,
+      "lat": -14.6085,
+      "lon": 175.5265,
+      "elev_m": -1905.0,
+      "dist_m": 7730.0,
+      "target_name": "Troy Sand Trap",
+      "activity": "Rover crust breakthrough; trapped in powdery iron sulfate sand bank tilted at 12-degree adverse angle to sun; became permanent monument",
+      "hazard_warning": "FATAL WHEEL ENTRAPMENT - Powder sulfate sand trap"
+    }
+  ]
+}

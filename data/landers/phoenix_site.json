@@ -1,0 +1,45 @@
+{
+  "mission": "Phoenix Mars Lander",
+  "craft_type": "Polar Subsurface Ice Lander",
+  "landing_site": {
+    "name": "Green Valley",
+    "region": "Vastitas Borealis (Northern Polar Plains)",
+    "latitude": 68.2188,
+    "longitude": 234.2507,
+    "elevation_m": -4120.0,
+    "landing_sol": 0,
+    "earth_date": "2008-05-25T23:38:00Z"
+  },
+  "operational_record": {
+    "duration_sols": 157,
+    "end_date": "2008-11-02",
+    "cause_of_end": "Arrival of polar winter night cut off solar array insolation; lander structure subsequently crushed by winter carbon dioxide dry ice accumulation",
+    "historic_feat": "First direct excavation, physical touching, and chemical confirmation of shallow water-ice layers beneath the Martian soil"
+  },
+  "science_instruments": [
+    "Robotic Arm (RA) with ice-scraping rasp drill and thermal/electrical conductivity probe",
+    "Robotic Arm Camera (RAC)",
+    "Thermal and Evolved-Gas Analyzer (TEGA)",
+    "Microscopy, Electrochemistry, and Conductivity Analyzer (MECA - Wet Chemistry Laboratory)",
+    "Surface Stereo Imager (SSI)",
+    "Meteorological Station (MET) with Canadian lidar laser atmospheric sounding"
+  ],
+  "historic_discoveries": [
+    {
+      "discovery": "Subsurface Water Ice Sublimation",
+      "details": "Robotic arm scraped 5cm into soil in the 'Dodo-Goldilocks' trench exposing bright white material; over 4 sols, chunks of the white material sublimated directly into vapor, conclusively proving they were water ice and not salt",
+      "significance": "Confirmed massive northern circumpolar permafrost ice table at depth of just 5 centimeters"
+    },
+    {
+      "discovery": "Discovery of Perchlorate Salts (ClO4-)",
+      "details": "MECA wet chemistry laboratory measured 0.5% to 1.0% magnesium and calcium perchlorate in arctic soil. Perchlorates act as an anti-freeze depressing the freezing point of water to -70°C, creating transient liquid brines",
+      "significance": "CRITICAL ASTRONAUT HEALTH HAZARD: Potent human endocrine/thyroid disruptor, combustible when dry, requires rigorous suit decon"
+    },
+    {
+      "discovery": "Snow Falling from Martian Clouds",
+      "details": "Lidar detected water-ice snow precipitation falling from cirrus clouds at 4 km altitude, sublimating before reaching the surface (virga)",
+      "significance": "Active modern Martian hydrological cycle verified"
+    }
+  ],
+  "astronaut_tactical_note": "Extreme northern location provides unlimited water ice beneath 5cm of topsoil. However, perchlorate toxicity is severe: EVA suit washdown airlocks with chemical neutralizers are mandatory to prevent habitant lung and thyroid poisoning."
+}

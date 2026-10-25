@@ -1,0 +1,49 @@
+{
+  "mission": "InSight (Interior Exploration using Seismic Investigations, Geodesy and Heat Transport)",
+  "craft_type": "Geophysical Planetary Observatory",
+  "landing_site": {
+    "name": "InSight Landing Site",
+    "region": "Elysium Planitia ('Homestead Hollow')",
+    "latitude": 4.5024,
+    "longitude": 135.6234,
+    "elevation_m": -2613.4,
+    "landing_sol": 0,
+    "earth_date": "2018-11-26T19:52:59Z"
+  },
+  "operational_record": {
+    "duration_sols": 1445,
+    "end_date": "2022-12-15",
+    "cause_of_end": "Thick atmospheric dust coating on solar panels reduced electrical output below transmitter threshold",
+    "historic_feat": "First seismological network listening to the internal heartbeat and mapping the 3D crust, mantle, and liquid core of Mars"
+  },
+  "science_instruments": [
+    "SEIS (Seismic Experiment for Interior Structure) - ultra-sensitive French broadband seismometer placed directly on Martian regolith under Wind and Thermal Shield (WTS)",
+    "HP3 (Heat Flow and Physical Properties Package) - German self-hammering 'Mole' penetrator",
+    "RISE (Rotation and Interior Structure Experiment) - X-band radio Doppler tracking of Martian planetary wobble/nutation",
+    "APSS (Auxiliary Payload Sensor Suite) - TWINS wind sensors, barometer, fluxgate magnetometer",
+    "Instrument Deployment Arm (IDA) with IDC and ICC cameras"
+  ],
+  "historic_discoveries": [
+    {
+      "discovery": "1,319+ Marsquakes Recorded",
+      "details": "Detected high-frequency seismic tremors and deep low-frequency tectonic quakes originating primarily from Cerberus Fossae fault grabens, demonstrating active volcanotectonism on modern Mars",
+      "significance": "Proves Mars is geologically alive with active magma reservoirs at depth"
+    },
+    {
+      "discovery": "Magnitude 4.7 'Monster Quake' (Sol 1222, May 4, 2022)",
+      "details": "Largest seismic event recorded on another planet, shaking the crust for over 10 hours with surface Rayleigh waves circumnavigating the globe multiple times",
+      "significance": "Provided comprehensive structural illumination of global crustal thickness (30 to 72 km)"
+    },
+    {
+      "discovery": "Molten Liquid Core Boundary & Size",
+      "details": "Seismic core-reflected SKS waves measured Mars's metallic liquid core radius at 1,830 ± 40 km, indicating a lower density core enriched in sulfur, carbon, oxygen, and hydrogen",
+      "significance": "Core was liquid during ancient dynamo era, explaining remnant crustal paleomagnetism"
+    },
+    {
+      "discovery": "Meteorite Impact Seismic & Acoustic Signatures",
+      "details": "Recorded seismic waves and orbital crater creation from fresh meteoroid impacts at 3,500 km distance (Sept 5 2021 and Dec 24 2021 Amazonis Planitia crater producing boulder-sized ice blocks)",
+      "significance": "First time seismic and acoustic atmospheric shockwaves matched to a fresh crater"
+    }
+  ],
+  "astronaut_tactical_note": "Elysium Planitia is an ultra-flat, rock-free safety zone ideally suited for heavy-lift cargo landings. However, tectonic faulting at Cerberus Fossae (1,500 km southeast) poses seismic shaking risks. Underground habitats should be seismically isolated."
+}

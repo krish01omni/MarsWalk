@@ -1,0 +1,86 @@
+{
+  "mission": "Mars Pathfinder",
+  "rover": "Sojourner",
+  "lander": "Carl Sagan Memorial Station",
+  "landing_site": {
+    "name": "Carl Sagan Memorial Station",
+    "region": "Ares Vallis",
+    "latitude": 19.33,
+    "longitude": 326.47,
+    "elevation_m": -3680.0,
+    "landing_sol": 0,
+    "earth_date": "1997-07-04T16:57:00Z"
+  },
+  "current_status": {
+    "sol": 83,
+    "total_odometer_km": 0.105,
+    "active": false,
+    "end_date": "1997-09-27",
+    "final_resting_site": "Ares Vallis, within 10m of Carl Sagan Memorial Station",
+    "cause_of_end": "Pathfinder lander battery depletion and communications loss",
+    "historic_feat": "First wheeled robotic roving vehicle successfully operated on Mars"
+  },
+  "traverse_summary": {
+    "target_destination": "Catastrophic outflow flood boulder plain of Ares Vallis",
+    "key_milestones": [
+      "Touchdown cushioned by airbag cluster (Sol 0)",
+      "Deployment of microrover down deployment ramps (Sol 2)",
+      "APXS elemental interrogation of rock 'Barnacle Bill' (Sol 3)",
+      "Analysis of 'Yogi' rock and andesitic compositions (Sol 8)",
+      "Analysis of 'Wedge' and 'Shark' rocks (Sol 15-40)",
+      "Circumnavigation of lander platform and soil mechanical tests (Sol 60-83)"
+    ]
+  },
+  "waypoints": [
+    {
+      "sol": 0,
+      "lat": 19.3300,
+      "lon": 326.4700,
+      "elev_m": -3680.0,
+      "dist_m": 0,
+      "target_name": "Carl Sagan Memorial Station",
+      "activity": "Lander touchdown inside catastrophic flood plain",
+      "hazard_warning": null
+    },
+    {
+      "sol": 3,
+      "lat": 19.3302,
+      "lon": 326.4703,
+      "elev_m": -3680.0,
+      "dist_m": 4.5,
+      "target_name": "Barnacle Bill",
+      "activity": "First Alpha Proton X-ray Spectrometer (APXS) measurement of an alien rock; discovered high silicon content (andesite)",
+      "hazard_warning": null
+    },
+    {
+      "sol": 8,
+      "lat": 19.3298,
+      "lon": 326.4705,
+      "elev_m": -3680.1,
+      "dist_m": 12.0,
+      "target_name": "Yogi Rock",
+      "activity": "APXS contact measurement on large basalt boulder perched on outflow sediment",
+      "hazard_warning": "Rock collision risk during contact placement"
+    },
+    {
+      "sol": 25,
+      "lat": 19.3304,
+      "lon": 326.4695,
+      "elev_m": -3679.9,
+      "dist_m": 45.0,
+      "target_name": "Flat Rock / Mermaid Dune",
+      "activity": "Soil trenching experiment with left middle wheel",
+      "hazard_warning": "Fine drifting dust crust"
+    },
+    {
+      "sol": 83,
+      "lat": 19.3301,
+      "lon": 326.4692,
+      "elev_m": -3680.0,
+      "dist_m": 105.0,
+      "target_name": "Final Circumnavigation Point",
+      "activity": "Mission ended after lander battery failure terminated carrier downlink",
+      "hazard_warning": null
+    }
+  ]
+}

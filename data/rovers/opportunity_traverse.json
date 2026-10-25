@@ -1,0 +1,108 @@
+{
+  "mission": "Mars Exploration Rover B",
+  "rover": "Opportunity",
+  "landing_site": {
+    "name": "Challenger Memorial Station",
+    "crater": "Eagle Crater",
+    "latitude": -1.9483,
+    "longitude": 354.4742,
+    "elevation_m": -1390.0,
+    "landing_sol": 0,
+    "earth_date": "2004-01-25T05:05:00Z"
+  },
+  "current_status": {
+    "sol": 5111,
+    "total_odometer_km": 45.16,
+    "active": false,
+    "end_date": "2018-06-10",
+    "final_resting_site": "Perseverance Valley, rim of Endeavour Crater",
+    "cause_of_end": "Global dust storm of 2018 depleted solar power below operational survival limit",
+    "historic_feat": "First human vehicle to complete a full marathon (42.195 km) on another celestial body"
+  },
+  "traverse_summary": {
+    "target_destination": "Endeavour Crater rim ancient clay and sulfate strata",
+    "key_milestones": [
+      "Interplanetary hole-in-one landing inside Eagle Crater (Sol 0)",
+      "Discovery of hematite 'blueberries' and jarosite in Eagle Crater (Sol 10-50)",
+      "Endurance Crater interior expedition (Sol 135-315)",
+      "Purgatory Dune entrapment crisis (Sol 446-484; 5 weeks stuck in sand trap)",
+      "Erebus Crater margin drive (Sol 600-750)",
+      "Victoria Crater rim and interior cliff examination (Sol 950-1630)",
+      "Arrival at Endeavour Crater rim Cape York (Sol 2680)",
+      "Completion of Olympic Marathon distance 42.195 km (Sol 3968, March 24 2015)",
+      "Perseverance Valley carved fluid channels (Sol 4700-5111)"
+    ]
+  },
+  "waypoints": [
+    {
+      "sol": 0,
+      "lat": -1.9483,
+      "lon": 354.4742,
+      "elev_m": -1390.0,
+      "dist_m": 0,
+      "target_name": "Eagle Crater",
+      "activity": "Hole-in-one landing in 22m crater; confirmed acidic water past from jarosite and hematite spherules",
+      "hazard_warning": "Crater inner wall slope"
+    },
+    {
+      "sol": 135,
+      "lat": -1.9560,
+      "lon": 354.4810,
+      "elev_m": -1385.0,
+      "dist_m": 760.0,
+      "target_name": "Endurance Crater",
+      "activity": "Descended into 130m crater to analyze Burns Formation sulfate strata",
+      "hazard_warning": "Steep 25-30 degree bedrock slope"
+    },
+    {
+      "sol": 446,
+      "lat": -1.9790,
+      "lon": 354.5120,
+      "elev_m": -1375.0,
+      "dist_m": 4820.0,
+      "target_name": "Purgatory Dune Trap",
+      "activity": "All six wheels buried up to axles in hidden soft drift sand; spent 38 sols testing mockups on Earth to carefully extract rover",
+      "hazard_warning": "CRITICAL ENTRAPMENT - Soft drift sand ripple"
+    },
+    {
+      "sol": 950,
+      "lat": -2.0520,
+      "lon": 354.4980,
+      "elev_m": -1360.0,
+      "dist_m": 12800.0,
+      "target_name": "Victoria Crater (Duck Bay)",
+      "activity": "Arrived at 750m wide crater with 70m vertical promontories (Cape Verde)",
+      "hazard_warning": "Vertical cliff collapse hazard"
+    },
+    {
+      "sol": 2680,
+      "lat": -2.2850,
+      "lon": 354.6750,
+      "elev_m": -1340.0,
+      "dist_m": 33500.0,
+      "target_name": "Endeavour Crater (Cape York / Matijevic Hill)",
+      "activity": "Discovered smectite clays in ancient pre-impact Noachian rocks indicating neutral pH water",
+      "hazard_warning": null
+    },
+    {
+      "sol": 3968,
+      "lat": -2.3380,
+      "lon": 354.6890,
+      "elev_m": -1330.0,
+      "dist_m": 42195.0,
+      "target_name": "Marathon Valley",
+      "activity": "Crossed 26.219-mile marathon line; examined rich smectite phyllosilicates",
+      "hazard_warning": null
+    },
+    {
+      "sol": 5111,
+      "lat": -2.3550,
+      "lon": 354.6980,
+      "elev_m": -1320.0,
+      "dist_m": 45160.0,
+      "target_name": "Perseverance Valley",
+      "activity": "Final transmission received before catastrophic planet-encircling dust storm opaque sky tau > 10.8",
+      "hazard_warning": "Severe dust obscuration, solar depletion"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "category": "Hydrothermal, Carbonate, and Secondary Aqueous Minerals",
+  "catalog": [
+    {
+      "id": "MIN-001",
+      "mineral_system": "Opaline Amorphous Silica (90%+ purity)",
+      "site": "Gusev Crater (Home Plate / Gertrude Weil)",
+      "mission": "MER-A / Spirit",
+      "coordinates": { "lat": -14.6060, "lon": 175.5270, "elev_m": -1902.0 },
+      "discovery_story": "Spirit's jammed right front wheel gouged a 10cm trench while dragging across the surface, turning up blindingly bright white soil that APXS showed was over 91% pure amorphous silica.",
+      "geological_significance": "Can only be produced either by acidic volcanic steam fumaroles leaching all other elements OR active alkaline hydrothermal hot springs (like Yellowstone or El Tatio, Chile). Represents indisputable proof of ancient geothermal hydrothermal hot springs on Mars."
+    },
+    {
+      "id": "MIN-002",
+      "mineral_system": "Comanche Outcrop Magnesium-Iron Carbonates",
+      "site": "Columbia Hills (Husband Hill Spur)",
+      "mission": "MER-A / Spirit",
+      "coordinates": { "lat": -14.5910, "lon": 175.5220, "elev_m": -1880.0 },
+      "discovery_story": "Detailed re-analysis of Spirit Mini-TES infrared spectra confirmed the Comanche rock outcrop contains 16% to 34% magnesium-iron carbonate by weight.",
+      "geological_significance": "Proves that ancient Mars had a dense carbon dioxide atmosphere with neutral-to-alkaline liquid water that precipitated carbonates before volcanic sulfur acidified the planet."
+    },
+    {
+      "id": "MIN-003",
+      "mineral_system": "Ferric Sulfate Deposits (Paso Robles)",
+      "site": "Columbia Hills West Flank",
+      "mission": "MER-A / Spirit",
+      "coordinates": { "lat": -14.5880, "lon": 175.5180, "elev_m": -1910.0 },
+      "discovery_story": "Yellowish and bright soil exposed in rover tracks enriched with hydrated ferric sulfate salts.",
+      "geological_significance": "Acid sulfate alteration driven by rising sulfuric acid vapors in a dying volcanic hydrothermal field."
+    },
+    {
+      "id": "MIN-004",
+      "mineral_system": "Jarosite and Hematite Spherules ('Blueberries')",
+      "site": "Meridiani Planum (Eagle & Endurance Craters)",
+      "mission": "MER-B / Opportunity",
+      "coordinates": { "lat": -1.9483, "lon": 354.4742, "elev_m": -1390.0 },
+      "discovery_story": "Mössbauer spectrometer detected jarosite, a hydrous iron sulfate mineral that only forms in the presence of acidic liquid water. Millions of 1-3mm grey hematite concretions weathered out of sulfate bedrock.",
+      "geological_significance": "Historic confirmation that liquid water once flowed and soaked the surface of Meridiani Planum, leaving vast evaporite salt flats."
+    },
+    {
+      "id": "MIN-005",
+      "mineral_system": "Smectite Clays and Boron Salts",
+      "site": "Gale Crater (Glen Torridon & Yellowknife Bay)",
+      "mission": "MSL / Curiosity",
+      "coordinates": { "lat": -4.7700, "lon": 137.4020, "elev_m": -4205.0 },
+      "discovery_story": "CheMin X-ray diffraction instrument identified abundant nontronite and saponite clay minerals. ChemCam discovered veins of calcium sulfate enriched in boron.",
+      "geological_significance": "Smectite clays form under benign, non-acidic, potable water conditions. Borates are vital chemical stabilizers for prebiotic ribose sugars (the backbone of RNA)."
+    }
+  ]
+}

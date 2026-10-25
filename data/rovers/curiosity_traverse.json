@@ -1,0 +1,158 @@
+{
+  "mission": "Mars Science Laboratory",
+  "rover": "Curiosity",
+  "landing_site": {
+    "name": "Bradbury Landing",
+    "crater": "Gale Crater",
+    "latitude": -4.5895,
+    "longitude": 137.4417,
+    "elevation_m": -4501.0,
+    "landing_sol": 0,
+    "earth_date": "2012-08-06T05:17:57Z"
+  },
+  "current_status": {
+    "sol": 4340,
+    "total_odometer_km": 33.25,
+    "active": true,
+    "current_region": "Gediz Vallis Ridge / Mount Sharp Upper Slopes",
+    "samples_drilled": 41,
+    "wheel_condition": "Moderate wear with multiple gash punctures in left middle and right front wheels"
+  },
+  "traverse_summary": {
+    "target_destination": "Aeolis Mons (Mount Sharp) layered sulfate and clay strata",
+    "key_milestones": [
+      "Landing at Bradbury Landing (Sol 0)",
+      "Yellowknife Bay mudstone lakebed & habitability confirmation (Sol 125-300)",
+      "Crossing Kimberley sandstone waypoint (Sol 600)",
+      "Pahrump Hills basal Mount Sharp mudstone drilling (Sol 750)",
+      "Bagnold Dunes active sand field crossing (Sol 1180-1600)",
+      "Vera Rubin Ridge iron-oxide hematite ridge exploration (Sol 1800-2300)",
+      "Glen Torridon clay-bearing trough (Sol 2300-3000)",
+      "Mont Mercou 6m scarp exploration (Sol 3060)",
+      "Sulfate-Bearing Unit transition (Sol 3250)",
+      "Gediz Vallis debris flow ridge exploration (Sol 3800-4340)"
+    ]
+  },
+  "waypoints": [
+    {
+      "sol": 0,
+      "site": 1,
+      "drive": 0,
+      "lat": -4.5895,
+      "lon": 137.4417,
+      "elev_m": -4501.0,
+      "dist_m": 0,
+      "target_name": "Bradbury Landing",
+      "activity": "Sky Crane touchdown on alluvial plain",
+      "hazard_warning": null
+    },
+    {
+      "sol": 125,
+      "site": 2,
+      "drive": 32,
+      "lat": -4.5912,
+      "lon": 137.4485,
+      "elev_m": -4520.4,
+      "dist_m": 505.0,
+      "target_name": "Yellowknife Bay / John Klein Drill Site",
+      "activity": "First drill core on Mars; detected clay minerals, carbon, sulfur, phosphorus indicating ancient habitable freshwater lake",
+      "hazard_warning": null
+    },
+    {
+      "sol": 600,
+      "site": 5,
+      "drive": 120,
+      "lat": -4.6380,
+      "lon": 137.4080,
+      "elev_m": -4480.0,
+      "dist_m": 7100.0,
+      "target_name": "The Kimberley",
+      "activity": "Drilled 'Windjana' sandstone target; high potassium and feldspar content",
+      "hazard_warning": "Ventifact bedrock causing early aluminum wheel gash damage"
+    },
+    {
+      "sol": 750,
+      "site": 8,
+      "drive": 160,
+      "lat": -4.6720,
+      "lon": 137.3820,
+      "elev_m": -4445.0,
+      "dist_m": 9800.0,
+      "target_name": "Pahrump Hills",
+      "activity": "Base of Mount Sharp Murray formation; sampled mudstone layers",
+      "hazard_warning": "Escarpment rim"
+    },
+    {
+      "sol": 1180,
+      "site": 14,
+      "drive": 240,
+      "lat": -4.7120,
+      "lon": 137.3750,
+      "elev_m": -4410.0,
+      "dist_m": 12500.0,
+      "target_name": "Bagnold Dunes (Namib Dune)",
+      "activity": "First investigation of active extraterrestrial dune field; sampled coarse basaltic sand",
+      "hazard_warning": "EXTREME ENTRAPMENT - Active dune sands, slippage > 60%"
+    },
+    {
+      "sol": 1820,
+      "site": 22,
+      "drive": 370,
+      "lat": -4.7450,
+      "lon": 137.3890,
+      "elev_m": -4270.0,
+      "dist_m": 17200.0,
+      "target_name": "Vera Rubin Ridge",
+      "activity": "Ascending hematite-rich resistant ridge; drilled 'Duluth' sample",
+      "hazard_warning": "Steep rocky slopes and high wheel puncture hazard"
+    },
+    {
+      "sol": 2400,
+      "site": 31,
+      "drive": 490,
+      "lat": -4.7700,
+      "lon": 137.4020,
+      "elev_m": -4205.0,
+      "dist_m": 21800.0,
+      "target_name": "Glen Torridon (Clay-Bearing Unit)",
+      "activity": "Discovered richest abundance of clay minerals in Gale; organic compounds detected by SAM",
+      "hazard_warning": null
+    },
+    {
+      "sol": 3060,
+      "site": 40,
+      "drive": 610,
+      "lat": -4.7890,
+      "lon": 137.3910,
+      "elev_m": -4060.0,
+      "dist_m": 25400.0,
+      "target_name": "Mont Mercou",
+      "activity": "Sedimentary outcrop cross-bedding examination; drilled 'Nontron' drill hole",
+      "hazard_warning": "6-meter vertical cliff face"
+    },
+    {
+      "sol": 3650,
+      "site": 48,
+      "drive": 740,
+      "lat": -4.8150,
+      "lon": 137.3820,
+      "elev_m": -3920.0,
+      "dist_m": 29600.0,
+      "target_name": "Sulfate-Bearing Unit / Marker Band Valley",
+      "activity": "Discovered rippled rock textures created by ancient lake surface waves in dry era",
+      "hazard_warning": "Hard sulfate cap rock"
+    },
+    {
+      "sol": 4340,
+      "site": 56,
+      "drive": 860,
+      "lat": -4.8380,
+      "lon": 137.3680,
+      "elev_m": -3810.0,
+      "dist_m": 33250.0,
+      "target_name": "Gediz Vallis Ridge",
+      "activity": "Sampling boulder deposits carried by catastrophic wet debris flows late in Mars history; pure elemental sulfur crystals cracked open",
+      "hazard_warning": "Loose talus boulder fields, unstable wheel footing"
+    }
+  ]
+}

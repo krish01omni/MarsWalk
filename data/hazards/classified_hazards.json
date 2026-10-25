@@ -1,0 +1,123 @@
+{
+  "hazards_registry": [
+    {
+      "id": "HAZ-001",
+      "name": "Troy Sulfate Sand Trap",
+      "region": "Gusev Crater (West of Home Plate)",
+      "threat_class": "CLASS_1_FATAL_ENTRAPMENT",
+      "severity": "CRITICAL",
+      "coordinates": {
+        "lat": -14.6085,
+        "lon": 175.5265,
+        "elev_m": -1905.0
+      },
+      "caution_radius_m": 450,
+      "incident_history": "Spirit rover broke through a benign-looking cemented surface crust on Sol 1892 into fluffy, low-density iron sulfate (Fe-SO4) and basaltic silt. Wheel slip reached 100%, causing total chassis high-centering. Rover was permanently immobilized.",
+      "terrain_mechanism": "Phreatomagmatic hydrothermal alteration created ultra-fine sulfate crystals that lack inter-grain cohesion. Bulk density is under 1.1 g/cm3 with friction angle < 18 degrees.",
+      "astronaut_protocol": "STRICT NO-DRIVE ZONE. Heavy rovers and pressurized rovers must maintain a 450m exclusion boundary. Disembarking astronauts must use wide-footprint snowshoe-style boots with load distribution plates to prevent sub-surface collapse.",
+      "detection_signature": "Odyssey THEMIS Nighttime Infrared reveals distinct low thermal inertia thermal signature (cold anomaly at night) compared to surrounding basalt cap rocks."
+    },
+    {
+      "id": "HAZ-002",
+      "name": "Purgatory Dune Transverse Ridge",
+      "region": "Meridiani Planum",
+      "threat_class": "CLASS_1_ENTRAPMENT",
+      "severity": "HIGH",
+      "coordinates": {
+        "lat": -1.9790,
+        "lon": 354.5120,
+        "elev_m": -1375.0
+      },
+      "caution_radius_m": 350,
+      "incident_history": "Opportunity rover drove over a modest 30cm ripple on Sol 446. All six wheels sank to their hubcaps in windblown basaltic sand. Vehicle was stranded for 38 sols, requiring extensive sandbox trials at JPL before successful backward crab-steering extraction.",
+      "terrain_mechanism": "Transverse Aeolian Ridges (TARs) with loose hematite spherules acting like ball bearings over fine, poorly sorted drift sand.",
+      "astronaut_protocol": "Rovers must approach ripple crests at 90-degree angles with continuous torque monitoring. If tire slip exceeds 25%, halt forward motion immediately and engage all-wheel reverse differential lock.",
+      "detection_signature": "MRO HiRISE high-resolution stereo elevation showing asymmetric ripple wavelength and ripple slope > 15 degrees."
+    },
+    {
+      "id": "HAZ-003",
+      "name": "South Séítah Active Dune Field",
+      "region": "Jezero Crater Floor",
+      "threat_class": "CLASS_1_ENTRAPMENT",
+      "severity": "CRITICAL",
+      "coordinates": {
+        "lat": 18.4285,
+        "lon": 77.4491,
+        "elev_m": -2580.6
+      },
+      "caution_radius_m": 600,
+      "incident_history": "Perseverance rover path planners routed the vehicle around the perimeter of South Séítah after Ingenuity helicopter aerial reconnaissance revealed impassable fields of barchan dunes and knife-edge ripple fields with >80% slip hazard.",
+      "terrain_mechanism": "Active wind-migrating basaltic and olivine dune sand accumulation trapped inside crater floor depression.",
+      "astronaut_protocol": "Prohibited to unescorted EVAs. Any traversal requires advance drone radar mapping of subsurface compaction. Traversal permissible only along the northern consolidated ridge boundary.",
+      "detection_signature": "M20 Mastcam-Z multi-band polarization showing high surface ripple mobility and loose unbonded grains."
+    },
+    {
+      "id": "HAZ-004",
+      "name": "Gale Crater Ventifact & Flint-Rock Slopes",
+      "region": "Gale Crater (Mount Sharp Slopes)",
+      "threat_class": "CLASS_2_MOBILITY_PUNCTURE",
+      "severity": "HIGH",
+      "coordinates": {
+        "lat": -4.6380,
+        "lon": 137.4080,
+        "elev_m": -4480.0
+      },
+      "caution_radius_m": 500,
+      "incident_history": "Between Sols 450 and 600, Curiosity sustained severe tears and punctures in its 0.75mm machined aluminum wheel skins when driving over sharp, wind-sculpted ventifact rocks embedded solidly in the bedrock.",
+      "terrain_mechanism": "Aeolian wind sandblasting over billions of years sharpened hard basalt and silica capstones into razor-edged pyramidal horns that do not roll or yield under wheel weight.",
+      "astronaut_protocol": "Equip wheeled vehicles with non-pneumatic titanium shape-memory alloy (SMA) mesh tires. Avoid wheel spin over capstone projections. Astronaut boots require Kevlar/Kevlar-Nomex armored sole inserts.",
+      "detection_signature": "Curiosity MAHLI macro-imagery and Navcam stereo rock roughness index."
+    },
+    {
+      "id": "HAZ-005",
+      "name": "Circumpolar & Regolith Perchlorate Contamination",
+      "region": "Vastitas Borealis & Global Surface Topsoil",
+      "threat_class": "CLASS_3_BIOCHEM_TOXICITY",
+      "severity": "CRITICAL",
+      "coordinates": {
+        "lat": 68.2188,
+        "lon": 234.2507,
+        "elev_m": -4120.0
+      },
+      "caution_radius_m": 1200,
+      "incident_history": "Phoenix lander wet chemistry MECA lab discovered 0.5% to 1.0% perchlorate salts (Mg(ClO4)2 and Ca(ClO4)2) in the arctic soil, confirmed by Curiosity in Gale and Perseverance in Jezero.",
+      "terrain_mechanism": "Atmospheric photochemical oxidation of chlorine by ozone and solar ultraviolet radiation continuously creates stable perchlorate salts that settle onto the surface regolith.",
+      "astronaut_protocol": "SEVERE BIOHAZARD: Perchlorates destroy thyroid hormone production (aplastic anemia, goiter) and burn respiratory tracts. Mandatory suit-port or electrostatic dust removal airlocks. Zero exterior dust allowed inside living quarters. Scrub suit with water wash and catalytic chemical reduction before hatch entry.",
+      "detection_signature": "Phoenix MECA ion-selective electrodes and Curiosity SAM evolved gas oxygen peaks at 400°C."
+    },
+    {
+      "id": "HAZ-006",
+      "name": "Jezero Northern Rim / Neretva Vallis Scarp",
+      "region": "Jezero Crater Rim Margin",
+      "threat_class": "CLASS_4_STEEP_SLOPE_ROLLOVER",
+      "severity": "HIGH",
+      "coordinates": {
+        "lat": 18.5085,
+        "lon": 77.3220,
+        "elev_m": -2385.2
+      },
+      "caution_radius_m": 800,
+      "incident_history": "Ancient breach canyon walls and crater rim uplift feature unstable talus scree slopes exceeding 25 to 32 degrees incline.",
+      "terrain_mechanism": "Catastrophic impact breccia shattered rim rock undergoing gravity mass wasting and thermal exfoliation.",
+      "astronaut_protocol": "Limit rover traversal to switchback angles keeping lateral vehicle roll < 15 degrees. Tethering cables required for dismounted astronauts inspecting rock outcrops along scarp crest.",
+      "detection_signature": "MGS MOLA elevation gradient derivative maps indicating slope angle > 20 degrees."
+    },
+    {
+      "id": "HAZ-007",
+      "name": "Cerberus Fossae Active Tectonic Fissure System",
+      "region": "Elysium Planitia / Cerberus Fossae",
+      "threat_class": "CLASS_5_SEISMIC_UNSTABLE",
+      "severity": "MODERATE",
+      "coordinates": {
+        "lat": 8.1000,
+        "lon": 166.4000,
+        "elev_m": -1850.0
+      },
+      "caution_radius_m": 2500,
+      "incident_history": "InSight SEIS determined over 80% of identified tectonic marsquakes originated from this parallel fault system, with subsurface magma active within the last 50,000 years.",
+      "terrain_mechanism": "Crustal extension fractures over Elysium mantle plume creating 1,200 km long fault grabens and subsurface magma movement.",
+      "astronaut_protocol": "Erect all surface infrastructure with seismic dampers. Beware sudden boulder falls and ground fissures along graben edges.",
+      "detection_signature": "InSight SEIS high-frequency P and S wave triangulation."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "mission": "Viking 2 Lander",
+  "craft_type": "Stationary Science Lander",
+  "landing_site": {
+    "name": "Viking 2 Landing Site",
+    "region": "Utopia Planitia",
+    "latitude": 48.27,
+    "longitude": 134.00,
+    "elevation_m": -4230.0,
+    "landing_sol": 0,
+    "earth_date": "1976-09-03T22:37:50Z"
+  },
+  "operational_record": {
+    "duration_sols": 1281,
+    "end_date": "1980-04-11",
+    "cause_of_end": "Dead batteries ended transmissions",
+    "historic_feat": "Direct observation of water frost forming on Martian rocks and surface soil during northern hemisphere winter"
+  },
+  "science_instruments": [
+    "Biology Experiment Package (PR, LR, GEX)",
+    "GCMS Mass Spectrometer",
+    "Surface Seismometer (mounted on top of lander deck)",
+    "Meteorology Instrumentation",
+    "Scanning Facsimile Imaging Cameras"
+  ],
+  "historic_discoveries": [
+    {
+      "phenomenon": "Winter Water-Ice Frost",
+      "finding": "During Sol 891 to 1000, cameras photographed a thin coating of sparkling white water frost persisting for over 200 sols; confirmed seasonal water vapor exchange between atmosphere and surface regolith",
+      "status": "Verified first direct visual proof of modern Martian surface frost"
+    },
+    {
+      "phenomenon": "Utopia Planitia Subsurface Ice Mantle",
+      "finding": "Polygon crack patterned ground surrounding the lander suggested permafrost freeze-thaw cycles; later confirmed by MRO SHARAD radar revealing a water ice deposit as large as Lake Superior (375,000 km2) buried 1-10 meters deep",
+      "status": "Primary candidate site for human base water extraction"
+    }
+  ],
+  "astronaut_tactical_note": "Utopia Planitia is a premier high-latitude resource site. Subsurface pure water ice is accessible within 2-5 meters of excavation. High rock density on surface requires reinforced rover suspension and landing guidance."
+}

@@ -1,0 +1,134 @@
+{
+  "depot_name": "Three Forks Sample Depot",
+  "region": "Jezero Crater Delta Front",
+  "mission": "Mars 2020 / Perseverance",
+  "depot_status": "Completed (All 10 backup sample tubes safely deposited on the surface between Dec 2022 and Jan 2023)",
+  "purpose": "First off-world sample cache depot established as an insurance policy for the NASA-ESA Mars Sample Return (MSR) campaign; retrieval by Sample Recovery Helicopters or astronauts",
+  "center_coordinates": {
+    "lat": 18.4547,
+    "lon": 77.4075,
+    "elev_m": -2555.5
+  },
+  "tubes": [
+    {
+      "tube_index": 1,
+      "tube_serial": "ST-241",
+      "sample_name": "Amalik",
+      "sol_dropped": 653,
+      "drop_date": "2022-12-21",
+      "rock_type": "Igneous / Basaltic Cumulate",
+      "formation": "Séítah formation",
+      "core_length_mm": 54.0,
+      "coordinates": { "lat": 18.45431, "lon": 77.40798, "elev_m": -2556.1 },
+      "scientific_value": "Coarse-grained olivine-rich igneous rock formed inside an ancient magma chamber or thick lava lake; provides absolute radioisotope age date for Jezero floor cratering history."
+    },
+    {
+      "tube_index": 2,
+      "tube_serial": "ST-266",
+      "sample_name": "Mageik",
+      "sol_dropped": 659,
+      "drop_date": "2022-12-29",
+      "rock_type": "Sedimentary Mudstone",
+      "formation": "Delta Front (Amalik equivalent pair)",
+      "core_length_mm": 51.5,
+      "coordinates": { "lat": 18.45442, "lon": 77.40785, "elev_m": -2555.9 },
+      "scientific_value": "Fine-grained sulfate and clay mudstone laid down in quiet lake waters; prime target for preserving microscopic bio-textures and ancient cellular structures."
+    },
+    {
+      "tube_index": 3,
+      "tube_serial": "ST-277",
+      "sample_name": "Malay",
+      "sol_dropped": 666,
+      "drop_date": "2023-01-04",
+      "rock_type": "Atmospheric Blank Sample",
+      "formation": "Engineering Witness Tube",
+      "core_length_mm": 0.0,
+      "coordinates": { "lat": 18.45455, "lon": 77.40772, "elev_m": -2555.7 },
+      "scientific_value": "Pure Martian ambient atmospheric gas sealed at 7.2 mbar; tracks atmospheric argon, xenon, krypton isotope ratios to measure planetary air loss over 4 billion years."
+    },
+    {
+      "tube_index": 4,
+      "tube_serial": "ST-254",
+      "sample_name": "Atsah",
+      "sol_dropped": 673,
+      "drop_date": "2023-01-11",
+      "rock_type": "Sandstone / Cross-bedded Gritstone",
+      "formation": "Delta Fan Sandstone Member",
+      "core_length_mm": 60.2,
+      "coordinates": { "lat": 18.45468, "lon": 77.40760, "elev_m": -2555.6 },
+      "scientific_value": "Coarser fluvial delta deposits carried down the Neretva Vallis river system from highlands far outside Jezero Crater, representing regional crustal sampling."
+    },
+    {
+      "tube_index": 5,
+      "tube_serial": "ST-218",
+      "sample_name": "Coulettes",
+      "sol_dropped": 680,
+      "drop_date": "2023-01-18",
+      "rock_type": "Regolith / Soil & Small Pebbles",
+      "formation": "Modern Aeolian Sand Dune",
+      "core_length_mm": 57.8,
+      "coordinates": { "lat": 18.45480, "lon": 77.40748, "elev_m": -2555.4 },
+      "scientific_value": "Unconsolidated windblown dust, fine gravel, and microscopic impact spherules; crucial for studying modern surface radiation, dust abrasive properties, and perchlorate chemistry."
+    },
+    {
+      "tube_index": 6,
+      "tube_serial": "ST-262",
+      "sample_name": "Montdenier",
+      "sol_dropped": 687,
+      "drop_date": "2023-01-23",
+      "rock_type": "Igneous Basalt",
+      "formation": "Máaz formation",
+      "core_length_mm": 59.8,
+      "coordinates": { "lat": 18.45492, "lon": 77.40735, "elev_m": -2555.3 },
+      "scientific_value": "Upper crater floor volcanic rock with secondary mineral alteration along micro-fractures; records the moment volcanic lavas flooded Jezero Crater."
+    },
+    {
+      "tube_index": 7,
+      "tube_serial": "ST-239",
+      "sample_name": "Crosswind Lake",
+      "sol_dropped": 693,
+      "drop_date": "2023-01-25",
+      "rock_type": "Deltaic Mudstone",
+      "formation": "Wildcat Ridge",
+      "core_length_mm": 62.0,
+      "coordinates": { "lat": 18.45505, "lon": 77.40722, "elev_m": -2555.1 },
+      "scientific_value": "Richest organic carbon signatures detected by SHERLOC Raman and deep-UV fluorescence spectrometer, concentrated in clay and sulfate veins."
+    },
+    {
+      "tube_index": 8,
+      "tube_serial": "ST-258",
+      "sample_name": "Roubion Witness",
+      "sol_dropped": 698,
+      "drop_date": "2023-01-27",
+      "rock_type": "Witness Blank Tube",
+      "formation": "Contamination Assessment",
+      "core_length_mm": 0.0,
+      "coordinates": { "lat": 18.45517, "lon": 77.40710, "elev_m": -2555.0 },
+      "scientific_value": "Pre-flight cleanroom witness pack exposed to drill head mechanism to baseline terrestrial contaminant thresholds."
+    },
+    {
+      "tube_index": 9,
+      "tube_serial": "ST-270",
+      "sample_name": "Hazeltop",
+      "sol_dropped": 704,
+      "drop_date": "2023-01-28",
+      "rock_type": "Delta Scarp Sandstone",
+      "formation": "Shenandoah formation",
+      "core_length_mm": 58.5,
+      "coordinates": { "lat": 18.45530, "lon": 77.40698, "elev_m": -2554.8 },
+      "scientific_value": "Layered sandstone formed in ancient turbulent river mouth bar; shows ripple cross-lamination."
+    },
+    {
+      "tube_index": 10,
+      "tube_serial": "ST-264",
+      "sample_name": "Bearwallow",
+      "sol_dropped": 710,
+      "drop_date": "2023-01-29",
+      "rock_type": "Siltstone & Carbonate Cement",
+      "formation": "Delta Front Member",
+      "core_length_mm": 61.2,
+      "coordinates": { "lat": 18.45542, "lon": 77.40685, "elev_m": -2554.6 },
+      "scientific_value": "Carbonate-bearing siltstone; carbonates form in neutral-to-alkaline waters with abundant CO2, making it an exceptional medium for fossilizing microbial signatures."
+    }
+  ]
+}

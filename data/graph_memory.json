@@ -1,0 +1,234 @@
+{
+  "system": "Ares Command Planetary GIS Graph Memory Engine",
+  "version": "1.0.0",
+  "last_updated": "2026-10-22T08:15:00Z",
+  "mars_parameters": {
+    "volumetric_mean_radius_km": 3389.5,
+    "equatorial_radius_km": 3396.2,
+    "polar_radius_km": 3376.2,
+    "surface_gravity_ms2": 3.72076,
+    "standard_sol_duration_sec": 88775.244,
+    "standard_sol_duration_earth_time": "24h 39m 35.244s",
+    "atmospheric_composition": {
+      "CO2": 95.32,
+      "N2": 2.6,
+      "Ar": 1.9,
+      "O2": 0.13,
+      "CO": 0.08,
+      "H2O": 0.03
+    }
+  },
+  "nodes": [
+    {
+      "id": "MISSION-M20",
+      "type": "RoverMission",
+      "label": "Mars 2020 / Perseverance",
+      "status": "Active",
+      "landing_date": "2021-02-18",
+      "primary_site": "Jezero Crater (18.4447 N, 77.4508 E)",
+      "total_distance_km": 31.84,
+      "core_attributes": {
+        "helicopter": "Ingenuity (72 flights, 17.0 km)",
+        "sample_cache": "Three Forks Depot (10 titanium tubes)",
+        "payload": ["Mastcam-Z", "SuperCam", "PIXL", "SHERLOC", "MOXIE", "MEDA", "RIMFAX"]
+      }
+    },
+    {
+      "id": "MISSION-MSL",
+      "type": "RoverMission",
+      "label": "Mars Science Laboratory / Curiosity",
+      "status": "Active",
+      "landing_date": "2012-08-06",
+      "primary_site": "Gale Crater (-4.5895 S, 137.4417 E)",
+      "total_distance_km": 33.25,
+      "core_attributes": {
+        "destination": "Aeolis Mons (Mount Sharp)",
+        "payload": ["Mastcam", "ChemCam", "SAM", "CheMin", "RAD", "DAN", "REMS", "APXS", "MAHLI", "MARDI"]
+      }
+    },
+    {
+      "id": "MISSION-MER-B",
+      "type": "RoverMission",
+      "label": "Mars Exploration Rover B / Opportunity",
+      "status": "Completed (Marathon Distance 45.16 km)",
+      "landing_date": "2004-01-25",
+      "end_date": "2018-06-10",
+      "primary_site": "Meridiani Planum (-1.9483 S, 354.4742 E)",
+      "total_distance_km": 45.16,
+      "core_attributes": {
+        "historic_achievement": "First off-world marathon",
+        "key_crisis": "Purgatory Dune 38-sol sand entrapment"
+      }
+    },
+    {
+      "id": "MISSION-MER-A",
+      "type": "RoverMission",
+      "label": "Mars Exploration Rover A / Spirit",
+      "status": "Completed (7.73 km)",
+      "landing_date": "2004-01-04",
+      "end_date": "2010-03-22",
+      "primary_site": "Gusev Crater (-14.5684 S, 175.4729 E)",
+      "total_distance_km": 7.73,
+      "core_attributes": {
+        "historic_achievement": "Summit of Husband Hill, opaline silica discovery",
+        "final_location": "Troy Sand Trap"
+      }
+    },
+    {
+      "id": "MISSION-MPF",
+      "type": "RoverMission",
+      "label": "Mars Pathfinder / Sojourner",
+      "status": "Completed (105 m)",
+      "landing_date": "1997-07-04",
+      "primary_site": "Ares Vallis (19.33 N, 326.47 E)",
+      "total_distance_km": 0.105,
+      "core_attributes": {
+        "historic_achievement": "First wheeled rover on Mars"
+      }
+    },
+    {
+      "id": "LANDER-VIKING1",
+      "type": "LanderMission",
+      "label": "Viking 1 Lander",
+      "status": "Completed",
+      "primary_site": "Chryse Planitia (22.48 N, 312.05 E)"
+    },
+    {
+      "id": "LANDER-VIKING2",
+      "type": "LanderMission",
+      "label": "Viking 2 Lander",
+      "status": "Completed",
+      "primary_site": "Utopia Planitia (48.27 N, 134.00 E)"
+    },
+    {
+      "id": "LANDER-PHOENIX",
+      "type": "LanderMission",
+      "label": "Phoenix Mars Lander",
+      "status": "Completed",
+      "primary_site": "Vastitas Borealis (68.2188 N, 234.2507 E)",
+      "core_attributes": {
+        "significance": "Discovered subsurface water ice and toxic perchlorates"
+      }
+    },
+    {
+      "id": "LANDER-INSIGHT",
+      "type": "LanderMission",
+      "label": "InSight Lander",
+      "status": "Completed",
+      "primary_site": "Elysium Planitia (4.5024 N, 135.6234 E)",
+      "core_attributes": {
+        "significance": "1319 marsquakes, mapped core boundary at 1830 km radius"
+      }
+    },
+    {
+      "id": "HAZARD-TROY",
+      "type": "HazardZone",
+      "label": "Troy Sand Trap",
+      "threat": "CLASS_1_FATAL_ENTRAPMENT",
+      "coordinates": [-14.6085, 175.5265],
+      "buffer_radius_m": 450
+    },
+    {
+      "id": "HAZARD-PURGATORY",
+      "type": "HazardZone",
+      "label": "Purgatory Dune",
+      "threat": "CLASS_1_ENTRAPMENT",
+      "coordinates": [-1.9790, 354.5120],
+      "buffer_radius_m": 350
+    },
+    {
+      "id": "HAZARD-SEITAH",
+      "type": "HazardZone",
+      "label": "South Séítah Ripples",
+      "threat": "CLASS_1_ENTRAPMENT",
+      "coordinates": [18.4285, 77.4491],
+      "buffer_radius_m": 600
+    },
+    {
+      "id": "HAZARD-GALE-VENTIFACTS",
+      "type": "HazardZone",
+      "label": "Gale Crater Ventifact Field",
+      "threat": "CLASS_2_MOBILITY_PUNCTURE",
+      "coordinates": [-4.6380, 137.4080],
+      "buffer_radius_m": 500
+    },
+    {
+      "id": "HAZARD-PERCHLORATE",
+      "type": "HazardZone",
+      "label": "Polar & Regolith Perchlorate Toxicity",
+      "threat": "CLASS_3_BIOCHEM_TOXICITY",
+      "coordinates": [68.2188, 234.2507],
+      "buffer_radius_m": 1200
+    },
+    {
+      "id": "HAZARD-NERETVA-SCARP",
+      "type": "HazardZone",
+      "label": "Jezero Northern Rim / Neretva Vallis Scarp",
+      "threat": "CLASS_4_STEEP_SLOPE_ROLLOVER",
+      "coordinates": [18.5085, 77.3220],
+      "buffer_radius_m": 800
+    },
+    {
+      "id": "HAZARD-CERBERUS-FOSSAE",
+      "type": "HazardZone",
+      "label": "Cerberus Fossae Active Tectonic Fissure System",
+      "threat": "CLASS_5_SEISMIC_UNSTABLE",
+      "coordinates": [8.1000, 166.4000],
+      "buffer_radius_m": 2500
+    },
+    {
+      "id": "CRAFT-INGENUITY",
+      "type": "AerialReconCraft",
+      "label": "Ingenuity Mars Helicopter",
+      "status": "Retired (72 Flights, 17.0 km total flight distance)",
+      "coordinates": [18.4725, 77.3752],
+      "core_attributes": {
+        "final_resting_site": "Airfield Chi",
+        "key_contribution": "Aerial scouting of South Séítah and Three Forks delta paths"
+      }
+    },
+    {
+      "id": "DISCOVERY-THREE-FORKS",
+      "type": "DiscoverySite",
+      "label": "Three Forks Sample Cache Depot",
+      "coordinates": [18.4547, 77.4075],
+      "contents": "10 sealed titanium core tubes containing sedimentary mudstone, igneous cumulate, sandstones, regolith, and atmospheric gas"
+    },
+    {
+      "id": "DISCOVERY-ORGANICS",
+      "type": "DiscoverySite",
+      "label": "Organic Carbon & Biosignature Candidates",
+      "coordinates": [18.4568, 77.4012],
+      "contents": "Aromatic compounds in Wildcat Ridge, chlorobenzene in Yellowknife Bay, and Cheyava Falls reaction halos"
+    },
+    {
+      "id": "DISCOVERY-ICE",
+      "type": "DiscoverySite",
+      "label": "Subsurface Glaciers & Water Tables",
+      "coordinates": [48.2700, 134.0000],
+      "contents": "Utopia Planitia 14,300 km3 buried ice sheet & Phoenix 5cm depth permafrost"
+    },
+    {
+      "id": "DISCOVERY-HYDROTHERMAL",
+      "type": "DiscoverySite",
+      "label": "Hydrothermal Silica & Prebiotic Boron Minerals",
+      "coordinates": [-14.6040, 175.5280],
+      "contents": "90%+ pure opaline silica at Home Plate (Spirit), ancient hydrothermal hot spring fumaroles, and Gale calcium sulfate vein arrays"
+    }
+  ],
+  "edges": [
+    { "source": "MISSION-MER-A", "target": "HAZARD-TROY", "relation": "IMMOBILIZED_BY" },
+    { "source": "MISSION-MER-B", "target": "HAZARD-PURGATORY", "relation": "TRAPPED_TEMPORARILY_IN" },
+    { "source": "MISSION-M20", "target": "HAZARD-SEITAH", "relation": "AVOIDED_VIA_AERIAL_RECON" },
+    { "source": "MISSION-M20", "target": "HAZARD-NERETVA-SCARP", "relation": "CAUTIOUS_RIM_ASCENT" },
+    { "source": "MISSION-MSL", "target": "HAZARD-GALE-VENTIFACTS", "relation": "DAMAGED_WHEELS_IN" },
+    { "source": "LANDER-INSIGHT", "target": "HAZARD-CERBERUS-FOSSAE", "relation": "DETECTED_MARSQUAKES_FROM" },
+    { "source": "LANDER-PHOENIX", "target": "HAZARD-PERCHLORATE", "relation": "DISCOVERED_TOXIC_SALTS" },
+    { "source": "MISSION-M20", "target": "CRAFT-INGENUITY", "relation": "DEPLOYED_AND_SCOUTED_WITH" },
+    { "source": "MISSION-M20", "target": "DISCOVERY-THREE-FORKS", "relation": "DEPLOYED_BACKUP_CACHE" },
+    { "source": "MISSION-M20", "target": "DISCOVERY-ORGANICS", "relation": "DETECTED_AROMATICS" },
+    { "source": "LANDER-VIKING2", "target": "DISCOVERY-ICE", "relation": "SURFACE_OBSERVATION" },
+    { "source": "LANDER-PHOENIX", "target": "DISCOVERY-ICE", "relation": "EXCAVATED_ICE_TRENCH" },
+    { "source": "MISSION-MER-A", "target": "DISCOVERY-HYDROTHERMAL", "relation": "DISCOVERED_HOT_SPRING_SILICA" }
+  ]
+}
