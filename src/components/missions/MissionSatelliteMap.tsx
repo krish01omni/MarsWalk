@@ -7,13 +7,13 @@ import {
   Layers, 
   Crosshair, 
   Compass, 
-  MapPin, 
   ZoomIn, 
   ZoomOut,
   ExternalLink,
   Check,
   X,
-  Radio
+  Radio,
+  ArrowUpRight
 } from 'lucide-react';
 
 interface MissionSatelliteMapProps {
@@ -73,7 +73,7 @@ export const SPECTRAL_LAYERS = [
 
 export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
   missionType,
-  missionId,
+  missionId: _missionId,
   missionName,
   center,
   zoom = 11,
@@ -99,89 +99,74 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
   // Normalize longitude for Leaflet (-180 to +180)
   const normalizeLon = (lon: number) => (lon > 180 ? lon - 360 : lon);
 
-  // Initialize mini-map
+  // Initialize Leaflet Map
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
+    if (!containerRef.current) return;
 
-    const normLon = normalizeLon(center[1]);
-    const map = L.map(containerRef.current, {
-      center: [center[0], normLon],
-      zoom: zoom,
-      minZoom: 2,
-      maxZoom: 17,
-      crs: L.CRS.EPSG4326,
-      zoomControl: false,
-      attributionControl: false,
-      scrollWheelZoom: true,
-      doubleClickZoom: true
-    });
+    if (!mapRef.current) {
+      const initialLat = center[0];
+      const initialLon = normalizeLon(center[1]);
 
-    // Base Tile Layer
-    const layerMeta = satelliteLayers.find(l => l.id === activeLayerId) || satelliteLayers[0];
-    const tileLayer = L.tileLayer(layerMeta.nasa_trek_wmts, {
-      maxZoom: 18,
-      maxNativeZoom: layerMeta.max_native_zoom || 7,
-      tms: false,
-      noWrap: false,
-      errorTileUrl: OFFLINE_TILE_FALLBACK_SVG
-    });
-    tileLayer.addTo(map);
-    tileLayerRef.current = tileLayer;
-
-    // Vector Group
-    const vectorGroup = L.layerGroup().addTo(map);
-    vectorGroupRef.current = vectorGroup;
-
-    map.on('mousemove', (e: L.LeafletMouseEvent) => {
-      const rawLon = e.latlng.lng < 0 ? e.latlng.lng + 360 : e.latlng.lng;
-      setMapCoords({
-        lat: parseFloat(e.latlng.lat.toFixed(4)),
-        lon: parseFloat(rawLon.toFixed(4))
+      const map = L.map(containerRef.current, {
+        center: [initialLat, initialLon],
+        zoom: zoom,
+        zoomControl: false,
+        attributionControl: false,
+        minZoom: 4,
+        maxZoom: 16
       });
-    });
 
-    map.on('zoomend', () => {
-      setCurrentZoom(map.getZoom());
-    });
+      mapRef.current = map;
 
-    mapRef.current = map;
+      // Track movement
+      map.on('move', () => {
+        const c = map.getCenter();
+        let displayLon = c.lng;
+        if (displayLon < 0) displayLon += 360;
+        setMapCoords({ lat: c.lat, lon: displayLon });
+        setCurrentZoom(map.getZoom());
+      });
+
+      // Layer group for vectors
+      const vectorGroup = L.layerGroup().addTo(map);
+      vectorGroupRef.current = vectorGroup;
+
+      // Initial Tile Layer
+      const layerConfig = satelliteLayers.find(l => l.id === activeLayerId) || satelliteLayers.find(l => l.id === 'VIKING_MDIM21') || satelliteLayers[0];
+      const tile = L.tileLayer(layerConfig.nasa_trek_wmts, {
+        maxZoom: 18,
+        maxNativeZoom: layerConfig.max_native_zoom || 7,
+        errorTileUrl: OFFLINE_TILE_FALLBACK_SVG
+      }).addTo(map);
+      tileLayerRef.current = tile;
+    }
 
     return () => {
-      map.remove();
-      mapRef.current = null;
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
     };
   }, []);
 
-  // Update center when props change
-  useEffect(() => {
-    if (!mapRef.current) return;
-    const normLon = normalizeLon(center[1]);
-    mapRef.current.setView([center[0], normLon], zoom);
-  }, [center, zoom]);
-
-  // Switch Tile Layer
+  // Switch Layer
   const handleSwitchLayer = (layerId: string) => {
-    if (!mapRef.current) return;
-    const layerMeta = satelliteLayers.find(l => l.id === layerId);
-    if (!layerMeta) return;
-
-    if (tileLayerRef.current) {
-      mapRef.current.removeLayer(tileLayerRef.current);
-    }
-
-    const newLayer = L.tileLayer(layerMeta.nasa_trek_wmts, {
-      maxZoom: 18,
-      maxNativeZoom: layerMeta.max_native_zoom || 7,
-      tms: false,
-      noWrap: false,
-      errorTileUrl: OFFLINE_TILE_FALLBACK_SVG
-    });
-    newLayer.addTo(mapRef.current);
-    tileLayerRef.current = newLayer;
     setActiveLayerId(layerId);
+    setShowLayerMenu(false);
+
+    if (mapRef.current && tileLayerRef.current) {
+      mapRef.current.removeLayer(tileLayerRef.current);
+      const layerConfig = satelliteLayers.find(l => l.id === layerId) || satelliteLayers.find(l => l.id === 'VIKING_MDIM21') || satelliteLayers[0];
+      const newTile = L.tileLayer(layerConfig.nasa_trek_wmts, {
+        maxZoom: 18,
+        maxNativeZoom: layerConfig.max_native_zoom || 7,
+        errorTileUrl: OFFLINE_TILE_FALLBACK_SVG
+      }).addTo(mapRef.current);
+      tileLayerRef.current = newTile;
+    }
   };
 
-  // Render Route and Waypoints on the Satellite Map
+  // Render Traverse or Landing Site Vectors
   useEffect(() => {
     if (!mapRef.current || !vectorGroupRef.current) return;
     const group = vectorGroupRef.current;
@@ -189,21 +174,19 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
 
     if (missionType === 'rover' && waypoints.length > 0) {
       const latLngs: [number, number][] = waypoints.map(wp => [wp.lat, normalizeLon(wp.lon)]);
-      
-      // Black halo for crisp contrast against any background
+
+      // Outer halo line
       const haloLine = L.polyline(latLngs, {
         color: '#000000',
-        weight: 6,
-        opacity: 0.85,
-        lineCap: 'round',
-        lineJoin: 'round'
+        weight: 5,
+        opacity: 0.8
       });
       group.addLayer(haloLine);
 
-      // High-contrast cyan tactical route line
+      // High-contrast tactical route line
       const routeLine = L.polyline(latLngs, {
-        color: '#38BDF8',
-        weight: 3,
+        color: '#FFFFFF',
+        weight: 2.5,
         opacity: 0.95,
         lineCap: 'round',
         lineJoin: 'round'
@@ -222,14 +205,14 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            width: ${isSelected ? '24px' : '18px'}; 
-            height: ${isSelected ? '24px' : '18px'}; 
-            border-radius: 50%; 
-            background: ${isSelected ? '#FFFFFF' : isCurrent ? '#38BDF8' : isStart ? '#A855F7' : '#0F172A'}; 
-            border: 2px solid ${isSelected ? '#38BDF8' : '#FFFFFF'}; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            width: ${isSelected ? '22px' : '16px'}; 
+            height: ${isSelected ? '22px' : '16px'}; 
+            border-radius: 4px; 
+            background: ${isSelected ? '#FFFFFF' : isCurrent ? '#EAEAEA' : isStart ? '#38BDF8' : '#0F131D'}; 
+            border: 1.5px solid ${isSelected ? '#000000' : '#FFFFFF'}; 
+            box-shadow: 0 0 8px rgba(0,0,0,0.8);
             color: ${isSelected ? '#000000' : '#FFFFFF'};
-            font-size: 9px;
+            font-size: 8px;
             font-family: monospace;
             font-weight: 700;
             cursor: pointer;
@@ -242,8 +225,8 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
         const icon = L.divIcon({
           html: markerHtml,
           className: 'rover-wp-pin',
-          iconSize: [isSelected ? 24 : 18, isSelected ? 24 : 18],
-          iconAnchor: [isSelected ? 12 : 9, isSelected ? 12 : 9]
+          iconSize: [isSelected ? 22 : 16, isSelected ? 22 : 16],
+          iconAnchor: [isSelected ? 11 : 8, isSelected ? 11 : 8]
         });
 
         const marker = L.marker([wp.lat, normWpLon], { icon });
@@ -254,12 +237,12 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
         marker.bindTooltip(`
           <div style="padding: 4px 6px; font-family: monospace;">
             <div style="font-size: 11px; font-weight: bold; color: #FFFFFF;">${wp.target_name}</div>
-            <div style="font-size: 10px; color: #38BDF8;">Sol ${wp.sol} • ${wp.dist_m}m</div>
-            <div style="font-size: 9px; color: #94A3B8; margin-top: 2px;">${wp.activity}</div>
+            <div style="font-size: 10px; color: #94A3B8;">Sol ${wp.sol} • ${wp.dist_m}m</div>
+            <div style="font-size: 9px; color: #64748B; margin-top: 2px;">${wp.activity}</div>
           </div>
         `, {
           direction: 'top',
-          offset: [0, -10],
+          offset: [0, -8],
           className: 'tactical-mini-tooltip'
         });
 
@@ -277,28 +260,28 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
 
       const ellipse = L.circle([center[0], normLon], {
         radius: 3500,
-        color: '#38BDF8',
+        color: '#FFFFFF',
         weight: 1.5,
         dashArray: '4, 6',
-        fillColor: '#38BDF8',
-        fillOpacity: 0.08
+        fillColor: '#FFFFFF',
+        fillOpacity: 0.05
       });
       group.addLayer(ellipse);
 
       const landerIconHtml = `
         <div style="
-          width: 24px; 
-          height: 24px; 
-          border-radius: 50%; 
-          background: #38BDF8; 
-          border: 2px solid #FFFFFF; 
-          box-shadow: 0 0 14px rgba(56,189,248,0.8);
+          width: 22px; 
+          height: 22px; 
+          border-radius: 4px; 
+          background: #FFFFFF; 
+          border: 2px solid #000000; 
+          box-shadow: 0 0 10px rgba(0,0,0,0.8);
           display: flex;
           align-items: center;
           justify-content: center;
           color: #000000;
           font-weight: 900;
-          font-size: 11px;
+          font-size: 10px;
         ">
           ◎
         </div>
@@ -306,17 +289,17 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
       const landerIcon = L.divIcon({
         html: landerIconHtml,
         className: 'lander-pin',
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
       });
 
       const landerMarker = L.marker([center[0], normLon], { icon: landerIcon });
       landerMarker.bindTooltip(`
-        <div style="padding: 4px 6px;">
-          <div style="font-weight: bold; color: #38BDF8;">${missionName} Touchdown Site</div>
-          <div style="font-size: 10px; color: #E2E8F0;">${landingSiteName}</div>
+        <div style="padding: 4px 6px; font-family: monospace;">
+          <div style="font-weight: bold; color: #FFFFFF;">${missionName} Touchdown</div>
+          <div style="font-size: 10px; color: #94A3B8;">${landingSiteName}</div>
         </div>
-      `, { direction: 'top', offset: [0, -12] });
+      `, { direction: 'top', offset: [0, -10] });
 
       group.addLayer(landerMarker);
     }
@@ -325,133 +308,200 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
   const activeLayer = SPECTRAL_LAYERS.find(l => l.id === activeLayerId) || SPECTRAL_LAYERS[0];
 
   return (
-    <div className="rounded-2xl overflow-hidden bg-[#05070B] border border-white/[0.08] shadow-2xl flex flex-col">
-      {/* Top Bar: Clean, Authoritative, Zero Slop */}
-      <div className="p-4 bg-[#080B10] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3 z-10">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-white">
-            <Radio className="w-4 h-4 text-cyan-400" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase font-semibold">
-                ORBITAL SATELLITE RECONNAISSANCE
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-300 border border-white/10">
-                {activeLayer.instrument}
-              </span>
+    <div className="bezel-shell">
+      <div className="bezel-core overflow-hidden flex flex-col">
+        {/* Top Bar: Clean, Authoritative, Aerospace HUD */}
+        <div className="p-3.5 bg-[#080B10] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3 z-10 font-mono">
+          <div className="flex items-center space-x-3">
+            <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-white">
+              <Radio className="w-3.5 h-3.5 text-zinc-400" />
             </div>
-            <h4 className="text-sm font-bold text-white tracking-tight flex items-center space-x-2">
-              <span>{missionName} Ground Track</span>
-              <span className="text-zinc-600">•</span>
-              <span className="text-xs font-mono text-zinc-400 font-normal">{landingSiteName}</span>
-            </h4>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-[9px] font-mono tracking-widest text-zinc-500 uppercase font-semibold">
+                  ORBITAL SATELLITE RECONNAISSANCE
+                </span>
+                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-white/[0.04] text-zinc-300 border border-white/10">
+                  {activeLayer.instrument}
+                </span>
+              </div>
+              <h4 className="text-xs font-bold text-white tracking-wider uppercase flex items-center space-x-2">
+                <span>{missionName} GROUND TRACK</span>
+                <span className="text-zinc-600">•</span>
+                <span className="text-[11px] text-zinc-400 font-normal">{landingSiteName}</span>
+              </h4>
+            </div>
+          </div>
+
+          {/* Right Action: Expand Fullscreen */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={onExpandToTactical}
+              className="px-3 py-1 rounded bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-zinc-300 hover:text-white text-xs flex items-center space-x-1.5 transition-all active:scale-[0.98]"
+            >
+              <span>EXPAND GIS</span>
+              <Maximize2 className="w-3 h-3 text-zinc-400" />
+            </button>
           </div>
         </div>
 
-        {/* Right Action: Expand Fullscreen */}
-        <div className="flex items-center space-x-2 font-mono">
-          <button
-            onClick={onExpandToTactical}
-            className="px-3.5 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-200 hover:text-white text-xs flex items-center space-x-2 transition-all active:scale-95"
-          >
-            <span>FULLSCREEN GIS</span>
-            <Maximize2 className="w-3.5 h-3.5 text-zinc-400" />
-          </button>
-        </div>
-      </div>
+        {/* Map Viewport */}
+        <div className="relative w-full h-[420px] bg-[#050608]">
+          <div ref={containerRef} className="w-full h-full z-0" />
 
-      {/* Map Viewport */}
-      <div className="relative w-full h-[420px] bg-[#05070B]">
-        <div ref={containerRef} className="w-full h-full z-0" />
+          {/* GOOGLE MAPS STYLE FLOATING LAYER SWITCHER BUTTON & POPOVER */}
+          <div className="absolute top-3 left-3 z-30">
+            <button
+              onClick={() => setShowLayerMenu(!showLayerMenu)}
+              className={`px-3 py-1.5 rounded backdrop-blur-xl border text-xs font-mono flex items-center space-x-2 transition-all shadow-xl ${
+                showLayerMenu
+                  ? 'bg-white text-black border-white'
+                  : 'bg-black/85 hover:bg-black text-white border-white/20'
+              }`}
+            >
+              <Layers className={`w-3.5 h-3.5 ${showLayerMenu ? 'text-black' : 'text-zinc-400'}`} />
+              <span className="font-semibold tracking-wider text-[11px]">LAYER:</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded uppercase font-bold ${
+                showLayerMenu ? 'bg-black/10 text-black' : 'bg-white/10 text-zinc-200'
+              }`}>
+                {activeLayer.name}
+              </span>
+            </button>
 
-        {/* ================================================================= */}
-        {/* GOOGLE MAPS STYLE FLOATING LAYER SWITCHER BUTTON & POPOVER       */}
-        {/* ================================================================= */}
-        <div className="absolute top-3 left-3 z-30">
-          <button
-            onClick={() => setShowLayerMenu(!showLayerMenu)}
-            className={`px-3 py-2 rounded-xl backdrop-blur-xl border text-xs font-mono flex items-center space-x-2.5 transition-all shadow-2xl ${
-              showLayerMenu
-                ? 'bg-white text-black border-white'
-                : 'bg-black/85 hover:bg-black text-white border-white/20'
-            }`}
-          >
-            <Layers className={`w-4 h-4 ${showLayerMenu ? 'text-black' : 'text-cyan-400'}`} />
-            <span className="font-semibold tracking-wider">MAP VIEW</span>
-            <span className={`text-[10px] px-2 py-0.5 rounded uppercase font-bold ${
-              showLayerMenu ? 'bg-black/10 text-black' : 'bg-white/10 text-cyan-300'
-            }`}>
-              {activeLayer.name}
-            </span>
-          </button>
+            {/* Popover Drawer */}
+            {showLayerMenu && (
+              <div className="mt-2 w-80 md:w-96 rounded-lg bg-[#090C12]/95 backdrop-blur-2xl border border-white/15 p-4 shadow-2xl space-y-3 font-sans animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                  <span className="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center space-x-1.5">
+                    <Layers className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>Choose Planetary Layer</span>
+                  </span>
+                  <button
+                    onClick={() => setShowLayerMenu(false)}
+                    className="p-1 text-zinc-400 hover:text-white rounded hover:bg-white/10"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
 
-          {/* Popover Drawer */}
-          {showLayerMenu && (
-            <div className="mt-2 w-80 md:w-96 rounded-2xl bg-[#090C12]/95 backdrop-blur-2xl border border-white/15 p-4 shadow-2xl space-y-3 font-sans animate-in fade-in zoom-in-95 duration-200">
-              <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                <span className="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center space-x-1.5">
-                  <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Choose Planetary Layer</span>
-                </span>
-                <button
-                  onClick={() => setShowLayerMenu(false)}
-                  className="p-1 text-zinc-400 hover:text-white rounded-lg hover:bg-white/10"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <div className="space-y-2">
+                  {SPECTRAL_LAYERS.map(layer => {
+                    const isSelected = activeLayerId === layer.id;
+                    return (
+                      <div
+                        key={layer.id}
+                        onClick={() => handleSwitchLayer(layer.id)}
+                        className={`p-3 rounded border cursor-pointer transition-all ${
+                          isSelected
+                            ? 'bg-white/[0.08] border-white/40 shadow-lg'
+                            : 'bg-white/[0.02] border-white/10 hover:border-white/25 hover:bg-white/[0.05]'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-xs font-bold text-white font-mono">{layer.name}</span>
+                              <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-white/10 text-zinc-300 border border-white/10">
+                                {layer.badge}
+                              </span>
+                            </div>
+                            <div className="text-[10px] font-mono text-zinc-400 mt-0.5">
+                              {layer.instrument}
+                            </div>
+                          </div>
+                          {isSelected && (
+                            <div className="w-4 h-4 rounded-full bg-white text-black flex items-center justify-center">
+                              <Check className="w-2.5 h-2.5 stroke-[3]" />
+                            </div>
+                          )}
+                        </div>
+
+                        <p className="text-[11px] text-zinc-300 leading-relaxed mt-1.5 font-sans font-normal">
+                          {layer.desc}
+                        </p>
+
+                        <div className="pt-2 mt-2 border-t border-white/[0.06] flex items-center justify-between font-mono">
+                          <a
+                            href={layer.researchUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={e => e.stopPropagation()}
+                            className="text-[10px] text-zinc-400 hover:text-white hover:underline flex items-center space-x-1"
+                          >
+                            <span>Read Research Dataset</span>
+                            <ArrowUpRight className="w-3 h-3 ml-0.5" />
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+            )}
+          </div>
 
-              <div className="space-y-2">
-                {SPECTRAL_LAYERS.map(layer => {
-                  const isSelected = activeLayerId === layer.id;
+          {/* Quick HUD Telemetry Overlay */}
+          <div className="absolute top-3 right-3 z-20 flex flex-col items-end space-y-1.5">
+            <div className="px-2.5 py-1 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[10px] font-mono text-zinc-300 shadow-md">
+              <span className="text-zinc-500 mr-1.5">COORD:</span>
+              <span className="text-white font-bold">{mapCoords.lat.toFixed(4)}°N, {mapCoords.lon.toFixed(4)}°E</span>
+            </div>
+
+            <div className="px-2.5 py-1 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[10px] font-mono text-zinc-300 shadow-md">
+              <span className="text-zinc-500 mr-1.5">BAND:</span>
+              <span className="text-zinc-200">{activeLayer.badge}</span>
+              <span className="text-zinc-500 mx-1">•</span>
+              <span className="text-zinc-400">{currentZoom}x</span>
+            </div>
+          </div>
+
+          {/* Zoom In/Out Buttons */}
+          <div className="absolute bottom-3 right-3 z-20 flex flex-col space-y-1 font-mono">
+            <button
+              onClick={() => mapRef.current?.zoomIn()}
+              className="w-8 h-8 rounded bg-black/85 hover:bg-white hover:text-black text-white border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
+              title="Zoom In"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => mapRef.current?.zoomOut()}
+              className="w-8 h-8 rounded bg-black/85 hover:bg-white hover:text-black text-white border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
+              title="Zoom Out"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => {
+                if (mapRef.current) {
+                  mapRef.current.setView([center[0], normalizeLon(center[1])], zoom);
+                }
+              }}
+              className="w-8 h-8 rounded bg-black/85 hover:bg-white hover:text-black text-white border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
+              title="Recenter Map"
+            >
+              <Crosshair className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Waypoint Selector Horizontal Scroll Pill Strip */}
+          {missionType === 'rover' && waypoints.length > 0 && (
+            <div className="absolute bottom-3 left-3 right-16 z-20 overflow-x-auto">
+              <div className="flex items-center space-x-1 p-1 bg-black/85 backdrop-blur-md border border-white/15 rounded shadow-xl w-max font-mono">
+                {waypoints.map((wp, i) => {
+                  const isSelected = activeWaypoint?.sol === wp.sol;
                   return (
-                    <div
-                      key={layer.id}
-                      onClick={() => handleSwitchLayer(layer.id)}
-                      className={`p-3 rounded-xl border cursor-pointer transition-all ${
+                    <button
+                      key={i}
+                      onClick={() => onSelectWaypoint && onSelectWaypoint(wp)}
+                      className={`px-2 py-0.5 rounded text-[10px] transition-all whitespace-nowrap ${
                         isSelected
-                          ? 'bg-white/[0.08] border-cyan-400/80 shadow-lg'
-                          : 'bg-white/[0.02] border-white/10 hover:border-white/25 hover:bg-white/[0.05]'
+                          ? 'bg-white text-black font-bold shadow'
+                          : 'text-zinc-400 hover:text-white hover:bg-white/10'
                       }`}
                     >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-xs font-bold text-white">{layer.name}</span>
-                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-cyan-300 border border-white/10">
-                              {layer.badge}
-                            </span>
-                          </div>
-                          <div className="text-[10px] font-mono text-zinc-400 mt-0.5">
-                            {layer.instrument}
-                          </div>
-                        </div>
-                        {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-cyan-400 text-black flex items-center justify-center">
-                            <Check className="w-3 h-3 stroke-[3]" />
-                          </div>
-                        )}
-                      </div>
-
-                      <p className="text-[11px] text-zinc-300 leading-relaxed mt-1.5 font-normal">
-                        {layer.desc}
-                      </p>
-
-                      <div className="pt-2 mt-2 border-t border-white/[0.06] flex items-center justify-between">
-                        <a
-                          href={layer.researchUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={e => e.stopPropagation()}
-                          className="text-[10px] font-mono text-cyan-400 hover:text-cyan-300 hover:underline flex items-center space-x-1"
-                        >
-                          <span>Read Research Dataset</span>
-                          <ExternalLink className="w-3 h-3 ml-0.5" />
-                        </a>
-                        <span className="text-[9px] font-mono text-zinc-500">NASA PDS</span>
-                      </div>
-                    </div>
+                      {i === 0 ? 'L' : i === waypoints.length - 1 ? '★' : wp.sol}
+                    </button>
                   );
                 })}
               </div>
@@ -459,78 +509,38 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
           )}
         </div>
 
-        {/* Crosshair Overlay In Center */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-20">
-          <div className="w-8 h-8 border border-white/40 rounded-full flex items-center justify-center">
-            <div className="w-1.5 h-1.5 bg-white rounded-full" />
-          </div>
-        </div>
-
-        {/* Bottom Left Telemetry Overlay */}
-        <div className="absolute bottom-3 left-3 z-10 pointer-events-none p-2.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-zinc-300 space-y-1">
-          <div className="flex items-center space-x-2 text-zinc-400">
-            <span className="text-white font-bold">COORDINATES:</span>
-            <span>{mapCoords.lat >= 0 ? `${mapCoords.lat}°N` : `${Math.abs(mapCoords.lat)}°S`}, {mapCoords.lon}°E</span>
-          </div>
-          <div className="flex items-center space-x-2 text-zinc-400">
-            <span>ACTIVE BAND:</span>
-            <span className="text-cyan-400 font-semibold">{activeLayer.badge} • Zoom {currentZoom}x</span>
-          </div>
-        </div>
-
-        {/* Bottom Right Map Zoom Controls */}
-        <div className="absolute bottom-3 right-3 z-10 flex flex-col space-y-1">
-          <button
-            onClick={() => mapRef.current?.zoomIn()}
-            className="w-8 h-8 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <ZoomIn className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => mapRef.current?.zoomOut()}
-            className="w-8 h-8 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <ZoomOut className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-
-      {/* Bottom Context Banner: Clean, Informative, With Research Citation */}
-      <div className="p-4 bg-[#080B10] border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-sans">
-        <div className="flex items-start space-x-3 max-w-2xl">
-          <div className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 flex-shrink-0" />
+        {/* Footer: Remote Sensing Context Card */}
+        <div className="p-3 bg-[#080B10] border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
           <div className="space-y-0.5">
-            <div className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">
-              SCIENTIFIC REMOTE SENSING INSIGHT ({activeLayer.name.toUpperCase()})
+            <div className="text-[10px] text-zinc-500 uppercase tracking-widest">
+              SPECTRAL REMOTE SENSING // {activeLayer.name.toUpperCase()}
             </div>
-            <p className="text-zinc-300 text-xs leading-relaxed font-normal">
+            <p className="text-[11px] text-zinc-300 font-sans leading-relaxed">
               {activeLayer.desc}
             </p>
           </div>
-        </div>
 
-        <div className="flex items-center space-x-4 font-mono text-[11px] text-zinc-400">
-          <div>
-            <span className="text-zinc-500 uppercase text-[9px] block">WAYPOINTS</span>
-            <span className="text-white font-bold">{waypoints.length > 0 ? waypoints.length : '1 Site'}</span>
-          </div>
-          {waypoints.length > 0 && (
+          <div className="flex items-center space-x-4 text-[11px]">
             <div>
-              <span className="text-zinc-500 uppercase text-[9px] block">TRAVERSED DISTANCE</span>
-              <span className="text-white font-bold">
-                {(waypoints[waypoints.length - 1].dist_m / 1000).toFixed(2)} km
-              </span>
+              <span className="text-zinc-500 mr-1">WAYPOINTS:</span>
+              <span className="text-white font-bold">{waypoints.length}</span>
             </div>
-          )}
-          <a
-            href={activeLayer.researchUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white text-[11px] flex items-center space-x-1.5 transition-colors"
-          >
-            <span>Research Paper</span>
-            <ExternalLink className="w-3 h-3 text-cyan-400" />
-          </a>
+            {waypoints.length > 0 && (
+              <div>
+                <span className="text-zinc-500 mr-1">DISTANCE:</span>
+                <span className="text-white font-bold">{(waypoints[waypoints.length - 1].dist_m / 1000).toFixed(2)} km</span>
+              </div>
+            )}
+            <a
+              href={activeLayer.researchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-white underline flex items-center space-x-1"
+            >
+              <span>Archive</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -2,17 +2,28 @@
 
 @layer base {
   :root {
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    
+    --canvas: #050608;
+    --surface-1: #0A0D14;
+    --surface-2: #101520;
+    --surface-3: #161D2B;
+    --hairline: rgba(255, 255, 255, 0.08);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    --phosphor-white: #EAEAEA;
+    --slate-telemetry: #8B949E;
+    --hazard-red: #FF3B30;
   }
 
   body {
     font-family: var(--font-sans);
-    background-color: #0A0C10;
-    color: #E2E8F0;
+    background-color: #050608;
+    color: #EAEAEA;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    letter-spacing: -0.01em;
   }
 
   code, pre, .font-mono {
@@ -20,86 +31,121 @@
   }
 }
 
+/* Aerospace Technical Grid Blueprint */
+.tactical-blueprint-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Double-Bezel (Doppelrand) Machined Enclosures */
+.bezel-shell {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 4px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
+}
+
+.bezel-core {
+  background: #080B10;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Raycast / Aerospace Keycap Glyphs */
+.keycap-glyph {
+  background: linear-gradient(180deg, #1A2130 0%, #101420 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Tactical Crosshairs */
+.crosshair-container {
+  position: relative;
+}
+
+.crosshair-container::before,
+.crosshair-container::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.crosshair-tl::before { top: 6px; left: 6px; }
+.crosshair-tr::after { top: 6px; right: 6px; }
+
 /* Custom scrollbars for aerospace dense HUD */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D1117;
+  background: #07090E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242E40;
-  border-radius: 3px;
+  background: #1C2333;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E25B38;
+  background: #334155;
 }
 
 /* Radar pulse keyframes */
 @keyframes pulse-ring {
   0% {
-    transform: scale(0.95);
-    opacity: 0.9;
+    transform: scale(0.96);
+    opacity: 0.85;
   }
   50% {
-    transform: scale(1.18);
-    opacity: 0.3;
+    transform: scale(1.15);
+    opacity: 0.25;
   }
   100% {
-    transform: scale(0.95);
-    opacity: 0.9;
-  }
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(1000%);
+    transform: scale(0.96);
+    opacity: 0.85;
   }
 }
 
 .radar-ping {
-  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.scanline-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.scanline-effect::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  z-index: 20;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
+  animation: pulse-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 /* Leaflet dark customizer */
 .leaflet-container {
-  background: #0A0C10 !important;
+  background: #050608 !important;
   font-family: var(--font-sans);
 }
 
 .leaflet-popup-content-wrapper {
-  background: #131720 !important;
-  color: #E2E8F0 !important;
-  border: 1px solid #2A364F !important;
+  background: #0A0D14 !important;
+  color: #EAEAEA !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 6px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.7) !important;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.85) !important;
 }
 
 .leaflet-popup-tip {
-  background: #131720 !important;
+  background: #0A0D14 !important;
 }
 
 .leaflet-popup-content {

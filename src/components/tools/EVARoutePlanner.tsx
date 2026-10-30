@@ -6,7 +6,9 @@ import {
   Trash2, 
   ShieldAlert, 
   CheckCircle, 
-  Download
+  Download,
+  Crosshair,
+  ArrowRight
 } from 'lucide-react';
 import { evaluateEVARoute } from '../../services/dataService';
 import type { EVAPlannedWaypoint, EVARouteAnalysis } from '../../types/mission';
@@ -91,7 +93,7 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(analysis, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `ARES_EVA_ROUTE_${Date.now()}.json`);
+    downloadAnchor.setAttribute('download', `MARSWALK_EVA_ROUTE_${Date.now()}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -99,284 +101,177 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
 
   return (
     <div className="fixed inset-0 z-[2000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none font-sans">
-      <div className="w-full max-w-4xl h-[88vh] bg-[#080B12] border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-zinc-300">
-        {/* Header */}
-        <div className="p-5 border-b border-white/[0.08] bg-[#0C101A] flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 rounded bg-amber-950/60 border border-amber-500/50 flex items-center justify-center text-amber-400">
-              <Compass className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-[10px] text-zinc-400 uppercase tracking-widest font-bold">
-                TACTICAL TRAVERSAL ENGINE
+      <div className="bezel-shell w-full max-w-4xl h-[88vh] flex flex-col">
+        <div className="bezel-core w-full h-full flex flex-col overflow-hidden text-zinc-300">
+          
+          {/* Header */}
+          <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
+                <Compass className="w-4 h-4 text-zinc-300" />
               </div>
-              <h2 className="text-base font-bold text-white flex items-center space-x-2">
-                <span>ASTRONAUT EVA ROUTE WAYPOINT PLANNER</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/50">
-                  GEODESIC R = 3389.5 KM
-                </span>
-              </h2>
+              <div>
+                <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
+                  TACTICAL TRAVERSAL ENGINE
+                </div>
+                <h2 className="text-xs md:text-sm font-bold text-white flex items-center space-x-2 tracking-wide uppercase">
+                  <span>ASTRONAUT EVA ROUTE PLANNER</span>
+                  <span className="text-[9px] px-2 py-0.2 rounded bg-white/[0.03] text-zinc-400 border border-white/10">
+                    GEODESIC R = 3389.5 KM
+                  </span>
+                </h2>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={exportRouteJSON}
-              disabled={waypoints.length === 0}
-              className="px-2.5 py-1.5 bg-[#161B22] hover:bg-[#242E40] disabled:opacity-40 text-xs rounded border border-[#242E40] text-zinc-300 flex items-center space-x-1"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>EXPORT FLIGHT PLAN</span>
-            </button>
             <button
               onClick={onClose}
-              className="p-1.5 hover:bg-[#242E40] text-zinc-400 hover:text-white rounded transition-colors"
+              className="p-1 hover:bg-white/10 text-zinc-400 hover:text-white rounded transition-colors"
+              title="Close (ESC)"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
-        </div>
 
-        {/* Content Body */}
-        <div className="flex-1 flex overflow-hidden">
-          {/* Left: Waypoint Manager */}
-          <div className="w-1/2 border-r border-[#242E40] flex flex-col p-4 space-y-4 overflow-y-auto">
-            {/* Preset Traverses */}
-            <div>
-              <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider mb-1.5">
-                LOAD PRESET EXPEDITION CORRIDORS
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  onClick={() => loadPresetRoute('THREE_FORKS')}
-                  className="p-2 text-[11px] rounded bg-[#161B22] hover:bg-[#1F2937] border border-[#242E40] text-left hover:border-amber-500/50"
-                >
-                  <div className="font-bold text-amber-400">Three Forks</div>
-                  <div className="text-[9px] text-zinc-500">Sample Retrieval</div>
-                </button>
-                <button
-                  onClick={() => loadPresetRoute('HUSBAND_HILL')}
-                  className="p-2 text-[11px] rounded bg-[#161B22] hover:bg-[#1F2937] border border-[#242E40] text-left hover:border-amber-500/50"
-                >
-                  <div className="font-bold text-amber-400">Husband Hill</div>
-                  <div className="text-[9px] text-zinc-500">Summit & Silica</div>
-                </button>
-                <button
-                  onClick={() => loadPresetRoute('GALE_SHARP')}
-                  className="p-2 text-[11px] rounded bg-[#161B22] hover:bg-[#1F2937] border border-[#242E40] text-left hover:border-amber-500/50"
-                >
-                  <div className="font-bold text-amber-400">Mount Sharp</div>
-                  <div className="text-[9px] text-zinc-500">Gediz Vallis</div>
-                </button>
-              </div>
-            </div>
-
-            {/* Map Placement Trigger */}
-            <div className="p-3 bg-[#161B22] rounded border border-[#242E40] flex items-center justify-between">
-              <div>
-                <div className="text-xs font-bold text-white">Interactive Map Drawing Mode</div>
-                <div className="text-[10px] text-zinc-400">Click anywhere on the 2D Tactical GIS to plot waypoints</div>
-              </div>
-              <button
-                onClick={onStartMapPlacement}
-                className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
-                  isMapPlacementActive
-                    ? 'bg-amber-500 text-black shadow-[0_0_10px_rgba(245,158,11,0.5)]'
-                    : 'bg-[#242E40] hover:bg-[#32405A] text-white'
-                }`}
-              >
-                {isMapPlacementActive ? 'DRAWING ON MAP...' : 'ENABLE CLICK PLOT'}
-              </button>
-            </div>
-
-            {/* Manual Coordinate Form */}
-            <form onSubmit={handleManualAdd} className="space-y-2 pt-2 border-t border-[#242E40]">
-              <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
-                OR ENTER COORDINATES MANUALLY
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                <input
-                  type="text"
-                  placeholder="Waypoint label"
-                  value={manualName}
-                  onChange={e => setManualName(e.target.value)}
-                  className="bg-[#161B22] border border-[#242E40] rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500"
-                />
-                <input
-                  type="number"
-                  step="any"
-                  placeholder="Latitude (°N)"
-                  value={manualLat}
-                  onChange={e => setManualLat(e.target.value)}
-                  className="bg-[#161B22] border border-[#242E40] rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500"
-                  required
-                />
-                <input
-                  type="number"
-                  step="any"
-                  placeholder="Longitude (°E)"
-                  value={manualLon}
-                  onChange={e => setManualLon(e.target.value)}
-                  className="bg-[#161B22] border border-[#242E40] rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-1.5 bg-[#242E40] hover:bg-amber-600 hover:text-black text-xs font-bold rounded transition-all flex items-center justify-center space-x-1"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>ADD WAYPOINT</span>
-              </button>
-            </form>
-
-            {/* Waypoint List */}
-            <div className="flex-1 space-y-2 pt-2 border-t border-[#242E40]">
-              <div className="flex justify-between items-center text-[10px] text-zinc-400 uppercase font-bold">
-                <span>PLANNED SEQUENCE ({waypoints.length} POINTS)</span>
-                {waypoints.length > 0 && (
+          {/* Main Content: Split Master-Detail */}
+          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+            
+            {/* Left: Corridor Setup & Waypoint List */}
+            <div className="w-full md:w-1/2 p-4 border-b md:border-b-0 md:border-r border-white/[0.08] overflow-y-auto space-y-4 bg-[#050608] font-mono">
+              
+              {/* Presets Strip */}
+              <div className="space-y-1.5">
+                <div className="text-[9px] text-zinc-500 uppercase tracking-wider font-bold">
+                  EXPEDITION PRESET CORRIDORS:
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
                   <button
-                    onClick={onClearRoute}
-                    className="text-red-400 hover:underline flex items-center space-x-1"
+                    onClick={() => loadPresetRoute('THREE_FORKS')}
+                    className="p-2 rounded bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 text-left transition-all active:scale-95"
                   >
-                    <Trash2 className="w-3 h-3" />
-                    <span>Clear All</span>
+                    <div className="text-[10px] font-bold text-white">THREE FORKS</div>
+                    <div className="text-[9px] text-zinc-500">Sample Depot</div>
                   </button>
-                )}
-              </div>
-
-              {waypoints.length === 0 ? (
-                <div className="text-center py-8 text-zinc-500 text-xs">
-                  No waypoints added yet. Click on the 2D map or load a preset corridor.
-                </div>
-              ) : (
-                <div className="space-y-1.5 max-h-48 overflow-y-auto">
-                  {waypoints.map((wp, idx) => (
-                    <div
-                      key={wp.id}
-                      className="p-2 rounded bg-[#161B22] border border-[#242E40] flex items-center justify-between text-xs"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-[10px] font-bold">
-                          {idx + 1}
-                        </span>
-                        <div>
-                          <div className="font-bold text-white">{wp.name}</div>
-                          <div className="text-[10px] text-zinc-400">
-                            {wp.lat.toFixed(4)}°N, {wp.lon.toFixed(4)}°E
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => onRemoveWaypoint(wp.id)}
-                        className="text-zinc-500 hover:text-red-400 p-1"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Right: Route Telemetry & Hazard Proximity Safety Score */}
-          <div className="w-1/2 p-4 bg-[#131720] flex flex-col justify-between overflow-y-auto space-y-4">
-            <div className="space-y-4">
-              {/* Distance & Time Metrics Cards */}
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-[#161B22] p-3 rounded border border-[#242E40]">
-                  <div className="text-[10px] text-zinc-500 uppercase">MARS DISTANCE</div>
-                  <div className="text-lg font-bold text-amber-400 mt-1">
-                    {analysis.totalDistanceKm} km
-                  </div>
-                  <div className="text-[9px] text-zinc-500">Haversine (R=3389.5km)</div>
-                </div>
-
-                <div className="bg-[#161B22] p-3 rounded border border-[#242E40]">
-                  <div className="text-[10px] text-zinc-500 uppercase">SUIT WALK TIME</div>
-                  <div className="text-lg font-bold text-cyan-400 mt-1">
-                    {analysis.estimatedWalkingHours} hrs
-                  </div>
-                  <div className="text-[9px] text-zinc-500">@ 1.2 km/h in spacesuit</div>
-                </div>
-
-                <div className="bg-[#161B22] p-3 rounded border border-[#242E40]">
-                  <div className="text-[10px] text-zinc-500 uppercase">ROVER DRIVE TIME</div>
-                  <div className="text-lg font-bold text-purple-400 mt-1">
-                    {analysis.estimatedRoverHours} hrs
-                  </div>
-                  <div className="text-[9px] text-zinc-500">@ 6.0 km/h in rover</div>
-                </div>
-              </div>
-
-              {/* Real-time Safety Score Indicator */}
-              <div className="bg-[#161B22] p-4 rounded border border-[#242E40] space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
-                    SAFETY & TERRAIN HAZARD INDEX
-                  </div>
-                  <div
-                    className={`text-sm font-bold px-2 py-0.5 rounded ${
-                      analysis.safetyScore >= 80
-                        ? 'bg-emerald-950 text-emerald-400 border border-emerald-500'
-                        : analysis.safetyScore >= 50
-                        ? 'bg-amber-950 text-amber-400 border border-amber-500'
-                        : 'bg-red-950 text-red-400 border border-red-500'
-                    }`}
+                  <button
+                    onClick={() => loadPresetRoute('HUSBAND_HILL')}
+                    className="p-2 rounded bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 text-left transition-all active:scale-95"
                   >
-                    {analysis.safetyScore} / 100
-                  </div>
+                    <div className="text-[10px] font-bold text-white">HUSBAND HILL</div>
+                    <div className="text-[9px] text-zinc-500">Summit Peak</div>
+                  </button>
+                  <button
+                    onClick={() => loadPresetRoute('GALE_SHARP')}
+                    className="p-2 rounded bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 text-left transition-all active:scale-95"
+                  >
+                    <div className="text-[10px] font-bold text-white">GEDIZ VALLIS</div>
+                    <div className="text-[9px] text-zinc-500">Debris Ridge</div>
+                  </button>
                 </div>
+              </div>
 
-                {/* Progress bar */}
-                <div className="w-full h-2 bg-[#242E40] rounded-full overflow-hidden">
-                  <div
-                    className={`h-full transition-all duration-500 ${
-                      analysis.safetyScore >= 80
-                        ? 'bg-emerald-500'
-                        : analysis.safetyScore >= 50
-                        ? 'bg-amber-500'
-                        : 'bg-red-500'
-                    }`}
-                    style={{ width: `${analysis.safetyScore}%` }}
+              {/* Map Placement Trigger */}
+              <div className="p-3 rounded bg-[#0A0D14] border border-white/[0.08] flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">INTERACTIVE PLACEMENT</div>
+                  <div className="text-[10px] text-zinc-400">Click coordinates on 2D tactical map</div>
+                </div>
+                <button
+                  onClick={onStartMapPlacement}
+                  className={`px-3 py-1.5 rounded text-xs font-bold transition-all flex items-center space-x-1.5 ${
+                    isMapPlacementActive
+                      ? 'bg-red-500 text-white'
+                      : 'bg-white hover:bg-zinc-200 text-black shadow-sm'
+                  }`}
+                >
+                  <Crosshair className="w-3.5 h-3.5" />
+                  <span>{isMapPlacementActive ? 'CANCEL' : 'ACTIVATE'}</span>
+                </button>
+              </div>
+
+              {/* Manual Input Form */}
+              <form onSubmit={handleManualAdd} className="space-y-2 p-3 rounded bg-[#0A0D14] border border-white/[0.08]">
+                <div className="text-[9px] text-zinc-400 uppercase tracking-wider font-bold">
+                  MANUAL WAYPOINT ENTRY
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <input
+                    type="text"
+                    placeholder="Label"
+                    value={manualName}
+                    onChange={e => setManualName(e.target.value)}
+                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                  />
+                  <input
+                    type="number"
+                    step="any"
+                    placeholder="Lat (°N)"
+                    value={manualLat}
+                    onChange={e => setManualLat(e.target.value)}
+                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                    required
+                  />
+                  <input
+                    type="number"
+                    step="any"
+                    placeholder="Lon (°E)"
+                    value={manualLon}
+                    onChange={e => setManualLon(e.target.value)}
+                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                    required
                   />
                 </div>
+                <button
+                  type="submit"
+                  className="w-full py-1.5 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white text-xs font-bold rounded transition-all flex items-center justify-center space-x-1"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>INSERT WAYPOINT</span>
+                </button>
+              </form>
 
-                <div className="text-xs text-zinc-300 mt-2">
-                  {analysis.riskSummary}
+              {/* Waypoint List */}
+              <div className="space-y-2 pt-2 border-t border-white/[0.08]">
+                <div className="flex justify-between items-center text-[10px] text-zinc-400 uppercase font-bold">
+                  <span>PLANNED SEQUENCE ({waypoints.length} POINTS)</span>
+                  {waypoints.length > 0 && (
+                    <button
+                      onClick={onClearRoute}
+                      className="text-red-400 hover:underline flex items-center space-x-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>CLEAR ALL</span>
+                    </button>
+                  )}
                 </div>
-              </div>
 
-              {/* Hazards Near Route */}
-              <div className="space-y-2">
-                <div className="text-xs text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                  <ShieldAlert className="w-3.5 h-3.5 mr-1.5 text-red-400" />
-                  PROXIMITY WARNINGS ({analysis.hazardsEncountered.length})
-                </div>
-
-                {analysis.hazardsEncountered.length === 0 ? (
-                  <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded text-emerald-300 text-xs flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                    <span>No classified sand traps or toxic perchlorate zones detected along path.</span>
+                {waypoints.length === 0 ? (
+                  <div className="text-center py-6 text-zinc-500 text-xs font-sans">
+                    No waypoints in corridor. Click on map or choose a preset above.
                   </div>
                 ) : (
-                  <div className="space-y-2">
-                    {analysis.hazardsEncountered.map(({ hazard, distanceKm }) => (
+                  <div className="space-y-1.5 max-h-44 overflow-y-auto">
+                    {waypoints.map((wp, idx) => (
                       <div
-                        key={hazard.id}
-                        className="p-3 bg-red-950/30 border border-red-500/40 rounded text-xs space-y-1"
+                        key={wp.id}
+                        className="p-2.5 rounded bg-[#0A0D14] border border-white/[0.06] flex items-center justify-between text-xs"
                       >
-                        <div className="flex justify-between items-center">
-                          <span className="font-bold text-red-400">{hazard.name}</span>
-                          <span className="text-zinc-400 font-bold">{distanceKm} km away</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="w-5 h-5 rounded bg-white/10 text-white border border-white/15 flex items-center justify-center text-[9px] font-bold">
+                            {idx + 1}
+                          </span>
+                          <div>
+                            <div className="font-bold text-white uppercase">{wp.name}</div>
+                            <div className="text-[10px] text-zinc-500">
+                              {wp.lat.toFixed(4)}°N, {wp.lon.toFixed(4)}°E
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-zinc-300 text-[11px]">
-                          Threat: {hazard.threat_class} (Buffer: {hazard.caution_radius_m}m)
-                        </div>
-                        <div className="text-amber-300/90 text-[10px]">
-                          Protocol: {hazard.astronaut_protocol}
-                        </div>
+                        <button
+                          onClick={() => onRemoveWaypoint(wp.id)}
+                          className="text-zinc-500 hover:text-red-400 p-1"
+                          title="Remove point"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -384,17 +279,128 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
               </div>
             </div>
 
-            {/* Flight Readiness Certification */}
-            <div className="pt-3 border-t border-[#242E40] flex justify-between items-center">
-              <div className="text-[10px] text-zinc-500">
-                ARES COMMAND // EVA PROTOCOL REV 4.2
+            {/* Right: Route Telemetry & Hazard Proximity Safety Score */}
+            <div className="w-full md:w-1/2 p-5 bg-[#07090E] flex flex-col justify-between overflow-y-auto space-y-4 font-mono">
+              <div className="space-y-4">
+                {/* Distance & Time Metrics Cards */}
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-[#0A0D14] p-3 rounded border border-white/[0.08]">
+                    <div className="text-[9px] text-zinc-500 uppercase">MARS DISTANCE</div>
+                    <div className="text-base font-bold text-white mt-0.5">
+                      {analysis.totalDistanceKm} km
+                    </div>
+                    <div className="text-[8px] text-zinc-600">Haversine (R=3389.5km)</div>
+                  </div>
+
+                  <div className="bg-[#0A0D14] p-3 rounded border border-white/[0.08]">
+                    <div className="text-[9px] text-zinc-500 uppercase">SUIT WALK TIME</div>
+                    <div className="text-base font-bold text-white mt-0.5">
+                      {analysis.estimatedWalkingHours} hrs
+                    </div>
+                    <div className="text-[8px] text-zinc-600">@ 1.2 km/h in suit</div>
+                  </div>
+
+                  <div className="bg-[#0A0D14] p-3 rounded border border-white/[0.08]">
+                    <div className="text-[9px] text-zinc-500 uppercase">ROVER DRIVE</div>
+                    <div className="text-base font-bold text-white mt-0.5">
+                      {analysis.estimatedRoverHours} hrs
+                    </div>
+                    <div className="text-[8px] text-zinc-600">@ 6.0 km/h in rover</div>
+                  </div>
+                </div>
+
+                {/* Safety Score Indicator */}
+                <div className="bg-[#0A0D14] p-4 rounded border border-white/[0.08] space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
+                      TERRAIN SAFETY RATING
+                    </div>
+                    <div
+                      className={`text-xs font-bold px-2 py-0.5 rounded ${
+                        analysis.safetyScore >= 80
+                          ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-500/40'
+                          : analysis.safetyScore >= 50
+                          ? 'bg-amber-950/60 text-amber-400 border border-amber-500/40'
+                          : 'bg-red-950/60 text-red-400 border border-red-500/40'
+                      }`}
+                    >
+                      {analysis.safetyScore} / 100
+                    </div>
+                  </div>
+
+                  {/* Progress bar */}
+                  <div className="w-full h-1.5 bg-[#1F2430] rounded overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-500 ${
+                        analysis.safetyScore >= 80
+                          ? 'bg-emerald-400'
+                          : analysis.safetyScore >= 50
+                          ? 'bg-amber-400'
+                          : 'bg-red-400'
+                      }`}
+                      style={{ width: `${analysis.safetyScore}%` }}
+                    />
+                  </div>
+
+                  <div className="text-xs text-zinc-300 font-sans mt-2">
+                    {analysis.riskSummary}
+                  </div>
+                </div>
+
+                {/* Hazards Near Route */}
+                <div className="space-y-2">
+                  <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
+                    <ShieldAlert className="w-3.5 h-3.5 mr-1.5 text-red-400" />
+                    EXCLUSION BUFFER WARNINGS ({analysis.hazardsEncountered.length})
+                  </div>
+
+                  {analysis.hazardsEncountered.length === 0 ? (
+                    <div className="p-3 bg-white/[0.02] border border-white/[0.08] rounded text-zinc-300 text-xs flex items-center space-x-2 font-sans">
+                      <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <span>Zero classified terrain hazards or toxic perchlorates along corridor.</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {analysis.hazardsEncountered.map(({ hazard, distanceKm }) => (
+                        <div
+                          key={hazard.id}
+                          className="p-3 bg-red-950/20 border border-red-500/30 rounded text-xs space-y-1 font-sans"
+                        >
+                          <div className="flex justify-between items-center font-mono">
+                            <span className="font-bold text-red-400">{hazard.name}</span>
+                            <span className="text-zinc-400">{distanceKm} km away</span>
+                          </div>
+                          <div className="text-zinc-300 text-[11px] font-mono">
+                            BUFFER: {hazard.caution_radius_m}m • CLASS: {hazard.threat_class}
+                          </div>
+                          <div className="text-zinc-300 text-[11px]">
+                            Protocol: {hazard.astronaut_protocol}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-              <button
-                onClick={onClose}
-                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs rounded transition-all shadow-[0_0_12px_rgba(245,158,11,0.3)]"
-              >
-                APPLY & CLOSE PLANNER
-              </button>
+
+              {/* Flight Readiness & Export */}
+              <div className="pt-3 border-t border-white/[0.08] flex justify-between items-center">
+                <button
+                  onClick={exportRouteJSON}
+                  disabled={waypoints.length === 0}
+                  className="px-3 py-1.5 bg-white/[0.04] hover:bg-white/[0.08] disabled:opacity-30 border border-white/10 text-zinc-300 hover:text-white rounded text-xs flex items-center space-x-1.5 transition-all"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>EXPORT JSON</span>
+                </button>
+
+                <button
+                  onClick={onClose}
+                  className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all shadow-sm active:scale-95"
+                >
+                  APPLY & EXIT
+                </button>
+              </div>
             </div>
           </div>
         </div>

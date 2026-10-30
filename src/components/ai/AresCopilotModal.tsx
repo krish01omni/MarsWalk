@@ -5,7 +5,8 @@ import {
   Send, 
   Cpu, 
   Settings, 
-  Check
+  Check,
+  CornerDownLeft
 } from 'lucide-react';
 import { aresAI } from '../../services/aiService';
 import type { ChatMessage, CopilotMode } from '../../services/aiService';
@@ -121,227 +122,231 @@ export const AresCopilotModal: React.FC<AresCopilotModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[2000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none font-sans">
-      <div className="w-full max-w-3xl h-[88vh] bg-[#080B12] border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-zinc-300">
-        {/* Header */}
-        <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#0A0D14] flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-              <Bot className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div>
-              <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest font-semibold">
-                TACTICAL INTELLIGENCE // SUBSYSTEM 04
+      <div className="bezel-shell w-full max-w-3xl h-[88vh] flex flex-col">
+        <div className="bezel-core w-full h-full flex flex-col overflow-hidden text-zinc-300">
+          
+          {/* Header */}
+          <div className="p-4 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
+            <div className="flex items-center space-x-3">
+              <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
+                <Bot className="w-3.5 h-3.5 text-zinc-300" />
               </div>
-              <h2 className="text-sm font-bold text-white flex flex-wrap items-center gap-2">
-                <span className="font-mono tracking-tight">ARES MISSION SUBSYSTEM</span>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded border bg-white/[0.03] text-zinc-300 border-white/10 tracking-wider">
-                  {aiMode === 'online' ? 'LINK: DTE RELAY (X-BAND 8.4 GHz)' : 'LINK: AIR-GAPPED SUBSYSTEM'}
-                </span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2 font-mono">
-            <button
-              onClick={() => setShowSettings(!showSettings)}
-              title="Copilot Engine Settings"
-              className={`p-1.5 rounded transition-all ${
-                showSettings
-                  ? 'bg-white text-black'
-                  : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10'
-              }`}
-            >
-              <Settings className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={onToggleMode}
-              title={aiMode === 'online' ? 'Toggle to Local Qwen 2.5 7B' : 'Toggle to Online Gemini'}
-              className="px-2.5 py-1 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-zinc-300 rounded flex items-center space-x-1.5"
-            >
-              <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden sm:inline">ENGINE:</span>
-              <span className="font-bold">{aiMode.toUpperCase()}</span>
-            </button>
-
-            <button
-              onClick={onClose}
-              className="p-1.5 hover:bg-white/10 text-zinc-400 hover:text-white rounded transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Settings Drawer (if toggled) */}
-        {showSettings && (
-          <form onSubmit={handleSaveSettings} className="p-4 bg-[#161B22] border-b border-[#242E40] text-xs space-y-3">
-            <div className="flex justify-between items-center text-zinc-300 font-bold uppercase text-[10px]">
-              <span>AI COPILOT ENGINE CONFIGURATION</span>
-              {savedSettingsNote && (
-                <span className="text-emerald-400 flex items-center space-x-1">
-                  <Check className="w-3 h-3" />
-                  <span>Settings Saved</span>
-                </span>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-[10px] text-zinc-400 block mb-1">
-                  Google Gemini API Key (Online Mode)
-                </label>
-                <input
-                  type="password"
-                  placeholder="AIzaSy..."
-                  value={geminiKeyInput}
-                  onChange={e => setGeminiKeyInput(e.target.value)}
-                  className="w-full bg-[#0D1117] border border-[#242E40] rounded px-2.5 py-1 text-white focus:outline-none focus:border-[#E25B38]"
-                />
-              </div>
-
-              <div>
-                <label className="text-[10px] text-zinc-400 block mb-1">
-                  Local Ollama / LM Studio URL (Offline Mode)
-                </label>
-                <input
-                  type="text"
-                  value={localUrlInput}
-                  onChange={e => setLocalUrlInput(e.target.value)}
-                  className="w-full bg-[#0D1117] border border-[#242E40] rounded px-2.5 py-1 text-white focus:outline-none focus:border-[#E25B38]"
-                />
-              </div>
-
-              <div>
-                <label className="text-[10px] text-zinc-400 block mb-1">
-                  Local Model Name (e.g. qwen2.5:7b-instruct)
-                </label>
-                <input
-                  type="text"
-                  value={localModelInput}
-                  onChange={e => setLocalModelInput(e.target.value)}
-                  className="w-full bg-[#0D1117] border border-[#242E40] rounded px-2.5 py-1 text-white focus:outline-none focus:border-[#E25B38]"
-                />
+                <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold">
+                  TACTICAL INTELLIGENCE // COPILOT
+                </div>
+                <h2 className="text-xs font-bold text-white flex flex-wrap items-center gap-2">
+                  <span className="tracking-tight uppercase">ARES TELEMETRY CONSOLE</span>
+                  <span className="text-[9px] px-2 py-0.2 rounded border bg-white/[0.03] text-zinc-300 border-white/10 tracking-wider">
+                    {aiMode === 'online' ? 'LINK: DTE RELAY (8.4 GHz)' : 'LINK: LOCAL QWEN (OFFLINE)'}
+                  </span>
+                </h2>
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-2">
-              <span className="text-[10px] text-zinc-500">
-                Run `setup_offline_qwen.bat` to launch local model without internet.
-              </span>
+            <div className="flex items-center space-x-2">
               <button
-                type="submit"
-                className="px-3 py-1 bg-[#E25B38] hover:bg-[#C85A32] text-white font-bold rounded"
+                onClick={() => setShowSettings(!showSettings)}
+                title="Copilot Engine Settings"
+                className={`p-1.5 rounded transition-all ${
+                  showSettings
+                    ? 'bg-white text-black'
+                    : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10'
+                }`}
               >
-                Save Engine Settings
+                <Settings className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                onClick={onToggleMode}
+                title={aiMode === 'online' ? 'Toggle to Local Qwen 2.5 7B' : 'Toggle to Online Gemini'}
+                className="px-2.5 py-1 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-zinc-300 rounded flex items-center space-x-1.5 transition-all"
+              >
+                <Cpu className="w-3 h-3 text-zinc-400" />
+                <span className="hidden sm:inline text-[10px]">ENGINE:</span>
+                <span className="font-bold text-[10px]">{aiMode.toUpperCase()}</span>
+              </button>
+
+              <button
+                onClick={onClose}
+                className="p-1 hover:bg-white/10 text-zinc-400 hover:text-white rounded transition-colors"
+                title="Close (ESC)"
+              >
+                <X className="w-4 h-4" />
               </button>
             </div>
-          </form>
-        )}
+          </div>
 
-        {/* Chat Feed */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0A0C10]">
-          {messages.map(msg => {
-            const isUser = msg.sender === 'user';
-            const isSystem = msg.sender === 'system';
-
-            if (isSystem) {
-              return (
-                <div key={msg.id} className="p-2.5 bg-amber-950/40 border border-amber-500/40 rounded text-amber-300 text-xs">
-                  {msg.content}
-                </div>
-              );
-            }
-
-            return (
-              <div
-                key={msg.id}
-                className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}
-              >
-                <div className="flex items-center space-x-1.5 text-[10px] text-zinc-500 mb-1">
-                  <span className="font-bold uppercase text-zinc-400">
-                    {isUser ? 'ASTRONAUT CREW' : 'ARES COPILOT'}
+          {/* Settings Drawer (if toggled) */}
+          {showSettings && (
+            <form onSubmit={handleSaveSettings} className="p-4 bg-[#0A0D14] border-b border-white/[0.08] text-xs font-mono space-y-3">
+              <div className="flex justify-between items-center text-zinc-300 font-bold uppercase text-[10px]">
+                <span>COPILOT ENGINE CONFIGURATION</span>
+                {savedSettingsNote && (
+                  <span className="text-emerald-400 flex items-center space-x-1">
+                    <Check className="w-3 h-3" />
+                    <span>SETTINGS SAVED</span>
                   </span>
-                  <span>•</span>
-                  <span>{msg.timestamp}</span>
-                  {msg.engineUsed && (
-                    <>
-                      <span>•</span>
-                      <span className="text-[#E25B38]">{msg.engineUsed}</span>
-                    </>
-                  )}
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[9px] text-zinc-400 block mb-1 uppercase tracking-wider">
+                    Google Gemini API Key (Online Mode)
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="AIzaSy..."
+                    value={geminiKeyInput}
+                    onChange={e => setGeminiKeyInput(e.target.value)}
+                    className="w-full bg-black/60 border border-white/10 rounded px-2.5 py-1 text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                  />
                 </div>
 
-                <div
-                  className={`p-3.5 rounded-xl text-xs leading-relaxed max-w-[90%] whitespace-pre-wrap ${
-                    isUser
-                      ? 'bg-white text-black font-medium rounded-tr-none shadow-lg'
-                      : 'bg-white/[0.04] text-zinc-200 border border-white/10 rounded-tl-none shadow-md'
-                  }`}
-                >
-                  {msg.content}
+                <div>
+                  <label className="text-[9px] text-zinc-400 block mb-1 uppercase tracking-wider">
+                    Local Ollama URL (Offline Mode)
+                  </label>
+                  <input
+                    type="text"
+                    value={localUrlInput}
+                    onChange={e => setLocalUrlInput(e.target.value)}
+                    className="w-full bg-black/60 border border-white/10 rounded px-2.5 py-1 text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                  />
+                </div>
 
-                  {msg.citations && msg.citations.length > 0 && (
-                    <div className="mt-2.5 pt-2 border-t border-white/10 flex flex-wrap gap-1 text-[9px] text-zinc-400 font-mono">
-                      <span className="text-zinc-500">TELEMETRY CITATIONS:</span>
-                      {msg.citations.map((cite, idx) => (
-                        <span key={idx} className="bg-white/10 px-1.5 py-0.5 rounded text-zinc-300 border border-white/10">
-                          {cite}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                <div className="sm:col-span-2">
+                  <label className="text-[9px] text-zinc-400 block mb-1 uppercase tracking-wider">
+                    Local Model ID (e.g. qwen2.5:7b-instruct)
+                  </label>
+                  <input
+                    type="text"
+                    value={localModelInput}
+                    onChange={e => setLocalModelInput(e.target.value)}
+                    className="w-full bg-black/60 border border-white/10 rounded px-2.5 py-1 text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                  />
                 </div>
               </div>
-            );
-          })}
 
-          {loading && (
-            <div className="flex items-center space-x-2 text-zinc-400 text-xs py-2 font-mono">
-              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
-              <span>Subsystem query executing: correlating tactical telemetry...</span>
-            </div>
+              <div className="flex justify-between items-center pt-1">
+                <span className="text-[9px] text-zinc-500">
+                  Run setup_offline_qwen.bat to download and launch local Qwen.
+                </span>
+                <button
+                  type="submit"
+                  className="px-3 py-1 bg-white hover:bg-zinc-200 text-black font-bold text-[10px] rounded transition-all active:scale-95"
+                >
+                  SAVE CONFIG
+                </button>
+              </div>
+            </form>
           )}
 
-          <div ref={messagesEndRef} />
-        </div>
+          {/* Chat Feed */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#050608]">
+            {messages.map(msg => {
+              const isUser = msg.sender === 'user';
+              const isSystem = msg.sender === 'system';
 
-        {/* Quick Query Chips */}
-        <div className="px-3 py-2 bg-[#080B10] border-t border-white/[0.08] flex items-center space-x-1.5 overflow-x-auto">
-          <span className="text-[9px] font-mono text-zinc-500 flex-shrink-0 uppercase font-semibold">
-            QUERY PARAMETERS:
-          </span>
-          {quickPrompts.map((chip, idx) => (
+              if (isSystem) {
+                return (
+                  <div key={msg.id} className="p-3 bg-red-950/30 border border-red-500/30 rounded text-red-300 text-xs font-mono">
+                    {msg.content}
+                  </div>
+                );
+              }
+
+              return (
+                <div
+                  key={msg.id}
+                  className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}
+                >
+                  <div className="flex items-center space-x-1.5 text-[9px] font-mono text-zinc-500 mb-1">
+                    <span className="font-bold uppercase text-zinc-400">
+                      {isUser ? 'ASTRONAUT OPERATOR' : 'ARES COPILOT'}
+                    </span>
+                    <span>•</span>
+                    <span>{msg.timestamp}</span>
+                    {msg.engineUsed && (
+                      <>
+                        <span>•</span>
+                        <span className="text-zinc-400 font-mono">{msg.engineUsed}</span>
+                      </>
+                    )}
+                  </div>
+
+                  <div
+                    className={`p-3.5 rounded text-xs leading-relaxed max-w-[90%] whitespace-pre-wrap ${
+                      isUser
+                        ? 'bg-white text-black font-medium rounded-tr-none shadow-md font-sans'
+                        : 'bg-white/[0.03] text-zinc-200 border border-white/10 rounded-tl-none font-mono'
+                    }`}
+                  >
+                    {msg.content}
+
+                    {msg.citations && msg.citations.length > 0 && (
+                      <div className="mt-2.5 pt-2 border-t border-white/10 flex flex-wrap gap-1 text-[9px] text-zinc-400 font-mono">
+                        <span className="text-zinc-500">CITATIONS:</span>
+                        {msg.citations.map((cite, idx) => (
+                          <span key={idx} className="bg-white/10 px-1.5 py-0.2 rounded text-zinc-300 border border-white/10">
+                            {cite}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {loading && (
+              <div className="flex items-center space-x-2 text-zinc-400 text-xs py-2 font-mono">
+                <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                <span>Subsystem query executing: correlating tactical telemetry...</span>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Quick Query Chips */}
+          <div className="px-3 py-2 bg-[#07090E] border-t border-white/[0.08] flex items-center space-x-1.5 overflow-x-auto">
+            <span className="text-[9px] font-mono text-zinc-500 flex-shrink-0 uppercase font-semibold">
+              PARAMETERS:
+            </span>
+            {quickPrompts.map((chip, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleSend(chip.prompt)}
+                className="px-2 py-0.8 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/20 border border-white/[0.08] text-zinc-300 hover:text-white rounded text-[10px] font-mono flex-shrink-0 transition-all active:scale-95"
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Input Bar */}
+          <form onSubmit={e => { e.preventDefault(); handleSend(); }} className="p-3 bg-[#050608] border-t border-white/[0.08] flex items-center space-x-2 font-mono">
+            <input
+              type="text"
+              placeholder="Enter telemetry query (e.g. Three Forks core #6, Troy sand trap extraction)..."
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              disabled={loading}
+              className="flex-1 bg-white/[0.03] border border-white/10 rounded px-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white/30"
+            />
+
             <button
-              key={idx}
-              onClick={() => handleSend(chip.prompt)}
-              className="px-2 py-1 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 border border-white/[0.08] text-zinc-300 hover:text-white rounded text-[10px] font-mono flex-shrink-0 transition-all"
+              type="submit"
+              disabled={!input.trim() || loading}
+              className="px-3.5 py-2 bg-white hover:bg-zinc-200 disabled:opacity-30 text-black font-bold text-xs rounded transition-all flex items-center space-x-1.5 shadow-sm active:scale-95"
             >
-              {chip.label}
+              <span>SEND</span>
+              <CornerDownLeft className="w-3.5 h-3.5" />
             </button>
-          ))}
+          </form>
         </div>
-
-        {/* Input Bar */}
-        <form onSubmit={e => { e.preventDefault(); handleSend(); }} className="p-3 bg-[#000000] border-t border-white/[0.08] flex items-center space-x-2">
-          <input
-            type="text"
-            placeholder="Enter telemetry query (e.g., Three Forks core #6, Gediz Vallis sulfur, Troy extraction)..."
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            disabled={loading}
-            className="flex-1 bg-white/[0.03] border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder-zinc-500 focus:outline-none focus:border-white/30"
-          />
-
-          <button
-            type="submit"
-            disabled={!input.trim() || loading}
-            className="px-4 py-2 bg-white hover:bg-zinc-200 disabled:opacity-30 text-black font-mono font-bold text-xs rounded-lg transition-all flex items-center space-x-1"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">QUERY</span>
-          </button>
-        </form>
       </div>
     </div>
   );

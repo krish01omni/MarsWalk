@@ -176,7 +176,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
 
     roversToRender.forEach(([key, rover]) => {
       const isCurrentActive = key === activeMission;
-      const color = isCurrentActive ? '#E25B38' : '#6B7280';
+      const color = isCurrentActive ? '#FFFFFF' : '#64748B';
       const weight = isCurrentActive ? 4 : 2;
 
       const latlngs: [number, number][] = rover.waypoints.map(wp => [
@@ -197,7 +197,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
       const landingIcon = L.divIcon({
         className: 'custom-landing-marker',
         html: `
-          <div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 8px ${color};"></div>
+          <div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid ${isCurrentActive ? '#FFFFFF' : '#94A3B8'}; box-shadow: 0 0 8px rgba(255,255,255,0.4);"></div>
         `,
         iconSize: [14, 14],
         iconAnchor: [7, 7]
@@ -209,7 +209,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
       );
       landingMarker.bindPopup(`
         <div style="font-family: monospace; font-size: 11px;">
-          <b style="color: #E25B38;">${rover.rover} Landing Site</b><br/>
+          <b style="color: #FFFFFF;">${rover.rover} Landing Site</b><br/>
           ${rover.landing_site.name}<br/>
           Sol 0 | ${rover.landing_site.latitude.toFixed(2)}°N, ${rover.landing_site.longitude.toFixed(2)}°E<br/>
           Elev: ${rover.landing_site.elevation_m}m
@@ -518,7 +518,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
   }, [evaWaypoints]);
 
   return (
-    <div className="relative w-full h-full bg-[#0A0C10] overflow-hidden select-none">
+    <div className="relative w-full h-full bg-[#050608] overflow-hidden select-none font-sans">
       <div ref={mapContainerRef} className="w-full h-full" />
 
       {/* Top-Right: Sleek Collapsible Layer Controls Panel */}
@@ -526,128 +526,130 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
         {!isLayersOpen ? (
           <button
             onClick={() => setIsLayersOpen(true)}
-            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-[#090C12]/90 hover:bg-[#121622] border border-white/15 text-zinc-200 backdrop-blur-xl shadow-2xl transition-all group"
+            className="flex items-center space-x-2 px-3 py-1.5 rounded bg-black/85 hover:bg-black border border-white/20 text-white backdrop-blur-xl shadow-xl transition-all group"
           >
-            <Layers className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform" />
-            <span className="font-semibold text-[11px] tracking-wide">LAYERS & OVERLAYS</span>
+            <Layers className="w-3.5 h-3.5 text-zinc-300 group-hover:rotate-12 transition-transform" />
+            <span className="font-bold text-[10px] tracking-wider uppercase">LAYERS & OVERLAYS</span>
           </button>
         ) : (
-          <div className="w-72 bg-[#090C12]/95 backdrop-blur-2xl p-3.5 rounded-2xl border border-white/15 shadow-2xl space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-              <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                <Layers className="w-3.5 h-3.5 mr-1.5 text-cyan-400" />
-                NASA SATELLITE BASEMAPS
-              </div>
-              <button
-                onClick={() => setIsLayersOpen(false)}
-                className="text-zinc-400 hover:text-white text-[10px] px-1.5 py-0.5 rounded hover:bg-white/[0.08]"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* WMTS Satellite Basemap Switcher */}
-            <div className="space-y-1.5">
-              {satelliteLayers.map(layer => {
-                const isSelected = activeLayerId === layer.id;
-                return (
-                  <div
-                    key={layer.id}
-                    onClick={() => switchSatelliteLayer(layer.id)}
-                    className={`p-2 rounded-xl text-[11px] transition-all cursor-pointer border ${
-                      isSelected
-                        ? 'bg-white/[0.08] text-white border-cyan-400/80 shadow-md'
-                        : 'bg-white/[0.02] text-zinc-300 border-white/5 hover:border-white/20 hover:bg-white/[0.05]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold">{layer.layer_name}</span>
-                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-cyan-300 font-mono">
-                        {layer.resolution}
-                      </span>
-                    </div>
-                    <div className="text-[10px] text-zinc-400 mt-1 line-clamp-2">
-                      {layer.description}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Feature Toggles */}
-            <div className="pt-2.5 border-t border-white/[0.08] space-y-2 text-[11px]">
-              <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                <Eye className="w-3 h-3 mr-1.5 text-purple-400" />
-                VECTOR OVERLAYS
+          <div className="bezel-shell w-72">
+            <div className="bezel-core p-3.5 space-y-3 font-mono">
+              <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
+                <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
+                  <Layers className="w-3.5 h-3.5 mr-1.5 text-zinc-300" />
+                  NASA SATELLITE BASEMAPS
+                </div>
+                <button
+                  onClick={() => setIsLayersOpen(false)}
+                  className="text-zinc-400 hover:text-white text-[10px] px-1.5 py-0.5 rounded hover:bg-white/[0.08]"
+                >
+                  ✕
+                </button>
               </div>
 
-              <label className="flex items-center space-x-2 text-zinc-300 hover:text-white cursor-pointer transition-colors">
-                <input
-                  type="checkbox"
-                  checked={showAllRovers}
-                  onChange={e => setShowAllRovers(e.target.checked)}
-                  className="accent-[#E25B38] rounded"
-                />
-                <span>All 5 Rover Traverses</span>
-              </label>
+              {/* WMTS Satellite Basemap Switcher */}
+              <div className="space-y-1.5">
+                {satelliteLayers.map(layer => {
+                  const isSelected = activeLayerId === layer.id;
+                  return (
+                    <div
+                      key={layer.id}
+                      onClick={() => switchSatelliteLayer(layer.id)}
+                      className={`p-2 rounded text-[11px] transition-all cursor-pointer border ${
+                        isSelected
+                          ? 'bg-white/10 text-white border-white/40 shadow-sm'
+                          : 'bg-white/[0.02] text-zinc-300 border-white/5 hover:border-white/20 hover:bg-white/[0.05]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold uppercase text-[10px]">{layer.layer_name}</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-zinc-300 font-mono">
+                          {layer.resolution}
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-zinc-400 mt-1 line-clamp-2 font-sans">
+                        {layer.description}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
-              <label className="flex items-center space-x-2 text-zinc-300 hover:text-cyan-300 cursor-pointer transition-colors">
-                <input
-                  type="checkbox"
-                  checked={showIngenuity}
-                  onChange={e => setShowIngenuity(e.target.checked)}
-                  className="accent-cyan-400 rounded"
-                />
-                <span className="flex items-center space-x-1">
-                  <Plane className="w-3 h-3 text-cyan-400" />
-                  <span>Ingenuity (72 Flights)</span>
-                </span>
-              </label>
+              {/* Feature Toggles */}
+              <div className="pt-2 border-t border-white/[0.08] space-y-2 text-[11px]">
+                <div className="text-[9px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
+                  <Eye className="w-3 h-3 mr-1.5 text-zinc-400" />
+                  VECTOR OVERLAYS
+                </div>
 
-              <label className="flex items-center space-x-2 text-zinc-300 hover:text-red-300 cursor-pointer transition-colors">
-                <input
-                  type="checkbox"
-                  checked={showHazards}
-                  onChange={e => setShowHazards(e.target.checked)}
-                  className="accent-red-500 rounded"
-                />
-                <span className="text-red-400 font-medium">Hazard Exclusion Rings</span>
-              </label>
+                <label className="flex items-center space-x-2 text-zinc-300 hover:text-white cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={showAllRovers}
+                    onChange={e => setShowAllRovers(e.target.checked)}
+                    className="accent-white rounded"
+                  />
+                  <span>All 5 Rover Traverses</span>
+                </label>
 
-              <label className="flex items-center space-x-2 text-zinc-300 hover:text-red-300 cursor-pointer transition-colors">
-                <input
-                  type="checkbox"
-                  checked={showCautionPolygons}
-                  onChange={e => setShowCautionPolygons(e.target.checked)}
-                  className="accent-red-400 rounded"
-                />
-                <span className="text-red-300">Caution Zones Polygons</span>
-              </label>
+                <label className="flex items-center space-x-2 text-zinc-300 hover:text-white cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={showIngenuity}
+                    onChange={e => setShowIngenuity(e.target.checked)}
+                    className="accent-white rounded"
+                  />
+                  <span className="flex items-center space-x-1">
+                    <Plane className="w-3 h-3 text-zinc-400" />
+                    <span>Ingenuity (72 Flights)</span>
+                  </span>
+                </label>
 
-              <label className="flex items-center space-x-2 text-zinc-300 hover:text-emerald-300 cursor-pointer transition-colors">
-                <input
-                  type="checkbox"
-                  checked={showDepot}
-                  onChange={e => setShowDepot(e.target.checked)}
-                  className="accent-emerald-500 rounded"
-                />
-                <span className="text-emerald-400 font-medium">Three Forks Sample Depot</span>
-              </label>
+                <label className="flex items-center space-x-2 text-zinc-300 hover:text-red-300 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={showHazards}
+                    onChange={e => setShowHazards(e.target.checked)}
+                    className="accent-red-500 rounded"
+                  />
+                  <span className="text-red-400 font-medium">Hazard Exclusion Rings</span>
+                </label>
+
+                <label className="flex items-center space-x-2 text-zinc-300 hover:text-red-300 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={showCautionPolygons}
+                    onChange={e => setShowCautionPolygons(e.target.checked)}
+                    className="accent-red-400 rounded"
+                  />
+                  <span className="text-red-300">Caution Zones Polygons</span>
+                </label>
+
+                <label className="flex items-center space-x-2 text-zinc-300 hover:text-white cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={showDepot}
+                    onChange={e => setShowDepot(e.target.checked)}
+                    className="accent-white rounded"
+                  />
+                  <span className="text-zinc-200 font-medium">Three Forks Sample Depot</span>
+                </label>
+              </div>
             </div>
           </div>
         )}
 
         {/* EVA Active Drawing Indicator */}
         {isEVAPlanning && (
-          <div className="mt-2.5 p-2.5 rounded-xl bg-amber-950/70 border border-amber-500/60 text-amber-200 text-[11px] flex items-center space-x-2 shadow-xl animate-pulse backdrop-blur-md">
-            <Compass className="w-4 h-4 text-amber-400 flex-shrink-0" />
+          <div className="mt-2.5 p-2 rounded bg-amber-950/80 border border-amber-500/60 text-amber-200 text-[11px] flex items-center space-x-2 shadow-xl animate-pulse backdrop-blur-md">
+            <Compass className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
             <span>EVA PLACEMENT ACTIVE: Click terrain to drop route pins</span>
           </div>
         )}
       </div>
 
       {/* Bottom Floating Tactical Status & Coordinate Bar */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center space-x-3 px-4 py-2 rounded-full bg-[#080B10]/90 border border-white/10 backdrop-blur-xl shadow-2xl text-[11px] font-mono text-zinc-400 pointer-events-none">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center space-x-3 px-4 py-1.5 rounded bg-black/90 border border-white/15 backdrop-blur-xl shadow-2xl text-[10px] font-mono text-zinc-400 pointer-events-none">
         {cursorCoords && (
           <>
             <span className="text-zinc-200 font-semibold">
@@ -660,20 +662,20 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
             <span className="text-zinc-600">•</span>
           </>
         )}
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <span className="w-2 h-2 rounded-full bg-cyan-400" />
+        <span className="flex items-center space-x-1 text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-white" />
           <span>ROVER</span>
         </span>
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <span className="w-2 h-2 rounded-full bg-purple-400" />
+        <span className="flex items-center space-x-1 text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
           <span>LANDER</span>
         </span>
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="flex items-center space-x-1 text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
           <span>HAZARD</span>
         </span>
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+        <span className="flex items-center space-x-1 text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-zinc-200" />
           <span>DEPOT</span>
         </span>
       </div>

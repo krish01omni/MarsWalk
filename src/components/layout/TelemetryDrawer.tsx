@@ -59,13 +59,13 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
   return (
     <aside
-      className={`fixed left-0 top-13 bottom-0 z-[1050] transition-all duration-300 ease-in-out flex ${
+      className={`fixed left-0 top-14 bottom-0 z-[1050] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex ${
         isOpen ? 'w-84 md:w-96' : 'w-10'
       }`}
     >
       {/* 1. Main Drawer Surface */}
       <div
-        className={`h-full w-full bg-[#080A0F]/90 backdrop-blur-2xl border-r border-white/[0.08] flex flex-col transition-all duration-300 overflow-hidden shadow-2xl ${
+        className={`h-full w-full bg-[#050608]/95 backdrop-blur-2xl border-r border-white/[0.08] flex flex-col transition-all duration-300 overflow-hidden shadow-2xl ${
           isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full pointer-events-none'
         }`}
       >
@@ -76,17 +76,17 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
             <div className="p-4 border-b border-white/[0.08] bg-white/[0.02]">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase font-semibold flex items-center space-x-1 mb-0.5">
-                    <Radio className="w-3 h-3 text-cyan-400 mr-1" />
+                  <div className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase font-semibold flex items-center space-x-1 mb-0.5">
+                    <Radio className="w-3 h-3 text-zinc-400 mr-1" />
                     <span>STATIONARY SCIENCE STATION</span>
                   </div>
-                  <h2 className="text-lg font-bold text-white tracking-tight">
+                  <h2 className="text-base font-bold text-white tracking-tight font-mono uppercase">
                     {landerData.mission}
                   </h2>
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] font-mono text-zinc-500 uppercase">SURFACE DURATION</div>
-                  <div className="text-sm font-mono font-bold text-cyan-400">
+                  <div className="text-[9px] font-mono text-zinc-500 uppercase">SURFACE DURATION</div>
+                  <div className="text-sm font-mono font-bold text-white">
                     {landerData.operational_record.duration_sols} Sols
                   </div>
                 </div>
@@ -94,45 +94,45 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
             </div>
 
             {/* Scrollable details */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 font-sans">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 font-sans">
               {/* Landing Site */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+              <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08]">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1 flex items-center">
-                  <MapPin className="w-3 h-3 text-cyan-400 mr-1.5" />
+                  <MapPin className="w-3 h-3 text-zinc-400 mr-1.5" />
                   TOUCHDOWN SITE
                 </div>
                 <div className="text-sm font-semibold text-white mb-0.5">
                   {landerData.landing_site.name}
                 </div>
-                <div className="text-xs text-zinc-400 mb-2.5">
+                <div className="text-xs text-zinc-400 mb-2.5 font-mono">
                   Region: <span className="text-zinc-200">{landerData.landing_site.region}</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-white/[0.06] text-zinc-300">
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">LATITUDE</span>
+                    <span className="text-zinc-500 text-[9px] block">LATITUDE</span>
                     {landerData.landing_site.latitude}°N
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">LONGITUDE</span>
+                    <span className="text-zinc-500 text-[9px] block">LONGITUDE</span>
                     {landerData.landing_site.longitude}°E
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">ELEVATION</span>
+                    <span className="text-zinc-500 text-[9px] block">ELEVATION</span>
                     {landerData.landing_site.elevation_m}m
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">LANDING DATE</span>
+                    <span className="text-zinc-500 text-[9px] block">TOUCHDOWN DATE</span>
                     {landerData.landing_site.earth_date}
                   </div>
                 </div>
               </div>
 
               {/* Discoveries */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] space-y-2.5">
+              <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center justify-between">
                   <span className="flex items-center">
-                    <Sparkles className="w-3 h-3 text-amber-400 mr-1.5" />
+                    <Sparkles className="w-3 h-3 text-zinc-400 mr-1.5" />
                     HISTORIC DISCOVERIES
                   </span>
                   <span className="text-[10px] text-zinc-500 font-mono">
@@ -142,8 +142,8 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
                 <div className="space-y-2">
                   {landerData.historic_discoveries.map((disc, idx) => (
-                    <div key={idx} className="p-2.5 rounded-lg bg-black/40 border border-white/[0.06]">
-                      <div className="text-xs font-semibold text-amber-300 mb-1">
+                    <div key={idx} className="p-2.5 rounded bg-black/60 border border-white/[0.06]">
+                      <div className="text-xs font-mono font-semibold text-white mb-1 uppercase">
                         {disc.experiment || disc.discovery || disc.phenomenon || `Discovery #${idx + 1}`}
                       </div>
                       <p className="text-[11px] text-zinc-300 leading-relaxed font-sans">
@@ -155,11 +155,11 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               </div>
 
               {/* Astronaut Note */}
-              <div className="p-3.5 rounded-xl bg-cyan-950/20 border border-cyan-500/30">
-                <div className="text-[10px] font-mono text-cyan-400 font-semibold tracking-widest uppercase mb-1">
+              <div className="p-3.5 rounded bg-white/[0.02] border border-white/[0.08]">
+                <div className="text-[10px] font-mono text-zinc-300 font-semibold tracking-widest uppercase mb-1">
                   ASTRONAUT TACTICAL ADVISORY
                 </div>
-                <p className="text-xs text-cyan-200/90 leading-relaxed font-sans">
+                <p className="text-xs text-zinc-300 leading-relaxed font-sans">
                   {landerData.astronaut_tactical_note}
                 </p>
               </div>
@@ -172,25 +172,21 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
             <div className="p-4 border-b border-white/[0.08] bg-white/[0.02]">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase font-medium mb-0.5">
+                  <div className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-medium mb-0.5">
                     ROVER TELEMETRY
                   </div>
-                  <h2 className="text-lg font-bold text-white tracking-tight flex items-center space-x-2">
+                  <h2 className="text-base font-bold text-white tracking-tight flex items-center space-x-2 font-mono uppercase">
                     <span>{roverData.rover}</span>
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${
-                        roverData.current_status.active
-                          ? 'bg-emerald-950/60 text-emerald-400 border-emerald-500/40'
-                          : 'bg-zinc-800 text-zinc-300 border-zinc-700'
-                      }`}
+                      className="text-[9px] font-mono px-2 py-0.2 rounded border uppercase bg-white/[0.05] text-zinc-300 border-white/10"
                     >
-                      {roverData.current_status.active ? 'OPERATIONAL' : 'MISSION COMPLETE'}
+                      {roverData.current_status.active ? 'OPERATIONAL' : 'ARCHIVE'}
                     </span>
                   </h2>
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] font-mono text-zinc-500 uppercase">ODOMETER</div>
-                  <div className="text-base font-mono font-bold text-[#E25B38]">
+                  <div className="text-[9px] font-mono text-zinc-500 uppercase">ODOMETER</div>
+                  <div className="text-base font-mono font-bold text-white">
                     {roverData.current_status.total_odometer_km} <span className="text-xs text-zinc-400 font-normal">km</span>
                   </div>
                 </div>
@@ -198,11 +194,11 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
             </div>
 
             {/* Scrollable details */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 font-sans">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 font-sans">
               {/* Landing Site Card */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08]">
-                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1 flex items-center">
-                  <MapPin className="w-3 h-3 text-[#E25B38] mr-1.5" />
+              <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08]">
+                <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1 flex items-center">
+                  <MapPin className="w-3 h-3 text-zinc-400 mr-1.5" />
                   LANDING SITE
                 </div>
                 <div className="text-sm font-semibold text-white mb-2">
@@ -211,32 +207,32 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
                 <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-white/[0.06] text-zinc-300">
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">LATITUDE</span>
+                    <span className="text-zinc-500 text-[9px] block">LATITUDE</span>
                     {roverData.landing_site.latitude}°N
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">LONGITUDE</span>
+                    <span className="text-zinc-500 text-[9px] block">LONGITUDE</span>
                     {roverData.landing_site.longitude}°E
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">ELEVATION</span>
+                    <span className="text-zinc-500 text-[9px] block">ELEVATION</span>
                     {roverData.landing_site.elevation_m}m
                   </div>
                   <div>
-                    <span className="text-zinc-500 text-[10px] block">TOUCHDOWN</span>
+                    <span className="text-zinc-500 text-[9px] block">TOUCHDOWN</span>
                     Sol {roverData.landing_site.landing_sol}
                   </div>
                 </div>
               </div>
 
               {/* Precision Mission Scrubber */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] space-y-2.5">
+              <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center">
-                    <Clock className="w-3 h-3 text-cyan-400 mr-1.5" />
+                  <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest flex items-center">
+                    <Clock className="w-3 h-3 text-zinc-400 mr-1.5" />
                     TRAVERSE SCRUBBER
                   </div>
-                  <div className="text-xs font-mono font-bold text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/30">
+                  <div className="text-xs font-mono font-bold text-white bg-white/10 px-2 py-0.5 rounded border border-white/10">
                     Sol {currentWaypoint ? currentWaypoint.sol : selectedSol}
                   </div>
                 </div>
@@ -253,7 +249,7 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
                       onSelectSol(roverData.waypoints[idx].sol);
                     }
                   }}
-                  className="w-full h-1.5 bg-[#1F2430] rounded-lg appearance-none cursor-pointer accent-[#E25B38]"
+                  className="w-full h-1 bg-[#1F2430] rounded appearance-none cursor-pointer accent-white"
                 />
 
                 {/* Playback Controls */}
@@ -277,10 +273,10 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
                     <button
                       onClick={() => setIsPlaying(!isPlaying)}
-                      className="px-2.5 py-1 rounded-md bg-[#E25B38]/20 hover:bg-[#E25B38]/30 border border-[#E25B38]/40 text-[#E25B38] text-xs font-mono flex items-center space-x-1 transition-all"
+                      className="px-2.5 py-0.8 rounded bg-white hover:bg-zinc-200 text-black text-xs font-mono flex items-center space-x-1 transition-all active:scale-95 shadow-sm"
                     >
-                      {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-                      <span className="text-[10px] font-semibold">{isPlaying ? 'PAUSE' : 'PLAY'}</span>
+                      {isPlaying ? <Pause className="w-3 h-3 text-black" /> : <Play className="w-3 h-3 text-black" />}
+                      <span className="text-[10px] font-bold">{isPlaying ? 'PAUSE' : 'PLAY'}</span>
                     </button>
 
                     <button
@@ -304,10 +300,10 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
               {/* Waypoint Profile */}
               {currentWaypoint && (
-                <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] space-y-2.5">
+                <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-semibold flex items-center">
-                      <Compass className="w-3 h-3 mr-1.5" />
+                    <div className="text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-semibold flex items-center">
+                      <Compass className="w-3 h-3 text-zinc-400 mr-1.5" />
                       WAYPOINT DATA
                     </div>
                     {onFlyToWaypoint && (
@@ -321,33 +317,33 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
                     )}
                   </div>
 
-                  <div className="text-sm font-semibold text-white">
+                  <div className="text-xs font-bold text-white font-mono uppercase">
                     {currentWaypoint.target_name || `Site Traverse Sol ${currentWaypoint.sol}`}
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono text-zinc-300">
                     <div>
-                      <span className="text-zinc-500 text-[10px] block">COORDINATES</span>
+                      <span className="text-zinc-500 text-[9px] block">COORDINATES</span>
                       {currentWaypoint.lat.toFixed(4)}°, {currentWaypoint.lon.toFixed(4)}°
                     </div>
                     <div>
-                      <span className="text-zinc-500 text-[10px] block">ELEVATION</span>
+                      <span className="text-zinc-500 text-[9px] block">ELEVATION</span>
                       {currentWaypoint.elev_m}m
                     </div>
                     <div>
-                      <span className="text-zinc-500 text-[10px] block">DRIVE DISTANCE</span>
+                      <span className="text-zinc-500 text-[9px] block">DRIVE DISTANCE</span>
                       {currentWaypoint.dist_m}m
                     </div>
                     <div>
-                      <span className="text-zinc-500 text-[10px] block">HEADING</span>
+                      <span className="text-zinc-500 text-[9px] block">HEADING</span>
                       {currentWaypoint.heading_deg !== undefined ? `${currentWaypoint.heading_deg}°` : 'Nominal'}
                     </div>
                   </div>
 
                   {currentWaypoint.activity && (
                     <div className="pt-2 border-t border-white/[0.06]">
-                      <div className="text-[10px] font-mono text-zinc-400 uppercase mb-0.5">SCIENCE ACTIVITY</div>
-                      <p className="text-xs text-zinc-300 leading-relaxed">
+                      <div className="text-[9px] font-mono text-zinc-500 uppercase mb-0.5">SCIENCE ACTIVITY</div>
+                      <p className="text-xs text-zinc-300 leading-relaxed font-sans">
                         {currentWaypoint.activity}
                       </p>
                     </div>
@@ -355,7 +351,7 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
 
                   {/* Hazard Flag */}
                   {currentWaypoint.hazard_warning && (
-                    <div className="p-2.5 rounded-lg bg-red-950/30 border border-red-500/40 text-red-300 text-xs flex items-start space-x-2">
+                    <div className="p-2.5 rounded bg-red-950/30 border border-red-500/40 text-red-300 text-xs flex items-start space-x-2">
                       <ShieldAlert className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
                       <div>
                         <div className="text-[10px] font-mono font-bold text-red-400 uppercase">
@@ -377,7 +373,7 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
       {/* 2. Sleek Dock Toggle Tab */}
       <button
         onClick={onToggleOpen}
-        className="h-10 w-6 self-center -ml-1 rounded-r-lg bg-[#141824] hover:bg-[#1E2435] border-y border-r border-white/15 flex items-center justify-center text-zinc-400 hover:text-white transition-all shadow-xl z-30"
+        className="h-10 w-6 self-center -ml-1 rounded-r bg-[#0F131D] hover:bg-[#1A2030] border-y border-r border-white/15 flex items-center justify-center text-zinc-400 hover:text-white transition-all shadow-xl z-30"
         title={isOpen ? 'Collapse Telemetry' : 'Expand Telemetry'}
       >
         {isOpen ? <ChevronLeft className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}

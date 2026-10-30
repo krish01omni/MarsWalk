@@ -50,138 +50,141 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
 
   return (
     <div className="fixed inset-0 z-[2000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none font-sans">
-      <div className="w-full max-w-2xl bg-[#080B12] border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-zinc-300">
-        
-        {/* Header */}
-        <div className="p-6 border-b border-white/[0.08] bg-[#0C101A] flex items-center justify-between">
-          <div className="flex items-center space-x-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#E25B38]/15 border border-[#E25B38]/30 flex items-center justify-center text-[#E25B38]">
-              <FolderDown className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-[10px] font-mono text-[#E25B38] uppercase tracking-[0.2em] font-bold">
-                OFFLINE EXPEDITION FIELD KIT
-              </div>
-              <h2 className="text-lg font-bold text-white tracking-tight flex items-center space-x-2">
-                <span>Deploy Locally with Quantized Qwen 2.5 7B</span>
-              </h2>
-            </div>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-white/10 text-zinc-400 hover:text-white rounded-xl transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 space-y-6 overflow-y-auto max-h-[72vh]">
+      <div className="bezel-shell w-full max-w-2xl max-h-[88vh] flex flex-col">
+        <div className="bezel-core w-full h-full flex flex-col overflow-hidden text-zinc-300">
           
-          {/* Brief Overview */}
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs text-zinc-300 leading-relaxed space-y-2">
-            <p>
-              The <strong>Ares Route Explorer</strong> web console is designed to operate 100% air-gapped on Mars surface tablets, pressurized rovers, or local developer workstations.
-            </p>
-            <p className="text-zinc-400">
-              Running a local quantized model (<code className="text-[#E25B38] font-mono">qwen2.5:7b-instruct</code>) gives human crews instant AI query access to the NASA traverse database, hazard avoidance index, and Three Forks sample registry without an active Deep Space Network link.
-            </p>
-          </div>
-
-          {/* Quick Action Download & GitHub Banner */}
-          <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-4">
-            <div className="flex items-center justify-between">
+          {/* Header */}
+          <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
+                <FolderDown className="w-4 h-4 text-zinc-300" />
+              </div>
               <div>
-                <div className="text-sm font-bold text-white">Direct Repository Access</div>
-                <div className="text-xs text-zinc-400 font-mono">krish01omni / MarsWalk</div>
-              </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-950/60 text-cyan-300 border border-cyan-500/30">
-                OPEN SOURCE
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-bold font-mono flex items-center space-x-2 transition-all shadow-lg active:scale-95"
-              >
-                <span>View on GitHub</span>
-                <ExternalLink className="w-3.5 h-3.5 text-black" />
-              </a>
-
-              <a
-                href={downloadZipUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/10 text-white text-xs font-semibold flex items-center space-x-2 transition-all border border-white/10"
-              >
-                <Download className="w-3.5 h-3.5 text-zinc-400" />
-                <span>Download Repo (.ZIP)</span>
-              </a>
-
-              <a
-                href="/setup_offline_qwen.bat"
-                download="setup_offline_qwen.bat"
-                className="px-4 py-2.5 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 text-xs font-semibold flex items-center space-x-2 transition-all border border-cyan-500/30"
-              >
-                <FileCode2 className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Download 1-Click .BAT</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Setup Steps */}
-          <div className="space-y-4">
-            <div className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center space-x-2">
-              <Terminal className="w-3.5 h-3.5 text-[#E25B38]" />
-              <span>Step-by-Step Offline Deployment</span>
-            </div>
-
-            {steps.map((step, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-[#05070B] border border-white/[0.06] space-y-2">
-                <div className="text-xs font-semibold text-white flex items-center justify-between">
-                  <span>{step.title}</span>
-                  <button
-                    onClick={() => copyToClipboard(step.command, idx)}
-                    className="text-[11px] font-mono text-zinc-400 hover:text-white flex items-center space-x-1 px-2.5 py-1 rounded-lg hover:bg-white/[0.08] transition-colors"
-                  >
-                    {copiedStep === idx ? (
-                      <>
-                        <Check className="w-3 h-3 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3 h-3" />
-                        <span>Copy</span>
-                      </>
-                    )}
-                  </button>
+                <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
+                  EXPEDITION FIELD KIT // OFFLINE
                 </div>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">{step.desc}</p>
-                <pre className="p-3 rounded-xl bg-black/60 border border-white/5 font-mono text-xs text-[#E25B38] overflow-x-auto">
-                  <code>{step.command}</code>
-                </pre>
+                <h2 className="text-xs md:text-sm font-bold text-white flex items-center space-x-2 tracking-wide uppercase">
+                  <span>Deploy Locally with Quantized Qwen 2.5 7B</span>
+                </h2>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* Footer */}
-        <div className="p-5 border-t border-white/[0.08] bg-[#0C101A] flex items-center justify-between text-xs">
-          <div className="text-[11px] text-zinc-400 font-mono flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Air-Gapped & 100% Offline Capable</span>
+            <button
+              onClick={onClose}
+              className="p-1 hover:bg-white/10 text-zinc-400 hover:text-white rounded transition-colors"
+              title="Close (ESC)"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="px-5 py-2 bg-white/[0.08] hover:bg-white/15 text-white font-semibold rounded-xl transition-colors"
-          >
-            Done
-          </button>
+
+          {/* Content */}
+          <div className="p-5 md:p-6 space-y-5 overflow-y-auto font-mono">
+            
+            {/* Brief Overview */}
+            <div className="p-4 rounded bg-[#0A0D14] border border-white/[0.08] text-xs text-zinc-300 leading-relaxed space-y-1.5 font-sans">
+              <p>
+                The <strong className="text-white font-mono">MarsWalk</strong> telemetry console operates 100% air-gapped on planetary hardware, pressurized rovers, or local field laptops.
+              </p>
+              <p className="text-zinc-400 text-[11px]">
+                A local quantized model (<code className="text-zinc-200 font-mono">qwen2.5:7b-instruct</code>) gives astronauts instant query access to the NASA traverse ledger, hazard avoidance index, and Three Forks sample registry without an active Deep Space Network link.
+              </p>
+            </div>
+
+            {/* Quick Action Download & GitHub Banner */}
+            <div className="p-4 rounded bg-[#0A0D14] border border-white/[0.08] space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white uppercase">Direct Repository Access</div>
+                  <div className="text-[10px] text-zinc-500 font-mono">krish01omni / MarsWalk</div>
+                </div>
+                <span className="px-2 py-0.2 rounded text-[9px] font-mono bg-white/10 text-zinc-300 border border-white/10">
+                  OPEN SOURCE // MIT
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1.5 rounded bg-white hover:bg-zinc-200 text-black text-xs font-bold font-mono flex items-center space-x-2 transition-all shadow-sm active:scale-95"
+                >
+                  <span>VIEW GITHUB REPO</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-black" />
+                </a>
+
+                <a
+                  href={downloadZipUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10"
+                >
+                  <Download className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>DOWNLOAD .ZIP</span>
+                </a>
+
+                <a
+                  href="/setup_offline_qwen.bat"
+                  download="setup_offline_qwen.bat"
+                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10"
+                >
+                  <FileCode2 className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>1-CLICK .BAT LAUNCHER</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Setup Steps */}
+            <div className="space-y-3">
+              <div className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center space-x-2">
+                <Terminal className="w-3.5 h-3.5 text-zinc-400" />
+                <span>STEP-BY-STEP OFFLINE DEPLOYMENT</span>
+              </div>
+
+              {steps.map((step, idx) => (
+                <div key={idx} className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.06] space-y-2">
+                  <div className="text-xs font-semibold text-white flex items-center justify-between">
+                    <span className="uppercase">{step.title}</span>
+                    <button
+                      onClick={() => copyToClipboard(step.command, idx)}
+                      className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center space-x-1 px-2 py-0.8 rounded hover:bg-white/[0.08] transition-colors"
+                    >
+                      {copiedStep === idx ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-400" />
+                          <span className="text-emerald-400">COPIED</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>COPY</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-zinc-400 leading-relaxed font-sans">{step.desc}</p>
+                  <pre className="p-2.5 rounded bg-black/80 border border-white/10 font-mono text-xs text-zinc-200 overflow-x-auto">
+                    <code>{step.command}</code>
+                  </pre>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="p-4 border-t border-white/[0.08] bg-[#07090E] flex items-center justify-between text-xs font-mono">
+            <div className="text-[11px] text-zinc-400 flex items-center space-x-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>AIR-GAPPED & FIELD VERIFIED</span>
+            </div>
+            <button
+              onClick={onClose}
+              className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all active:scale-95 shadow-sm"
+            >
+              DONE
+            </button>
+          </div>
         </div>
       </div>
     </div>

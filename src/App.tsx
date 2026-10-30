@@ -51,6 +51,25 @@ export const App: React.FC = () => {
   // AI Copilot State
   const [aiMode, setAiMode] = useState<CopilotMode>(aresAI.getMode());
 
+  // Global Aerospace Keyboard Accelerators (Cmd+K Copilot, Esc Close)
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCopilotModalOpen(prev => !prev);
+      } else if (e.key === 'Escape') {
+        setIsHazardModalOpen(false);
+        setIsEVAModalOpen(false);
+        setIsDiscoveriesModalOpen(false);
+        setIsRefsModalOpen(false);
+        setIsOfflineSetupOpen(false);
+        setIsCopilotModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Handle rover or lander selection
   const handleSelectMission = (missionId: string) => {
     setActiveMission(missionId);
@@ -118,7 +137,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#06080D] font-sans">
+    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#050608] font-sans">
       {/* Tactical Header with Multi-Page Navigation */}
       <TacticalHeader
         currentTab={currentTab}

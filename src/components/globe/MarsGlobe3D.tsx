@@ -300,7 +300,7 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
       });
     };
 
-    // Register All Rovers (Aerospace Ember #E25B38)
+    // Register All Rovers (Aerospace White Phosphor)
     Object.entries(allRoverTraverses).forEach(([id, rover]) => {
       createBeacon(
         id,
@@ -308,7 +308,7 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
         'rover',
         rover.landing_site.latitude,
         rover.landing_site.longitude,
-        0xe25b38,
+        0xffffff,
         `${rover.landing_site.crater || rover.landing_site.name} • ${rover.current_status.total_odometer_km} km`
       );
     });
@@ -531,25 +531,25 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
       {/* Subtle Texture Loading Indicator */}
       {isLoadingTexture && (
         <div className="absolute top-4 right-4 flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#0D111A]/80 border border-white/10 text-[11px] text-zinc-400 font-mono backdrop-blur-md">
-          <div className="w-2 h-2 rounded-full bg-[#E25B38] animate-ping" />
+          <div className="w-2 h-2 rounded-full bg-white animate-ping" />
           <span>INITIALIZING 2K MARS ELEVATION MESH...</span>
         </div>
       )}
 
       {/* Floating Tactical Overlay Controls (NASA Eyes Style) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-4 px-4 py-2 rounded-full bg-[#0B0D13]/80 border border-white/[0.08] backdrop-blur-xl shadow-2xl text-[11px] font-mono text-zinc-400 pointer-events-none">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-4 px-4 py-1.5 rounded bg-black/90 border border-white/15 backdrop-blur-xl shadow-2xl text-[10px] font-mono text-zinc-400 pointer-events-none">
         <span className="flex items-center space-x-1.5 text-zinc-300">
-          <Compass className="w-3.5 h-3.5 text-[#E25B38]" />
+          <Compass className="w-3.5 h-3.5 text-zinc-400" />
           <span>DRAG TO ROTATE GLOBE</span>
         </span>
         <span className="text-zinc-600">|</span>
         <span className="flex items-center space-x-1.5 text-zinc-300">
-          <Navigation className="w-3.5 h-3.5 text-cyan-400" />
+          <Navigation className="w-3.5 h-3.5 text-zinc-400" />
           <span>SCROLL TO ZOOM</span>
         </span>
         <span className="text-zinc-600">|</span>
         <span className="flex items-center space-x-1.5 text-zinc-300">
-          <MapPin className="w-3.5 h-3.5 text-amber-400" />
+          <MapPin className="w-3.5 h-3.5 text-zinc-400" />
           <span>CLICK TARGET TO INSPECT</span>
         </span>
       </div>
@@ -563,15 +563,15 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
             top: `${hoveredSite.screenY}px`
           }}
         >
-          <div className="min-w-[220px] max-w-[280px] p-3 rounded-xl bg-[#0B0E14]/90 border border-white/15 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.8)] text-zinc-200">
+          <div className="min-w-[220px] max-w-[280px] p-3 rounded bg-[#080B10]/95 border border-white/15 backdrop-blur-xl shadow-2xl text-zinc-200 font-mono">
             {/* Header / Type Badge */}
             <div className="flex items-center justify-between mb-1.5">
               <span
-                className={`text-[9px] font-mono font-bold tracking-widest px-1.5 py-0.5 rounded border uppercase ${
+                className={`text-[9px] font-mono font-bold tracking-widest px-1.5 py-0.2 rounded border uppercase ${
                   hoveredSite.type === 'rover'
-                    ? 'bg-[#E25B38]/20 text-[#E25B38] border-[#E25B38]/40'
+                    ? 'bg-white/10 text-white border-white/20'
                     : hoveredSite.type === 'lander'
-                    ? 'bg-cyan-950/60 text-cyan-400 border-cyan-500/40'
+                    ? 'bg-zinc-800 text-zinc-300 border-zinc-700'
                     : 'bg-red-950/60 text-red-400 border-red-500/40'
                 }`}
               >
@@ -581,17 +581,17 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
                   ? 'STATIONARY LANDER'
                   : 'CRITICAL HAZARD'}
               </span>
-              <span className="text-[10px] font-mono text-zinc-500">CLICK TO ENTER</span>
+              <span className="text-[9px] text-zinc-500">CLICK TO ENTER</span>
             </div>
 
             {/* Target Title */}
-            <h4 className="text-xs font-bold text-white tracking-tight mb-1 flex items-center space-x-1.5">
+            <h4 className="text-xs font-bold text-white tracking-tight mb-1 flex items-center space-x-1.5 uppercase">
               {hoveredSite.type === 'hazard' ? (
                 <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
               ) : hoveredSite.type === 'lander' ? (
-                <Radio className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                <Radio className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
               ) : (
-                <Sparkles className="w-3.5 h-3.5 text-[#E25B38] flex-shrink-0" />
+                <Sparkles className="w-3.5 h-3.5 text-zinc-300 flex-shrink-0" />
               )}
               <span className="truncate">{hoveredSite.name}</span>
             </h4>
@@ -604,7 +604,7 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
             )}
 
             {/* Geographic Coordinates */}
-            <div className="pt-1.5 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono text-zinc-400">
+            <div className="pt-1.5 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-zinc-400">
               <span>LAT: {hoveredSite.lat.toFixed(4)}°N</span>
               <span>LON: {hoveredSite.lon.toFixed(4)}°E</span>
             </div>
