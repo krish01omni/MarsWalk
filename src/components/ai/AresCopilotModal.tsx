@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
-  Bot, 
   X, 
-  Send, 
-  Cpu, 
   Settings, 
   Check,
   CornerDownLeft
@@ -128,8 +125,8 @@ export const AresCopilotModal: React.FC<AresCopilotModalProps> = ({
           {/* Header */}
           <div className="p-4 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3">
-              <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-                <Bot className="w-3.5 h-3.5 text-zinc-300" />
+              <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                SYS
               </div>
               <div>
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold">
@@ -160,9 +157,8 @@ export const AresCopilotModal: React.FC<AresCopilotModalProps> = ({
               <button
                 onClick={onToggleMode}
                 title={aiMode === 'online' ? 'Toggle to Local Qwen 2.5 7B' : 'Toggle to Online Gemini'}
-                className="px-2.5 py-1 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-zinc-300 rounded flex items-center space-x-1.5 transition-all"
+                className="px-2.5 py-1 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-zinc-300 rounded flex items-center space-x-1.5 transition-all font-mono"
               >
-                <Cpu className="w-3 h-3 text-zinc-400" />
                 <span className="hidden sm:inline text-[10px]">ENGINE:</span>
                 <span className="font-bold text-[10px]">{aiMode.toUpperCase()}</span>
               </button>

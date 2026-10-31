@@ -3,12 +3,7 @@ import {
   X, 
   ExternalLink, 
   Copy, 
-  Check, 
-  ShieldCheck, 
-  FolderDown,
-  Download,
-  Terminal,
-  FileCode2
+  Check
 } from 'lucide-react';
 
 interface OfflineSetupModalProps {
@@ -24,9 +19,9 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
   const githubUrl = 'https://github.com/krish01omni/MarsWalk';
   const downloadZipUrl = 'https://github.com/krish01omni/MarsWalk/archive/refs/heads/main.zip';
 
-  const copyToClipboard = (text: string, stepIndex: number) => {
+  const copyToClipboard = (text: string, stepIdx: number) => {
     navigator.clipboard.writeText(text);
-    setCopiedStep(stepIndex);
+    setCopiedStep(stepIdx);
     setTimeout(() => setCopiedStep(null), 2000);
   };
 
@@ -56,8 +51,8 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
           {/* Header */}
           <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-                <FolderDown className="w-4 h-4 text-zinc-300" />
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                KIT
               </div>
               <div>
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
@@ -118,18 +113,16 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
                   href={downloadZipUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10"
+                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10 font-mono"
                 >
-                  <Download className="w-3.5 h-3.5 text-zinc-400" />
                   <span>DOWNLOAD .ZIP</span>
                 </a>
 
                 <a
                   href="/setup_offline_qwen.bat"
                   download="setup_offline_qwen.bat"
-                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10"
+                  className="px-3.5 py-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all border border-white/10 font-mono"
                 >
-                  <FileCode2 className="w-3.5 h-3.5 text-zinc-400" />
                   <span>1-CLICK .BAT LAUNCHER</span>
                 </a>
               </div>
@@ -137,9 +130,8 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
 
             {/* Setup Steps */}
             <div className="space-y-3">
-              <div className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center space-x-2">
-                <Terminal className="w-3.5 h-3.5 text-zinc-400" />
-                <span>STEP-BY-STEP OFFLINE DEPLOYMENT</span>
+              <div className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+                STEP-BY-STEP OFFLINE DEPLOYMENT
               </div>
 
               {steps.map((step, idx) => (
@@ -174,13 +166,13 @@ export const OfflineSetupModal: React.FC<OfflineSetupModalProps> = ({ isOpen, on
 
           {/* Footer */}
           <div className="p-4 border-t border-white/[0.08] bg-[#07090E] flex items-center justify-between text-xs font-mono">
-            <div className="text-[11px] text-zinc-400 flex items-center space-x-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="text-[11px] text-zinc-400 flex items-center space-x-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span>AIR-GAPPED & FIELD VERIFIED</span>
             </div>
             <button
               onClick={onClose}
-              className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all active:scale-95 shadow-sm"
+              className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all active:scale-95 shadow-sm font-mono tracking-wider"
             >
               DONE
             </button>

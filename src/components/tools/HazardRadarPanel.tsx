@@ -3,9 +3,6 @@ import {
   ShieldAlert, 
   X, 
   Crosshair, 
-  AlertOctagon, 
-  Flame, 
-  Radio, 
   ArrowRight
 } from 'lucide-react';
 import { classifiedHazards } from '../../services/dataService';
@@ -44,7 +41,7 @@ export const HazardRadarPanel: React.FC<HazardRadarPanelProps> = ({
           <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3.5">
               <div className="w-8 h-8 rounded bg-red-950/60 border border-red-500/40 flex items-center justify-center text-red-400">
-                <ShieldAlert className="w-4 h-4 animate-pulse" />
+                <span className="text-[10px] font-mono font-bold text-red-400">DEF2</span>
               </div>
               <div>
                 <div className="text-[9px] text-red-400 uppercase tracking-[0.2em] font-bold">
@@ -164,7 +161,6 @@ export const HazardRadarPanel: React.FC<HazardRadarPanelProps> = ({
                 {/* Physical Terrain Mechanism */}
                 <div className="p-4 rounded bg-[#0A0D14] border border-white/[0.06] space-y-1.5">
                   <div className="text-[10px] font-mono text-zinc-300 font-bold uppercase tracking-wider flex items-center space-x-1.5">
-                    <Flame className="w-3.5 h-3.5 text-zinc-400" />
                     <span>PHYSICAL TERRAIN MECHANISM & HAZARD DYNAMICS</span>
                   </div>
                   <p className="text-xs text-zinc-300 leading-relaxed font-sans">
@@ -175,7 +171,6 @@ export const HazardRadarPanel: React.FC<HazardRadarPanelProps> = ({
                 {/* Tactical EVA Avoidance Protocol */}
                 <div className="p-4 rounded bg-red-950/20 border border-red-500/30 space-y-1.5">
                   <div className="text-[10px] font-mono text-red-400 font-bold uppercase tracking-wider flex items-center space-x-1.5">
-                    <AlertOctagon className="w-3.5 h-3.5 text-red-400" />
                     <span>ASTRONAUT EVA AVOIDANCE & COUNTERMEASURE PROTOCOL</span>
                   </div>
                   <p className="text-xs text-red-200/90 leading-relaxed font-sans">
@@ -186,7 +181,6 @@ export const HazardRadarPanel: React.FC<HazardRadarPanelProps> = ({
                 {/* Detection Signature */}
                 <div className="p-4 rounded bg-[#0A0D14] border border-white/[0.06] space-y-1.5">
                   <div className="text-[10px] font-mono text-zinc-300 font-bold uppercase tracking-wider flex items-center space-x-1.5">
-                    <Radio className="w-3.5 h-3.5 text-zinc-400" />
                     <span>REMOTE SENSING & ORBITAL DETECTION SIGNATURE</span>
                   </div>
                   <p className="text-xs text-zinc-300 leading-relaxed font-sans">

@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, 
   X, 
-  Disc3, 
-  FlaskConical, 
-  Snowflake, 
-  Gem, 
-  MapPin, 
-  CheckCircle2,
+  Crosshair,
   ArrowUpRight
 } from 'lucide-react';
 import { 
@@ -42,8 +36,8 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
           {/* Header */}
           <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-                <Sparkles className="w-4 h-4 text-zinc-300" />
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                MSR
               </div>
               <div>
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
@@ -67,53 +61,49 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
             </button>
           </div>
 
-          {/* Navigation Tabs */}
+          {/* Navigation Tabs - Pure Aerospace Typography */}
           <div className="flex border-b border-white/[0.08] bg-[#050608] px-4 space-x-1.5 text-xs font-mono overflow-x-auto">
             <button
               onClick={() => setActiveTab('three_forks')}
-              className={`py-2 px-3 flex items-center space-x-1.5 transition-all ${
+              className={`py-2 px-3 tracking-wider transition-all ${
                 activeTab === 'three_forks'
                   ? 'border-b-2 border-white text-white font-bold bg-white/[0.04]'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Disc3 className="w-3.5 h-3.5" />
               <span>THREE FORKS DEPOT (10)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('organics')}
-              className={`py-2 px-3 flex items-center space-x-1.5 transition-all ${
+              className={`py-2 px-3 tracking-wider transition-all ${
                 activeTab === 'organics'
                   ? 'border-b-2 border-white text-white font-bold bg-white/[0.04]'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <FlaskConical className="w-3.5 h-3.5" />
               <span>ORGANICS & BIOSIGNATURES</span>
             </button>
 
             <button
               onClick={() => setActiveTab('water_ice')}
-              className={`py-2 px-3 flex items-center space-x-1.5 transition-all ${
+              className={`py-2 px-3 tracking-wider transition-all ${
                 activeTab === 'water_ice'
                   ? 'border-b-2 border-white text-white font-bold bg-white/[0.04]'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Snowflake className="w-3.5 h-3.5" />
               <span>WATER ICE RESERVES</span>
             </button>
 
             <button
               onClick={() => setActiveTab('minerals')}
-              className={`py-2 px-3 flex items-center space-x-1.5 transition-all ${
+              className={`py-2 px-3 tracking-wider transition-all ${
                 activeTab === 'minerals'
                   ? 'border-b-2 border-white text-white font-bold bg-white/[0.04]'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Gem className="w-3.5 h-3.5" />
               <span>HYDROTHERMAL SILICA</span>
             </button>
           </div>
@@ -183,7 +173,7 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
                         onClick={() => onFlyToLocation(selectedTube.coordinates.lat, selectedTube.coordinates.lon)}
                         className="px-3.5 py-1.5 bg-white hover:bg-zinc-200 text-black rounded text-xs font-bold transition-all flex items-center space-x-1.5 shadow-sm active:scale-95"
                       >
-                        <MapPin className="w-3.5 h-3.5" />
+                        <Crosshair className="w-3.5 h-3.5" />
                         <span>LOCATE ON GIS</span>
                       </button>
                     )}
@@ -219,7 +209,9 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
                   {/* NASA MSR Retrieval Specification */}
                   <div className="p-4 bg-white/[0.02] border border-white/[0.08] rounded text-xs text-zinc-300 space-y-1.5 font-sans">
                     <div className="font-bold flex items-center space-x-1.5 text-white font-mono">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[9px] border border-emerald-500/30">
+                        RECOVERY DIRECTIVE
+                      </span>
                       <span>MARS SAMPLE RETURN (MSR) RECOVERY CONTEXT</span>
                     </div>
                     <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -249,9 +241,9 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
                         </span>
                       </div>
 
-                      <div className="text-xs text-zinc-400 flex items-center space-x-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-zinc-400" />
-                        <span>{item.location} ({item.coordinates.lat}°N, {item.coordinates.lon}°E)</span>
+                      <div className="text-xs text-zinc-400 font-mono">
+                        <span className="text-zinc-500">LOCATION: </span>
+                        {item.location} ({item.coordinates.lat}°N, {item.coordinates.lon}°E)
                       </div>
 
                       <div>
@@ -338,9 +330,9 @@ export const DiscoveryCatalog: React.FC<DiscoveryCatalogProps> = ({
                         </div>
                       </div>
 
-                      <div className="text-xs text-zinc-400 flex items-center space-x-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-zinc-400" />
-                        <span>{item.site}</span>
+                      <div className="text-xs text-zinc-400 font-mono">
+                        <span className="text-zinc-500">SITE: </span>
+                        {item.site}
                       </div>
 
                       <div className="text-xs text-zinc-300 leading-relaxed font-sans">

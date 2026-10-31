@@ -14,7 +14,7 @@ import type {
   ClassifiedHazard,
   EVAPlannedWaypoint 
 } from '../../types/mission';
-import { Layers, Compass, Eye, Plane } from 'lucide-react';
+import { Layers } from 'lucide-react';
 
 interface TacticalMap2DProps {
   activeMission: string;
@@ -535,8 +535,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
           <div className="bezel-shell w-72">
             <div className="bezel-core p-3.5 space-y-3 font-mono">
               <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-                <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                  <Layers className="w-3.5 h-3.5 mr-1.5 text-zinc-300" />
+                <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
                   NASA SATELLITE BASEMAPS
                 </div>
                 <button
@@ -577,8 +576,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
 
               {/* Feature Toggles */}
               <div className="pt-2 border-t border-white/[0.08] space-y-2 text-[11px]">
-                <div className="text-[9px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                  <Eye className="w-3 h-3 mr-1.5 text-zinc-400" />
+                <div className="text-[9px] text-zinc-400 font-bold uppercase tracking-wider">
                   VECTOR OVERLAYS
                 </div>
 
@@ -599,10 +597,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
                     onChange={e => setShowIngenuity(e.target.checked)}
                     className="accent-white rounded"
                   />
-                  <span className="flex items-center space-x-1">
-                    <Plane className="w-3 h-3 text-zinc-400" />
-                    <span>Ingenuity (72 Flights)</span>
-                  </span>
+                  <span>Ingenuity Helicopter (72 Flights)</span>
                 </label>
 
                 <label className="flex items-center space-x-2 text-zinc-300 hover:text-red-300 cursor-pointer transition-colors">
@@ -642,7 +637,7 @@ export const TacticalMap2D: React.FC<TacticalMap2DProps> = ({
         {/* EVA Active Drawing Indicator */}
         {isEVAPlanning && (
           <div className="mt-2.5 p-2 rounded bg-amber-950/80 border border-amber-500/60 text-amber-200 text-[11px] flex items-center space-x-2 shadow-xl animate-pulse backdrop-blur-md">
-            <Compass className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping flex-shrink-0" />
             <span>EVA PLACEMENT ACTIVE: Click terrain to drop route pins</span>
           </div>
         )}

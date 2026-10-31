@@ -5,7 +5,6 @@ import {
   allLanders, 
   classifiedHazards 
 } from '../../services/dataService';
-import { MapPin, AlertTriangle, Radio, Navigation, Compass, Sparkles } from 'lucide-react';
 
 interface MarsGlobe3DProps {
   onSelectSite: (siteType: string, id: string) => void;
@@ -537,21 +536,12 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
       )}
 
       {/* Floating Tactical Overlay Controls (NASA Eyes Style) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-4 px-4 py-1.5 rounded bg-black/90 border border-white/15 backdrop-blur-xl shadow-2xl text-[10px] font-mono text-zinc-400 pointer-events-none">
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <Compass className="w-3.5 h-3.5 text-zinc-400" />
-          <span>DRAG TO ROTATE GLOBE</span>
-        </span>
-        <span className="text-zinc-600">|</span>
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <Navigation className="w-3.5 h-3.5 text-zinc-400" />
-          <span>SCROLL TO ZOOM</span>
-        </span>
-        <span className="text-zinc-600">|</span>
-        <span className="flex items-center space-x-1.5 text-zinc-300">
-          <MapPin className="w-3.5 h-3.5 text-zinc-400" />
-          <span>CLICK TARGET TO INSPECT</span>
-        </span>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-3 px-4 py-1.5 rounded bg-black/90 border border-white/15 backdrop-blur-xl shadow-2xl text-[10px] font-mono text-zinc-400 pointer-events-none">
+        <span className="text-zinc-300">DRAG TO ROTATE GLOBE</span>
+        <span className="text-zinc-600">•</span>
+        <span className="text-zinc-300">SCROLL TO ZOOM</span>
+        <span className="text-zinc-600">•</span>
+        <span className="text-zinc-300">CLICK TARGET TO INSPECT</span>
       </div>
 
       {/* Hovered Target HUD Glass Tooltip */}
@@ -585,15 +575,8 @@ export const MarsGlobe3D: React.FC<MarsGlobe3DProps> = ({
             </div>
 
             {/* Target Title */}
-            <h4 className="text-xs font-bold text-white tracking-tight mb-1 flex items-center space-x-1.5 uppercase">
-              {hoveredSite.type === 'hazard' ? (
-                <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
-              ) : hoveredSite.type === 'lander' ? (
-                <Radio className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
-              ) : (
-                <Sparkles className="w-3.5 h-3.5 text-zinc-300 flex-shrink-0" />
-              )}
-              <span className="truncate">{hoveredSite.name}</span>
+            <h4 className="text-xs font-bold text-white tracking-tight mb-1 uppercase truncate">
+              {hoveredSite.name}
             </h4>
 
             {/* Details */}

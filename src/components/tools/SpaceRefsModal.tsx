@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Compass, Globe, Sparkles, Orbit, ArrowUpRight } from 'lucide-react';
+import { X, ArrowUpRight } from 'lucide-react';
 
 interface SpaceRefsModalProps {
   isOpen: boolean;
@@ -15,48 +15,42 @@ export const SpaceRefsModal: React.FC<SpaceRefsModalProps> = ({ isOpen, onClose 
       agency: 'NASA / JPL',
       url: 'https://trek.nasa.gov/mars/',
       description: 'Official planetary GIS delivering high-resolution OGC WMTS raster mosaics (Viking MDIM, MOLA elevation, THEMIS day/night IR) across the Martian surface.',
-      badge: 'WMTS BASEMAP SOURCE',
-      icon: Globe
+      badge: 'WMTS BASEMAP SOURCE'
     },
     {
       name: 'NASA Eyes on Asteroids & Solar System',
       agency: 'NASA / JPL',
       url: 'https://eyes.nasa.gov/apps/asteroids/',
       description: 'Gold-standard real-time 3D planetary tracking interface with dark titanium aesthetics, high-speed telemetry, and orbital trajectory visualization.',
-      badge: 'AEROSPACE UI STANDARD',
-      icon: Orbit
+      badge: 'AEROSPACE UI STANDARD'
     },
     {
       name: 'ESA Space Situational Awareness (SSA)',
       agency: 'European Space Agency',
       url: 'https://swe.ssa.esa.int/',
       description: 'Operational space weather telemetry dashboard with dense data cards, space weather alert banners, and tactical space radar readouts.',
-      badge: 'HAZARD RADAR STANDARD',
-      icon: Compass
+      badge: 'HAZARD RADAR STANDARD'
     },
     {
       name: 'James Webb Space Telescope (JWST) 3D Tracker',
       agency: 'NASA / ESA / CSA',
       url: 'https://webb.nasa.gov/content/webbLaunch/whereIsWebb.html',
       description: 'Real-time telemetry odometer, instrument sensor temperature readouts, and mission phase scrubbers inspiring our sol-by-sol rover telemetry drawer.',
-      badge: 'TELEMETRY HUD REFERENCE',
-      icon: Sparkles
+      badge: 'TELEMETRY HUD REFERENCE'
     },
     {
       name: 'NASA Mars 2020 Mission Manager & Sample Registry',
       agency: 'NASA JPL',
       url: 'https://mars.nasa.gov/mars-2020/participate/samples/',
       description: 'Official database of all sealed titanium rock cores, regolith tubes, and atmospheric blanks cached at Three Forks for Mars Sample Return.',
-      badge: 'THREE FORKS GROUND TRUTH',
-      icon: ArrowUpRight
+      badge: 'THREE FORKS GROUND TRUTH'
     },
     {
       name: 'Stellarium Web Planetary Engine',
       agency: 'Stellarium Open-Source',
       url: 'https://stellarium-web.org/',
       description: 'High-speed celestial rendering and dark-adapted night-vision HUD controls inspiring our anti-AI-slop typography and high-contrast color scheme.',
-      badge: 'DARK-ADAPTED HUD STANDARD',
-      icon: Orbit
+      badge: 'DARK-ADAPTED HUD STANDARD'
     }
   ];
 
@@ -68,8 +62,8 @@ export const SpaceRefsModal: React.FC<SpaceRefsModalProps> = ({ isOpen, onClose 
           {/* Header */}
           <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-                <Compass className="w-4 h-4 text-zinc-300" />
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                REF
               </div>
               <div>
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-mono font-bold">
@@ -100,54 +94,38 @@ export const SpaceRefsModal: React.FC<SpaceRefsModalProps> = ({ isOpen, onClose 
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {references.map((ref, idx) => {
-                const Icon = ref.icon;
-                return (
-                  <a
-                    key={idx}
-                    href={ref.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3.5 rounded border border-white/[0.08] bg-[#0A0D14] hover:bg-white/[0.04] hover:border-white/20 transition-all group flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5 font-mono">
-                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-zinc-400 border border-white/10">
-                          {ref.agency}
-                        </span>
-                        <span className="text-[9px] text-white font-bold font-mono">
-                          {ref.badge}
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-2 mb-1.5">
-                        <Icon className="w-3.5 h-3.5 text-zinc-400 mt-0.5 flex-shrink-0" />
-                        <h3 className="text-xs font-bold text-white group-hover:text-zinc-200 transition-colors leading-snug uppercase">
-                          {ref.name}
-                        </h3>
-                      </div>
-                      <p className="text-[11px] text-zinc-400 font-sans leading-relaxed line-clamp-3">
-                        {ref.description}
-                      </p>
+              {references.map((ref, idx) => (
+                <a
+                  key={idx}
+                  href={ref.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded border border-white/[0.08] bg-[#0A0D14] hover:bg-white/[0.04] hover:border-white/20 transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5 font-mono">
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-zinc-400 border border-white/10">
+                        {ref.agency}
+                      </span>
+                      <span className="text-[9px] text-white font-bold font-mono">
+                        {ref.badge}
+                      </span>
                     </div>
+                    <h3 className="text-xs font-bold text-white group-hover:text-zinc-200 transition-colors leading-snug uppercase mb-1.5">
+                      {ref.name}
+                    </h3>
+                    <p className="text-[11px] text-zinc-400 font-sans leading-relaxed line-clamp-3">
+                      {ref.description}
+                    </p>
+                  </div>
 
-                    <div className="mt-3 pt-2 border-t border-white/[0.06] flex items-center justify-between text-[10px] font-mono text-zinc-500 group-hover:text-white">
-                      <span>OPEN PLATFORM</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white" />
-                    </div>
-                  </a>
-                );
-              })}
+                  <div className="mt-3 pt-2 border-t border-white/[0.06] flex items-center justify-between text-[10px] font-mono text-zinc-500 group-hover:text-white">
+                    <span>OPEN PLATFORM</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white" />
+                  </div>
+                </a>
+              ))}
             </div>
-          </div>
-
-          {/* Footer */}
-          <div className="p-3 border-t border-white/[0.08] bg-[#07090E] text-right font-mono">
-            <button
-              onClick={onClose}
-              className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-xs text-black font-bold rounded transition-all active:scale-95 shadow-sm"
-            >
-              CLOSE
-            </button>
           </div>
         </div>
       </div>

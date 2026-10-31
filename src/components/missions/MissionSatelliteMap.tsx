@@ -6,13 +6,10 @@ import {
   Maximize2, 
   Layers, 
   Crosshair, 
-  Compass, 
   ZoomIn, 
   ZoomOut,
-  ExternalLink,
   Check,
   X,
-  Radio,
   ArrowUpRight
 } from 'lucide-react';
 
@@ -313,8 +310,8 @@ export const MissionSatelliteMap: React.FC<MissionSatelliteMapProps> = ({
         {/* Top Bar: Clean, Authoritative, Aerospace HUD */}
         <div className="p-3.5 bg-[#080B10] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3 z-10 font-mono">
           <div className="flex items-center space-x-3">
-            <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-white">
-              <Radio className="w-3.5 h-3.5 text-zinc-400" />
+            <div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+              GIS
             </div>
             <div>
               <div className="flex items-center space-x-2">

@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Compass, 
   X, 
-  Plus, 
-  Trash2, 
-  ShieldAlert, 
-  CheckCircle, 
-  Download,
   Crosshair,
-  ArrowRight
+  Trash2
 } from 'lucide-react';
 import { evaluateEVARoute } from '../../services/dataService';
 import type { EVAPlannedWaypoint, EVARouteAnalysis } from '../../types/mission';
@@ -33,8 +27,7 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
   onRemoveWaypoint,
   onClearRoute,
   onStartMapPlacement,
-  isMapPlacementActive,
-  onFlyToRoute: _onFlyToRoute
+  isMapPlacementActive
 }) => {
   const [manualName, setManualName] = useState('');
   const [manualLat, setManualLat] = useState('');
@@ -44,56 +37,48 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
 
   const analysis: EVARouteAnalysis = evaluateEVARoute(waypoints);
 
-  // Preset Mission Traverses
-  const loadPresetRoute = (presetName: string) => {
-    onClearRoute();
-    if (presetName === 'THREE_FORKS') {
-      const pts: EVAPlannedWaypoint[] = [
-        { id: 'TF-1', name: 'Delta Base Camp', lat: 18.4520, lon: 77.4095, notes: 'Staging area' },
-        { id: 'TF-2', name: 'Sample Depot Tube Cluster #1-5', lat: 18.4545, lon: 77.4077, notes: 'Retrieve tubes 1-5' },
-        { id: 'TF-3', name: 'Sample Depot Tube Cluster #6-10', lat: 18.4552, lon: 77.4070, notes: 'Retrieve tubes 6-10' },
-        { id: 'TF-4', name: 'Skinner Ridge Outcrop', lat: 18.4568, lon: 77.4012, notes: 'Mudstone inspection' }
-      ];
-      pts.forEach(p => onAddWaypoint(p));
-    } else if (presetName === 'HUSBAND_HILL') {
-      const pts: EVAPlannedWaypoint[] = [
-        { id: 'HH-1', name: 'West Spur Base', lat: -14.5820, lon: 175.5050 },
-        { id: 'HH-2', name: 'Husband Hill Summit Peak', lat: -14.5950, lon: 175.5250, notes: 'Panoramic survey' },
-        { id: 'HH-3', name: 'Home Plate Silica Outcrop', lat: -14.6040, lon: 175.5280, notes: 'Fumarole sampling' }
-      ];
-      pts.forEach(p => onAddWaypoint(p));
-    } else if (presetName === 'GALE_SHARP') {
-      const pts: EVAPlannedWaypoint[] = [
-        { id: 'GS-1', name: 'Glen Torridon Camp', lat: -4.7700, lon: 137.4020 },
-        { id: 'GS-2', name: 'Mont Mercou Cliff Base', lat: -4.7890, lon: 137.3910 },
-        { id: 'GS-3', name: 'Gediz Vallis Debris Ridge', lat: -4.8380, lon: 137.3680 }
-      ];
-      pts.forEach(p => onAddWaypoint(p));
-    }
-  };
-
   const handleManualAdd = (e: React.FormEvent) => {
     e.preventDefault();
     const lat = parseFloat(manualLat);
     const lon = parseFloat(manualLon);
-    if (isNaN(lat) || isNaN(lon)) return;
+    if (!isNaN(lat) && !isNaN(lon) && manualName.trim()) {
+      onAddWaypoint({
+        id: `custom_${Date.now()}`,
+        name: manualName.trim(),
+        lat,
+        lon
+      });
+      setManualName('');
+      setManualLat('');
+      setManualLon('');
+    }
+  };
 
-    onAddWaypoint({
-      id: `EVA-WP-${Date.now()}`,
-      name: manualName || `Waypoint #${waypoints.length + 1}`,
-      lat,
-      lon
-    });
-    setManualName('');
-    setManualLat('');
-    setManualLon('');
+  const loadPresetRoute = (presetName: string) => {
+    onClearRoute();
+    if (presetName === 'THREE_FORKS') {
+      onAddWaypoint({ id: 'wp_tf_1', name: 'Delta Base Camp', lat: 18.4520, lon: 77.4095 });
+      onAddWaypoint({ id: 'wp_tf_2', name: 'Sample Depot Tube Cluster #1-5', lat: 18.4545, lon: 77.4077 });
+      onAddWaypoint({ id: 'wp_tf_3', name: 'Sample Depot Tube Cluster #6-10', lat: 18.4552, lon: 77.4070 });
+      onAddWaypoint({ id: 'wp_tf_4', name: 'Neretva Breach Overlook', lat: 18.4580, lon: 77.4045 });
+    } else if (presetName === 'HUSBAND_HILL') {
+      onAddWaypoint({ id: 'wp_hh_1', name: 'West Valley Landing Base', lat: -14.5680, lon: 175.4720 });
+      onAddWaypoint({ id: 'wp_hh_2', name: 'Cumberland Ridge Ascent', lat: -14.5950, lon: 175.5120 });
+      onAddWaypoint({ id: 'wp_hh_3', name: 'Husband Hill Summit Peak', lat: -14.6042, lon: 175.5310 });
+      onAddWaypoint({ id: 'wp_hh_4', name: 'Home Plate Silica Apron', lat: -14.6075, lon: 175.5280 });
+    } else if (presetName === 'GALE_SHARP') {
+      onAddWaypoint({ id: 'wp_msl_1', name: 'Bradbury Base Station', lat: -4.5895, lon: 137.4417 });
+      onAddWaypoint({ id: 'wp_msl_2', name: 'Dingo Gap Sand Ridge', lat: -4.6220, lon: 137.4330 });
+      onAddWaypoint({ id: 'wp_msl_3', name: 'Vera Rubin Ridge Crest', lat: -4.7120, lon: 137.3820 });
+      onAddWaypoint({ id: 'wp_msl_4', name: 'Gediz Vallis Debris Flow', lat: -4.7450, lon: 137.3650 });
+    }
   };
 
   const exportRouteJSON = () => {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(analysis, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `MARSWALK_EVA_ROUTE_${Date.now()}.json`);
+    downloadAnchor.setAttribute('download', `marswalk_eva_corridor_${Date.now()}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -107,8 +92,8 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
           {/* Header */}
           <div className="p-4 md:p-5 border-b border-white/[0.08] bg-[#07090E] flex items-center justify-between font-mono">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-300">
-                <Compass className="w-4 h-4 text-zinc-300" />
+              <div className="w-8 h-8 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                EVA
               </div>
               <div>
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
@@ -198,33 +183,30 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
                     placeholder="Label"
                     value={manualName}
                     onChange={e => setManualName(e.target.value)}
-                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
+                    className="px-2.5 py-1.5 bg-[#050608] border border-white/10 rounded text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/30"
                   />
                   <input
                     type="number"
-                    step="any"
+                    step="0.0001"
                     placeholder="Lat (°N)"
                     value={manualLat}
                     onChange={e => setManualLat(e.target.value)}
-                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
-                    required
+                    className="px-2.5 py-1.5 bg-[#050608] border border-white/10 rounded text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/30"
                   />
                   <input
                     type="number"
-                    step="any"
+                    step="0.0001"
                     placeholder="Lon (°E)"
                     value={manualLon}
                     onChange={e => setManualLon(e.target.value)}
-                    className="bg-black/60 border border-white/10 rounded px-2.5 py-1 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/40"
-                    required
+                    className="px-2.5 py-1.5 bg-[#050608] border border-white/10 rounded text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white/30"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-1.5 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white text-xs font-bold rounded transition-all flex items-center justify-center space-x-1"
+                  className="w-full py-1.5 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white text-xs font-bold rounded transition-all tracking-wider"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>INSERT WAYPOINT</span>
+                  <span>+ INSERT WAYPOINT</span>
                 </button>
               </form>
 
@@ -235,9 +217,8 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
                   {waypoints.length > 0 && (
                     <button
                       onClick={onClearRoute}
-                      className="text-red-400 hover:underline flex items-center space-x-1"
+                      className="text-red-400 hover:underline tracking-wider"
                     >
-                      <Trash2 className="w-3 h-3" />
                       <span>CLEAR ALL</span>
                     </button>
                   )}
@@ -349,14 +330,13 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
 
                 {/* Hazards Near Route */}
                 <div className="space-y-2">
-                  <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider flex items-center">
-                    <ShieldAlert className="w-3.5 h-3.5 mr-1.5 text-red-400" />
+                  <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
                     EXCLUSION BUFFER WARNINGS ({analysis.hazardsEncountered.length})
                   </div>
 
                   {analysis.hazardsEncountered.length === 0 ? (
-                    <div className="p-3 bg-white/[0.02] border border-white/[0.08] rounded text-zinc-300 text-xs flex items-center space-x-2 font-sans">
-                      <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <div className="p-3 bg-white/[0.02] border border-white/[0.08] rounded text-zinc-300 text-xs font-sans">
+                      <span className="text-emerald-400 font-bold font-mono mr-2">NOMINAL:</span>
                       <span>Zero classified terrain hazards or toxic perchlorates along corridor.</span>
                     </div>
                   ) : (
@@ -388,15 +368,14 @@ export const EVARoutePlanner: React.FC<EVARoutePlannerProps> = ({
                 <button
                   onClick={exportRouteJSON}
                   disabled={waypoints.length === 0}
-                  className="px-3 py-1.5 bg-white/[0.04] hover:bg-white/[0.08] disabled:opacity-30 border border-white/10 text-zinc-300 hover:text-white rounded text-xs flex items-center space-x-1.5 transition-all"
+                  className="px-3 py-1.5 bg-white/[0.04] hover:bg-white/[0.08] disabled:opacity-30 border border-white/10 text-zinc-300 hover:text-white rounded text-xs transition-all tracking-wider font-mono"
                 >
-                  <Download className="w-3.5 h-3.5" />
                   <span>EXPORT JSON</span>
                 </button>
 
                 <button
                   onClick={onClose}
-                  className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all shadow-sm active:scale-95"
+                  className="px-4 py-1.5 bg-white hover:bg-zinc-200 text-black font-bold text-xs rounded transition-all shadow-sm active:scale-95 tracking-wider font-mono"
                 >
                   APPLY & EXIT
                 </button>

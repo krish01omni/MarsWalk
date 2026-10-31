@@ -13,20 +13,11 @@ import type {
 } from '../../types/mission';
 import { MissionSatelliteMap } from './MissionSatelliteMap';
 import { 
-  Compass, 
-  Sparkles, 
-  ShieldAlert, 
-  Radio, 
   ArrowRight, 
   ChevronLeft, 
-  Orbit, 
-  CheckCircle2,
+  ArrowUpRight,
   Crosshair,
-  ExternalLink,
-  Activity,
-  Database,
-  BookOpen,
-  ArrowUpRight
+  ExternalLink
 } from 'lucide-react';
 
 interface MissionHubProps {
@@ -198,54 +189,50 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                 </div>
               </div>
 
-              {/* Sub-Navigation Tabs: Keeps page clean & separated */}
+              {/* Sub-Navigation Tabs: Pure aerospace typography */}
               <div className="flex items-center space-x-1.5 border-b border-white/[0.08] pb-2 text-xs font-mono overflow-x-auto">
                 <button
                   onClick={() => setRoverSubTab('map')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     roverSubTab === 'map'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Compass className="w-3.5 h-3.5" />
                   <span>SATELLITE TRAVERSE MAP</span>
                 </button>
 
                 <button
                   onClick={() => setRoverSubTab('discoveries')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     roverSubTab === 'discoveries'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
                   <span>RESEARCH & DISCOVERIES</span>
                 </button>
 
                 <button
                   onClick={() => setRoverSubTab('waypoints')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     roverSubTab === 'waypoints'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Activity className="w-3.5 h-3.5" />
                   <span>WAYPOINT LOGS ({selectedRover.waypoints.length})</span>
                 </button>
 
                 {selectedMissionId === 'perseverance' && (
                   <button
                     onClick={() => setRoverSubTab('samples')}
-                    className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                    className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                       roverSubTab === 'samples'
                         ? 'bg-white text-black font-bold shadow-sm'
                         : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                     }`}
                   >
-                    <Database className="w-3.5 h-3.5" />
                     <span>THREE FORKS CACHE (10 TUBES)</span>
                   </button>
                 )}
@@ -291,8 +278,10 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                         {selectedRover.traverse_summary.key_milestones.map((m, idx) => (
                           <div key={idx} className="p-4 rounded bg-white/[0.02] border border-white/[0.06] text-xs text-zinc-300 space-y-2">
                             <div className="flex items-center space-x-2 text-zinc-300 font-mono text-[10px] font-semibold">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-zinc-400" />
-                              <span className="uppercase">INVESTIGATION #{idx + 1}</span>
+                              <span className="px-1.5 py-0.5 rounded bg-white/[0.04] text-[9px] font-mono text-zinc-400 border border-white/10 uppercase tracking-widest">
+                                INV-{String(idx + 1).padStart(2, '0')}
+                              </span>
+                              <span className="uppercase text-zinc-400">FINDING #{idx + 1}</span>
                             </div>
                             <p className="leading-relaxed font-sans">{m}</p>
                           </div>
@@ -304,9 +293,8 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                   {/* Direct Verified Research Papers Card */}
                   <div className="bezel-shell">
                     <div className="bezel-core p-6 space-y-4">
-                      <div className="flex items-center space-x-2 text-xs font-mono font-bold text-white uppercase tracking-wider">
-                        <BookOpen className="w-4 h-4 text-zinc-400" />
-                        <span>Published Scientific Research & Primary NASA PDS Archives</span>
+                      <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                        Published Scientific Research & Primary NASA PDS Archives
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -376,7 +364,9 @@ export const MissionHub: React.FC<MissionHubProps> = ({
 
                           {wp.hazard_warning && (
                             <div className="p-2 rounded bg-red-950/40 border border-red-500/30 text-red-300 text-xs flex items-center space-x-2 font-mono">
-                              <ShieldAlert className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
+                              <span className="px-1 py-0.2 rounded bg-red-500/20 text-red-300 font-mono text-[9px] font-bold">
+                                CAUTION
+                              </span>
                               <span className="text-[10px] leading-tight">{wp.hazard_warning}</span>
                             </div>
                           )}
@@ -486,25 +476,23 @@ export const MissionHub: React.FC<MissionHubProps> = ({
               <div className="flex items-center space-x-1.5 border-b border-white/[0.08] pb-2 text-xs font-mono">
                 <button
                   onClick={() => setSatelliteSubTab('instruments')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     satelliteSubTab === 'instruments'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Radio className="w-3.5 h-3.5" />
                   <span>PAYLOAD SENSORS ({selectedSatellite.key_instruments.length})</span>
                 </button>
 
                 <button
                   onClick={() => setSatelliteSubTab('discoveries')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     satelliteSubTab === 'discoveries'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
                   <span>ORBITAL DISCOVERIES & PDS LINKS</span>
                 </button>
               </div>
@@ -530,9 +518,8 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                 <div className="space-y-4">
                   <div className="bezel-shell">
                     <div className="bezel-core p-6 space-y-3">
-                      <div className="text-xs font-mono text-white font-bold tracking-wider uppercase flex items-center space-x-2">
-                        <Sparkles className="w-4 h-4 text-zinc-400" />
-                        <span>Major Orbital Remote Sensing Discoveries</span>
+                      <div className="text-xs font-mono text-white font-bold tracking-wider uppercase">
+                        Major Orbital Remote Sensing Discoveries
                       </div>
                       <ul className="space-y-2 text-xs text-zinc-300 leading-relaxed font-sans">
                         {selectedSatellite.major_discoveries.map((disc, idx) => (
@@ -547,9 +534,8 @@ export const MissionHub: React.FC<MissionHubProps> = ({
 
                   <div className="bezel-shell">
                     <div className="bezel-core p-6 space-y-3">
-                      <div className="text-xs font-mono text-zinc-300 font-bold tracking-wider uppercase flex items-center space-x-2">
-                        <BookOpen className="w-4 h-4 text-zinc-400" />
-                        <span>Primary Remote Sensing Repositories</span>
+                      <div className="text-xs font-mono text-zinc-300 font-bold tracking-wider uppercase">
+                        Primary Remote Sensing Repositories
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <a
@@ -625,31 +611,28 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Compass className="w-3.5 h-3.5" />
                   <span>TOUCHDOWN SATELLITE MAP</span>
                 </button>
 
                 <button
                   onClick={() => setLanderSubTab('discoveries')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     landerSubTab === 'discoveries'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
                   <span>DISCOVERIES & PAPERS</span>
                 </button>
 
                 <button
                   onClick={() => setLanderSubTab('instruments')}
-                  className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
                     landerSubTab === 'instruments'
                       ? 'bg-white text-black font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <Radio className="w-3.5 h-3.5" />
                   <span>SCIENCE SENSORS & ADVISORY</span>
                 </button>
               </div>
@@ -682,9 +665,8 @@ export const MissionHub: React.FC<MissionHubProps> = ({
 
                   <div className="bezel-shell">
                     <div className="bezel-core p-6 space-y-3">
-                      <div className="text-xs font-mono text-white font-bold uppercase tracking-wider flex items-center space-x-2">
-                        <BookOpen className="w-4 h-4 text-zinc-400" />
-                        <span>Published Scientific Research</span>
+                      <div className="text-xs font-mono text-white font-bold uppercase tracking-wider">
+                        Published Scientific Research
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {getResearchLinksForMission(selectedMissionId).map((paper, idx) => (
@@ -721,9 +703,8 @@ export const MissionHub: React.FC<MissionHubProps> = ({
                   </div>
 
                   <div className="p-4 rounded bg-white/[0.02] border border-white/[0.08] space-y-2">
-                    <div className="text-xs font-mono text-zinc-300 font-bold tracking-wider uppercase flex items-center space-x-2">
-                      <ShieldAlert className="w-4 h-4 text-zinc-400" />
-                      <span>Astronaut Tactical Advisory</span>
+                    <div className="text-xs font-mono text-zinc-300 font-bold tracking-wider uppercase">
+                      Astronaut Tactical Advisory
                     </div>
                     <p className="text-xs text-zinc-300 leading-relaxed font-sans">
                       {selectedLander.astronaut_tactical_note}
@@ -762,37 +743,34 @@ export const MissionHub: React.FC<MissionHubProps> = ({
         <div className="flex items-center space-x-1.5 border-b border-white/[0.08] pb-3 text-xs font-mono">
           <button
             onClick={() => setActiveCategory('rovers')}
-            className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
               activeCategory === 'rovers'
                 ? 'bg-white text-black font-bold shadow-sm'
                 : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
             <span>ROVER EXPEDITIONS (5)</span>
           </button>
 
           <button
             onClick={() => setActiveCategory('satellites')}
-            className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
               activeCategory === 'satellites'
                 ? 'bg-white text-black font-bold shadow-sm'
                 : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
             }`}
           >
-            <Orbit className="w-3.5 h-3.5" />
             <span>ORBITER SATELLITES (5)</span>
           </button>
 
           <button
             onClick={() => setActiveCategory('landers')}
-            className={`px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded transition-all tracking-wider ${
               activeCategory === 'landers'
                 ? 'bg-white text-black font-bold shadow-sm'
                 : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
             }`}
           >
-            <Radio className="w-3.5 h-3.5" />
             <span>LANDER STATIONS (4)</span>
           </button>
         </div>

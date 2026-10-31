@@ -2,16 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { 
   ChevronRight, 
   ChevronLeft, 
-  MapPin, 
-  Clock, 
   Play, 
   Pause, 
   SkipBack, 
   SkipForward, 
-  ShieldAlert, 
-  Sparkles, 
-  Radio, 
-  Compass,
   ArrowUpRight
 } from 'lucide-react';
 import type { RoverTraverseData, RoverWaypoint, LanderSiteData } from '../../types/mission';
@@ -77,7 +71,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase font-semibold flex items-center space-x-1 mb-0.5">
-                    <Radio className="w-3 h-3 text-zinc-400 mr-1" />
                     <span>STATIONARY SCIENCE STATION</span>
                   </div>
                   <h2 className="text-base font-bold text-white tracking-tight font-mono uppercase">
@@ -98,7 +91,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               {/* Landing Site */}
               <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08]">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1 flex items-center">
-                  <MapPin className="w-3 h-3 text-zinc-400 mr-1.5" />
                   TOUCHDOWN SITE
                 </div>
                 <div className="text-sm font-semibold text-white mb-0.5">
@@ -132,7 +124,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center justify-between">
                   <span className="flex items-center">
-                    <Sparkles className="w-3 h-3 text-zinc-400 mr-1.5" />
                     HISTORIC DISCOVERIES
                   </span>
                   <span className="text-[10px] text-zinc-500 font-mono">
@@ -198,7 +189,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               {/* Landing Site Card */}
               <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08]">
                 <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1 flex items-center">
-                  <MapPin className="w-3 h-3 text-zinc-400 mr-1.5" />
                   LANDING SITE
                 </div>
                 <div className="text-sm font-semibold text-white mb-2">
@@ -229,7 +219,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
               <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                 <div className="flex items-center justify-between">
                   <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest flex items-center">
-                    <Clock className="w-3 h-3 text-zinc-400 mr-1.5" />
                     TRAVERSE SCRUBBER
                   </div>
                   <div className="text-xs font-mono font-bold text-white bg-white/10 px-2 py-0.5 rounded border border-white/10">
@@ -303,7 +292,6 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
                 <div className="p-3.5 rounded bg-[#0A0D14] border border-white/[0.08] space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div className="text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-semibold flex items-center">
-                      <Compass className="w-3 h-3 text-zinc-400 mr-1.5" />
                       WAYPOINT DATA
                     </div>
                     {onFlyToWaypoint && (
@@ -352,7 +340,7 @@ export const TelemetryDrawer: React.FC<TelemetryDrawerProps> = ({
                   {/* Hazard Flag */}
                   {currentWaypoint.hazard_warning && (
                     <div className="p-2.5 rounded bg-red-950/30 border border-red-500/40 text-red-300 text-xs flex items-start space-x-2">
-                      <ShieldAlert className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+                      <span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-mono text-[9px] font-bold mt-0.5">HAZARD</span>
                       <div>
                         <div className="text-[10px] font-mono font-bold text-red-400 uppercase">
                           TERRAIN HAZARD DETECTED
